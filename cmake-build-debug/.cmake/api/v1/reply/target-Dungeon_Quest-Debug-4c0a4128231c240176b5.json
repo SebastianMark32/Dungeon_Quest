@@ -11,8 +11,7 @@
 		"commands" : 
 		[
 			"add_executable",
-			"target_link_libraries",
-			"include_directories"
+			"target_link_libraries"
 		],
 		"files" : 
 		[
@@ -34,12 +33,6 @@
 				"file" : 0,
 				"line" : 12,
 				"parent" : 0
-			},
-			{
-				"command" : 2,
-				"file" : 0,
-				"line" : 8,
-				"parent" : 0
 			}
 		]
 	},
@@ -49,19 +42,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : " -std=c++11 -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics"
-				}
-			],
-			"includes" : 
-			[
-				{
-					"backtrace" : 3,
-					"path" : "/usr/local/include"
-				},
-				{
-					"backtrace" : 2,
-					"isSystem" : true,
-					"path" : "/opt/homebrew/include"
+					"fragment" : " -std=c++11 -g -fdiagnostics-color=always"
 				}
 			],
 			"language" : "CXX",
@@ -85,32 +66,28 @@
 				"role" : "flags"
 			},
 			{
-				"fragment" : "-Wl,-rpath,/opt/homebrew/lib",
+				"backtrace" : 2,
+				"fragment" : "/usr/lib64/libsfml-graphics.so.2.5.1",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "/opt/homebrew/lib/libsfml-graphics.2.5.1.dylib",
+				"fragment" : "/usr/lib64/libsfml-audio.so.2.5.1",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "/opt/homebrew/lib/libsfml-audio.2.5.1.dylib",
+				"fragment" : "/usr/lib64/libsfml-network.so.2.5.1",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "/opt/homebrew/lib/libsfml-network.2.5.1.dylib",
+				"fragment" : "/usr/lib64/libsfml-window.so.2.5.1",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "/opt/homebrew/lib/libsfml-window.2.5.1.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 2,
-				"fragment" : "/opt/homebrew/lib/libsfml-system.2.5.1.dylib",
+				"fragment" : "/usr/lib64/libsfml-system.so.2.5.1",
 				"role" : "libraries"
 			}
 		],

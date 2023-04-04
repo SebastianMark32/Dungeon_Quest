@@ -8,12 +8,12 @@ int main() {
     bool mouseReleased = false;
 
     // this is rendering a window which displays the viewer window
-    sf::RenderWindow window(sf::VideoMode(1024, 780), "Sebastian SFML!");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Dungeon Quest: Also try Terraria");
 
     // font style
     sf::Font font;
     if (!font.loadFromFile("../Assets/ArianaVioleta-dz2K.ttf")) {
-        cout << "Hello there! " << endl;
+        cout << "Font loaded successfully." << endl;
     }
 
     // game font
@@ -29,7 +29,7 @@ int main() {
     texture.loadFromFile("../Assets/Knight3Walk.png");
     sf::Sprite character;
     character.setTexture(texture);
-    character.setScale(0.5f, 0.5f);
+    character.setScale(0.4f, 0.4f);
     character.setPosition(300.f, 200.0f);
 
     // this is background
@@ -42,8 +42,15 @@ int main() {
     texture1.loadFromFile("../Assets/Enemy.png");
     sf::Sprite enemy;
     enemy.setTexture(texture1);
-    enemy.setScale(2.5f, 2.5f);
+    enemy.setScale(1.5f, 1.5f);
     enemy.setPosition(500.0f, 400.0f);
+
+    //test floor sprite
+    sf::Texture dungeonFloor;
+    dungeonFloor.loadFromFile("../Assets/dungeon_tileset/dungeonFloor.png");
+    sf::Sprite dungeonFloorTile;
+    dungeonFloorTile.setTexture(dungeonFloor);
+    dungeonFloorTile.setScale(1.7f, 1.7f);
 
     window.setFramerateLimit(144);
 
@@ -60,27 +67,6 @@ int main() {
                 window.close();
                 std::cout << "Event window handled" << std::endl;
                 //exit();
-            }
-            if (event.type == sf::Event::KeyPressed) {
-                cout << "Button is pressed " << endl;
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-                    cout << "A key pressed " << endl;
-                    text1.setString("A");
-                }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-                    cout << "R key pressed " << endl;
-                    text1.setString("R");
-                }
-            }
-            if (event.type == sf::Event::MouseButtonPressed) {
-                cout << "Mouse button pressed " << endl;
-            }
-            mouseReleased = false;
-            if (event.type == sf::Event::MouseButtonReleased) {
-                mouseReleased = true;
-            }
-            if (event.type == sf::Event::KeyReleased) {
-                cout << "Button released " << endl;
             }
         }
 
@@ -112,17 +98,13 @@ int main() {
             counter = 0;
         }
 
-        // static member function
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && mouseReleased) {
-            cout << "Left mouse button pressed " << endl;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)) {
-            cout << "Q key pressed" << endl;
-        }
         window.clear();
 
         // drawing the background
         window.draw(background_sprite);
+
+        //draw dungeon tile
+        window.draw(dungeonFloorTile);
 
         // Knight character
         window.draw(character);

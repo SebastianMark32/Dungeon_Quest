@@ -1,17 +1,17 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/sebastianmark/Desktop/Dungeon_Quest -B /Users/sebastianmark/Desktop/Dungeon_Quest/cmake-build-debug
--- The C compiler identification is AppleClang 14.0.3.14030022
--- The CXX compiler identification is AppleClang 14.0.3.14030022
+/home/Cyborg/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.174/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" -S /home/Cyborg/Documents/GitHub/Dungeon_Quest -B /home/Cyborg/Documents/GitHub/Dungeon_Quest/cmake-build-debug
+-- The C compiler identification is GNU 13.0.1
+-- The CXX compiler identification is GNU 13.0.1
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: /Library/Developer/CommandLineTools/usr/bin/cc - skipped
+-- Check for working C compiler: /usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
+-- Check for working CXX compiler: /usr/bin/g++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Found SFML 2.5.1 in /opt/homebrew/lib/cmake/SFML
+-- Found SFML 2.5.1 in /usr/lib64/cmake/SFML
 -- Configuring done
 -- Generating done
--- Build files have been written to: /Users/sebastianmark/Desktop/Dungeon_Quest/cmake-build-debug
+-- Build files have been written to: /home/Cyborg/Documents/GitHub/Dungeon_Quest/cmake-build-debug

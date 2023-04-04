@@ -1,0 +1,1 @@
+/usr/bin/g++  -std=c++11 -g CMakeFiles/Dungeon_Quest.dir/main.cpp.o -o Dungeon_Quest  /usr/lib64/libsfml-graphics.so.2.5.1 /usr/lib64/libsfml-audio.so.2.5.1 /usr/lib64/libsfml-network.so.2.5.1 /usr/lib64/libsfml-window.so.2.5.1 /usr/lib64/libsfml-system.so.2.5.1 
