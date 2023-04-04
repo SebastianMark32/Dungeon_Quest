@@ -1,4 +1,4 @@
-# Install script for directory: /Users/sebastianmark/Desktop/SFML_D_Session
+# Install script for directory: /Users/sebastianmark/Desktop/Dungeon_Quest
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/sebastianmark/Desktop/SFML_D_Session/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/sebastianmark/Desktop/Dungeon_Quest/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

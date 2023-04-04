@@ -1,13 +1,14 @@
 cmake_minimum_required(VERSION 3.14)
-project(SFML_D_Session )
+project(Dungeon_Quest)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES main.cpp)
-add_executable(SFML_D_Session ${SOURCE_FILES})
+add_executable(Dungeon_Quest ${SOURCE_FILES})
 include_directories(/usr/local/include)
 
 find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
 include_directories(${SFML_INCLUDE_DIRS})
-target_link_libraries(SFML_D_Session sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
+target_link_libraries(Dungeon_Quest sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
+
 

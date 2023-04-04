@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "SFML_D_Session"
+			"path" : "Dungeon_Quest"
 		}
 	],
 	"backtrace" : 1,
@@ -71,7 +71,7 @@
 			]
 		}
 	],
-	"id" : "SFML_D_Session::@6890427a1f51a3e7e1df",
+	"id" : "Dungeon_Quest::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -116,8 +116,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "SFML_D_Session",
-	"nameOnDisk" : "SFML_D_Session",
+	"name" : "Dungeon_Quest",
+	"nameOnDisk" : "Dungeon_Quest",
 	"paths" : 
 	{
 		"build" : ".",

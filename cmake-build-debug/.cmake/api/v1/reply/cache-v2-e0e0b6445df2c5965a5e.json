@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/sebastianmark/Desktop/SFML_D_Session/cmake-build-debug"
+			"value" : "/Users/sebastianmark/Desktop/Dungeon_Quest/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -479,7 +479,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/sebastianmark/Desktop/SFML_D_Session/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/Users/sebastianmark/Desktop/Dungeon_Quest/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -539,7 +539,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/sebastianmark/Desktop/SFML_D_Session"
+			"value" : "/Users/sebastianmark/Desktop/Dungeon_Quest"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -819,7 +819,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "SFML_D_Session"
+			"value" : "Dungeon_Quest"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1102,6 +1102,42 @@
 			"value" : "FALSE"
 		},
 		{
+			"name" : "Dungeon_Quest_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/Users/sebastianmark/Desktop/Dungeon_Quest/cmake-build-debug"
+		},
+		{
+			"name" : "Dungeon_Quest_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "Dungeon_Quest_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/Users/sebastianmark/Desktop/Dungeon_Quest"
+		},
+		{
 			"name" : "SFML_DIR",
 			"properties" : 
 			[
@@ -1124,42 +1160,6 @@
 			],
 			"type" : "PATH",
 			"value" : "SFML_DOC_DIR-NOTFOUND"
-		},
-		{
-			"name" : "SFML_D_Session_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/Users/sebastianmark/Desktop/SFML_D_Session/cmake-build-debug"
-		},
-		{
-			"name" : "SFML_D_Session_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "SFML_D_Session_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/Users/sebastianmark/Desktop/SFML_D_Session"
 		}
 	],
 	"kind" : "cache",
