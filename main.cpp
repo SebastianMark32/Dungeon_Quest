@@ -8,7 +8,7 @@ using namespace std;
 bool mouseReleased = false;
 
 // this is rendering a window which displays the viewer window
-sf::RenderWindow window(sf::VideoMode(1024, 780), "Sebastian SFML!");
+sf::RenderWindow window(sf::VideoMode(2560 , 1600), "Sebastian SFML!", sf::Style::Resize);
 
 // global vector
 sf:: Vector2f playerPosition;
@@ -22,7 +22,7 @@ public:
         this->character.setTexture(texture);
     }
     void setPosition(float x, float y){
-       this->character.setPosition(x, y);
+        this->character.setPosition(x, y);
     }
     void setScale(float x, float y){
         this->character.setScale(x,y);
@@ -40,13 +40,21 @@ class Fonts{
 
     // constructor for the fonts
 public:
-    Fonts(sf::Font font_path){
-        this->fonts = font_path;
+    Fonts(std::string font_path){
+        this->fonts.loadFromFile(font_path);
+    }
 
+    void setSize(float size){
+        this->text1.setCharacterSize(size);
+    }
+
+    void setString(std::string message){
+        this->text1.setString(message);
     }
 
 private:
     sf::Font fonts;
+    sf::Text text1;
 };
 
 void updateInput(){
@@ -91,7 +99,7 @@ int main(){
     // game font
     sf::Text text1;
     text1.setFont(font);
-    text1.setCharacterSize(70);
+    text1.setCharacterSize(400);
     text1.setStyle(sf::Text::Regular);
     text1.setString("Welcome to our game!");
     text1.setPosition(350.f, 10.0f);
@@ -114,7 +122,7 @@ int main(){
     sf::Texture texture2;
     texture2.loadFromFile("../Assets/Game_Background.png");
     sf::Sprite background_sprite(texture2);
-    background_sprite.setScale(sf::Vector2f(3, 4.5));
+    background_sprite.setScale(sf::Vector2f(8, 9.5));
     // enemy sprite
     sf::Texture texture1;
     texture1.loadFromFile("../Assets/Enemy.png");
@@ -128,7 +136,7 @@ int main(){
 
 
 
-    window.setFramerateLimit(144);
+    window.setVerticalSyncEnabled(true);
 
     float xpos = 0.0f;
     float ypos = 0.0f;
@@ -158,6 +166,10 @@ int main(){
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
                     cout << "A key pressed " << endl;
                     text1.setString("A");
+                }
+
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+                    window.close();
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
                     cout << "R key pressed " << endl;
