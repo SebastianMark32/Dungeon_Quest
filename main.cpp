@@ -52,9 +52,60 @@ public:
         this->text1.setString(message);
     }
 
+    sf::Text getText(){
+        return this->text1;
+    }
+
 private:
     sf::Font fonts;
     sf::Text text1;
+};
+
+class Background{
+public:
+    Background(std::string path){
+        this->texture.loadFromFile(path);
+        this->background.setTexture(texture);
+    }
+
+    void setScale(float x, float y){
+        this->background.setScale(x,y);
+    }
+
+    sf::Sprite getSprite(){
+        return this->background;
+    }
+
+private:
+    //making the background
+    sf::Texture texture;
+    sf::Sprite background;
+};
+
+class Music{
+public:
+    Music(std::string path){
+        this->music.openFromFile(path);
+        this->music.play();
+    }
+    void play(){
+        this->music.play();
+    }
+    void pause(){
+        this->music.pause();
+    }
+    void changeMusic(std::string path){
+        this->music.stop();
+        this->music.openFromFile(path);
+        this->music.play();
+    }
+    void setVolume(float volume){
+        this->music.setVolume(volume);
+    }
+
+
+private:
+    sf::Music music;
 };
 
 void updateInput(){
