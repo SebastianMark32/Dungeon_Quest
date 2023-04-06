@@ -1,14 +1,94 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include<iostream>
 
 using namespace std;
 
-int main() {
+// boolean for mouse being pressed
+bool mouseReleased = false;
 
-    bool mouseReleased = false;
+// this is rendering a window which displays the viewer window
+sf::RenderWindow window(sf::VideoMode(2560 , 1600), "Sebastian SFML!", sf::Style::Resize);
 
-    // this is rendering a window which displays the viewer window
-    sf::RenderWindow window(sf::VideoMode(1024, 780), "Sebastian SFML!");
+// global vector
+sf:: Vector2f playerPosition;
+
+bool playerMoving = false;
+
+class Character{
+public:
+    Character(std::string path){
+        this->texture.loadFromFile(path);
+        this->character.setTexture(texture);
+    }
+    void setPosition(float x, float y){
+        this->character.setPosition(x, y);
+    }
+    void setScale(float x, float y){
+        this->character.setScale(x,y);
+    }
+    sf::Sprite getSprite(){
+        return this->character;
+    }
+private:
+    // making the character
+    sf::Sprite character;
+    sf::Texture texture;
+};
+
+class Fonts{
+
+    // constructor for the fonts
+public:
+    Fonts(std::string font_path){
+        this->fonts.loadFromFile(font_path);
+    }
+
+    void setSize(float size){
+        this->text1.setCharacterSize(size);
+    }
+
+    void setString(std::string message){
+        this->text1.setString(message);
+    }
+
+private:
+    sf::Font fonts;
+    sf::Text text1;
+};
+
+void updateInput(){
+    sf::Event event;
+
+    while(window.pollEvent(event)) {
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Right) {
+                playerMoving = true;
+            }
+        }
+
+        if (event.type == sf::Event::KeyReleased) {
+            if (event.key.code == sf::Keyboard::Right) {
+                playerMoving = false;
+            }
+        }
+
+        if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) {
+            window.close();
+        }
+    }
+}
+void update(float dt){
+
+    sf::Sprite hero;
+
+    if(playerMoving){
+        hero.move(50.0f*dt, 0);
+    }
+}
+int main(){
+
+    sf::Clock clock;
 
     // font style
     sf::Font font;
@@ -19,24 +99,30 @@ int main() {
     // game font
     sf::Text text1;
     text1.setFont(font);
-    text1.setCharacterSize(70);
+    text1.setCharacterSize(400);
     text1.setStyle(sf::Text::Regular);
     text1.setString("Welcome to our game!");
     text1.setPosition(350.f, 10.0f);
 
-    // hero sprite
-    sf::Texture texture;
-    texture.loadFromFile("../Assets/Knight3Walk.png");
-    sf::Sprite character;
-    character.setTexture(texture);
+
+    Character character("../Assets/Knight3Walk.png");
     character.setScale(0.5f, 0.5f);
     character.setPosition(300.f, 200.0f);
+
+
+//    sf::Texture texture;
+//    texture.loadFromFile("../Assets/Knight3Walk.png");
+//    sf::Sprite character;
+//    character.setTexture(texture);
+//    character.setScale(0.5f, 0.5f);
+//    character.setPosition(300.f, 200.0f);
+
 
     // this is background
     sf::Texture texture2;
     texture2.loadFromFile("../Assets/Game_Background.png");
     sf::Sprite background_sprite(texture2);
-    background_sprite.setScale(sf::Vector2f(3, 4.5));
+    background_sprite.setScale(sf::Vector2f(8, 9.5));
     // enemy sprite
     sf::Texture texture1;
     texture1.loadFromFile("../Assets/Enemy.png");
@@ -45,7 +131,12 @@ int main() {
     enemy.setScale(2.5f, 2.5f);
     enemy.setPosition(500.0f, 400.0f);
 
-    window.setFramerateLimit(144);
+    // Music
+    sf::Music music;
+
+
+
+    window.setVerticalSyncEnabled(true);
 
     float xpos = 0.0f;
     float ypos = 0.0f;
@@ -55,6 +146,15 @@ int main() {
 
     while (window.isOpen()) {
         sf::Event event;
+
+
+        /***********NEW CODE**************
+        // adding a new function here
+        updateInput();
+        sf::Time dt = clock.restart();
+        update(dt.asSeconds());
+       *********************************/
+
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -66,6 +166,10 @@ int main() {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
                     cout << "A key pressed " << endl;
                     text1.setString("A");
+                }
+
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+                    window.close();
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
                     cout << "R key pressed " << endl;
@@ -125,7 +229,7 @@ int main() {
         window.draw(background_sprite);
 
         // Knight character
-        window.draw(character);
+        window.draw(character.getSprite());
 
         // enemy character
         window.draw(enemy);
