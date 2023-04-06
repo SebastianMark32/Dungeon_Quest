@@ -1,14 +1,86 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include<iostream>
 
 using namespace std;
 
-int main() {
+// boolean for mouse being pressed
+bool mouseReleased = false;
 
-    bool mouseReleased = false;
+// this is rendering a window which displays the viewer window
+sf::RenderWindow window(sf::VideoMode(1024, 780), "Sebastian SFML!");
 
-    // this is rendering a window which displays the viewer window
-    sf::RenderWindow window(sf::VideoMode(1024, 780), "Sebastian SFML!");
+// global vector
+sf:: Vector2f playerPosition;
+
+bool playerMoving = false;
+
+class Character{
+public:
+    Character(std::string path){
+        this->texture.loadFromFile(path);
+        this->character.setTexture(texture);
+    }
+    void setPosition(float x, float y){
+       this->character.setPosition(x, y);
+    }
+    void setScale(float x, float y){
+        this->character.setScale(x,y);
+    }
+    sf::Sprite getSprite(){
+        return this->character;
+    }
+private:
+    // making the character
+    sf::Sprite character;
+    sf::Texture texture;
+};
+
+class Fonts{
+
+    // constructor for the fonts
+public:
+    Fonts(sf::Font font_path){
+        this->fonts = font_path;
+
+    }
+
+private:
+    sf::Font fonts;
+};
+
+void updateInput(){
+    sf::Event event;
+
+    while(window.pollEvent(event)) {
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Right) {
+                playerMoving = true;
+            }
+        }
+
+        if (event.type == sf::Event::KeyReleased) {
+            if (event.key.code == sf::Keyboard::Right) {
+                playerMoving = false;
+            }
+        }
+
+        if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) {
+            window.close();
+        }
+    }
+}
+void update(float dt){
+
+    sf::Sprite hero;
+
+    if(playerMoving){
+        hero.move(50.0f*dt, 0);
+    }
+}
+int main(){
+
+    sf::Clock clock;
 
     // font style
     sf::Font font;
@@ -24,13 +96,19 @@ int main() {
     text1.setString("Welcome to our game!");
     text1.setPosition(350.f, 10.0f);
 
-    // hero sprite
-    sf::Texture texture;
-    texture.loadFromFile("../Assets/Knight3Walk.png");
-    sf::Sprite character;
-    character.setTexture(texture);
+
+    Character character("../Assets/Knight3Walk.png");
     character.setScale(0.5f, 0.5f);
     character.setPosition(300.f, 200.0f);
+
+
+//    sf::Texture texture;
+//    texture.loadFromFile("../Assets/Knight3Walk.png");
+//    sf::Sprite character;
+//    character.setTexture(texture);
+//    character.setScale(0.5f, 0.5f);
+//    character.setPosition(300.f, 200.0f);
+
 
     // this is background
     sf::Texture texture2;
@@ -45,6 +123,11 @@ int main() {
     enemy.setScale(2.5f, 2.5f);
     enemy.setPosition(500.0f, 400.0f);
 
+    // Music
+    sf::Music music;
+
+
+
     window.setFramerateLimit(144);
 
     float xpos = 0.0f;
@@ -55,6 +138,15 @@ int main() {
 
     while (window.isOpen()) {
         sf::Event event;
+
+
+        /***********NEW CODE**************
+        // adding a new function here
+        updateInput();
+        sf::Time dt = clock.restart();
+        update(dt.asSeconds());
+       *********************************/
+
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -125,7 +217,7 @@ int main() {
         window.draw(background_sprite);
 
         // Knight character
-        window.draw(character);
+        window.draw(character.getSprite());
 
         // enemy character
         window.draw(enemy);
