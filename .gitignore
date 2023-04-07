@@ -1,0 +1,3 @@
+#Ignoring Clion Idea files 
+cmake-build-debug/
+.idea/
