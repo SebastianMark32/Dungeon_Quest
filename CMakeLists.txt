@@ -5,7 +5,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES main.cpp Character.cpp Character.h Fonts.cpp Fonts.h Music.cpp Music.h Background.cpp Background.h Enemy.cpp Enemy.h)
 add_executable(Dungeon_Quest ${SOURCE_FILES})
-include_directories(/usr/local/include)
 
 find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
 include_directories(${SFML_INCLUDE_DIRS})

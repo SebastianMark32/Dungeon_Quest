@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include<iostream>
+#include <string>
+#include "Enemy.h"
 
 using namespace std;
 
@@ -19,20 +21,20 @@ class Character{
 public:
     Character(std::string path){
         this->texture.loadFromFile(path);
-        this->character.setTexture(texture);
+        this->sprite.setTexture(texture);
     }
     void setPosition(float x, float y){
-        this->character.setPosition(x, y);
+        this->sprite.setPosition(x, y);
     }
     void setScale(float x, float y){
-        this->character.setScale(x,y);
+        this->sprite.setScale(x, y);
     }
     sf::Sprite getSprite(){
-        return this->character;
+        return this->sprite;
     }
 private:
-    // making the character
-    sf::Sprite character;
+    // making the sprite
+    sf::Sprite sprite;
     sf::Texture texture;
 };
 
@@ -103,7 +105,6 @@ public:
         this->music.setVolume(volume);
     }
 
-
 private:
     sf::Music music;
 };
@@ -163,10 +164,10 @@ int main(){
 
 //    sf::Texture texture;
 //    texture.loadFromFile("../Assets/Knight3Walk.png");
-//    sf::Sprite character;
-//    character.setTexture(texture);
-//    character.setScale(0.5f, 0.5f);
-//    character.setPosition(300.f, 200.0f);
+//    sf::Sprite sprite;
+//    sprite.setTexture(texture);
+//    sprite.setScale(0.5f, 0.5f);
+//    sprite.setPosition(300.f, 200.0f);
 
 
     // this is background
@@ -174,18 +175,21 @@ int main(){
     texture2.loadFromFile("../Assets/Game_Background.png");
     sf::Sprite background_sprite(texture2);
     background_sprite.setScale(sf::Vector2f(8, 9.5));
-    // enemy sprite
-    sf::Texture texture1;
-    texture1.loadFromFile("../Assets/Enemy.png");
-    sf::Sprite enemy;
-    enemy.setTexture(texture1);
-    enemy.setScale(2.5f, 2.5f);
-    enemy.setPosition(500.0f, 400.0f);
+    // sprite sprite
+
+    Enemy enemy1("../Assets/Enemy.png");
+    enemy1.setScale(2.5f, 2.5f);
+    enemy1.setPosition(500.0f, 400.0f);
+
+//    sf::Texture texture1;
+//    texture1.loadFromFile("../Assets/Enemy.png");
+//    sf::Sprite enemy;
+//    enemy.setTexture(texture1);
+//    enemy.setScale(2.5f, 2.5f);
+//    enemy.setPosition(500.0f, 400.0f);
 
     // Music
     sf::Music music;
-
-
 
     window.setVerticalSyncEnabled(true);
 
@@ -254,8 +258,8 @@ int main(){
         // counting the frames
         //cout << counter << endl;
 
-        // this is the enemy movement
-        enemy.setPosition(enemyXPos, enemyYPos);
+        // this is the sprite movement
+        enemy1.setPosition(enemyXPos, enemyYPos);
         if (counter >= 100) {
             enemyYPos += 2;
         }
@@ -279,11 +283,11 @@ int main(){
         // drawing the background
         window.draw(background_sprite);
 
-        // Knight character
+        // Knight sprite
         window.draw(character.getSprite());
 
-        // enemy character
-        window.draw(enemy);
+        // sprite sprite
+        window.draw(enemy1.getSprite());
         counter++;
 
         // this is the font
@@ -291,6 +295,5 @@ int main(){
 
         window.display();
     }
-
     return 0;
 }
