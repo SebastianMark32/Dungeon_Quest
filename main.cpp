@@ -38,30 +38,7 @@ private:
     sf::Texture texture;
 };
 
-class Fonts{
 
-    // constructor for the fonts
-public:
-    Fonts(std::string font_path){
-        this->fonts.loadFromFile(font_path);
-    }
-
-    void setSize(float size){
-        this->text1.setCharacterSize(size);
-    }
-
-    void setString(std::string message){
-        this->text1.setString(message);
-    }
-
-    sf::Text getText(){
-        return this->text1;
-    }
-
-private:
-    sf::Font fonts;
-    sf::Text text1;
-};
 
 class Background{
 public:

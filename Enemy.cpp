@@ -1,5 +1,4 @@
 #include "Enemy.h"
-#include <string>
 
 Enemy::Enemy(std::string path) {
     this->texture.loadFromFile(path);
