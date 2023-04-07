@@ -1,3 +1,0 @@
-/Users/sebastianmark/Desktop/Dungeon_Quest/cmake-build-debug/CMakeFiles/Dungeon_Quest.dir
-/Users/sebastianmark/Desktop/Dungeon_Quest/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/sebastianmark/Desktop/Dungeon_Quest/cmake-build-debug/CMakeFiles/rebuild_cache.dir
