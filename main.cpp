@@ -1,10 +1,4 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include<iostream>
-#include <string>
-#include "Enemy.h"
-
-using namespace std;
+#include "Dependencies.h"
 
 // boolean for mouse being pressed
 bool mouseReleased = false;
@@ -50,19 +44,12 @@ int main(){
 
     sf::Clock clock;
 
-    // font style
-    sf::Font font;
-    if (!font.loadFromFile("../Assets/ArianaVioleta-dz2K.ttf")) {
-        cout << "Hello there! " << endl;
-    }
-
     // game font
-    sf::Text text1;
-    text1.setFont(font);
-    text1.setCharacterSize(400);
-    text1.setStyle(sf::Text::Regular);
-    text1.setString("Welcome to our game!");
-    text1.setPosition(350.f, 10.0f);
+    Fonts gameFont("../Assets/ArianaVioleta-dz2K.ttf");
+    gameFont.setSize(200);
+    gameFont.setStyle(sf::Text::Regular);
+    gameFont.setString("Welcome to our game!");
+    gameFont.setPosition(350.f, 10.0f);
 
 
     Character character("../Assets/Knight3Walk.png");
@@ -79,12 +66,10 @@ int main(){
 
 
     // this is background
-    sf::Texture texture2;
-    texture2.loadFromFile("../Assets/Game_Background.png");
-    sf::Sprite background_sprite(texture2);
-    background_sprite.setScale(sf::Vector2f(8, 9.5));
-    // sprite sprite
+    Background background_sprite("../Assets/Game_Background.png");
 
+    background_sprite.setScale(8.0f, 9.5f);
+    // sprite sprite
     Enemy enemy1("../Assets/Enemy.png");
     enemy1.setScale(2.5f, 2.5f);
     enemy1.setPosition(500.0f, 400.0f);
@@ -97,7 +82,7 @@ int main(){
 //    enemy.setPosition(500.0f, 400.0f);
 
     // Music
-    sf::Music music;
+    Music gameMusic("");
 
     window.setVerticalSyncEnabled(true);
 
@@ -128,7 +113,7 @@ int main(){
                 cout << "Button is pressed " << endl;
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
                     cout << "A key pressed " << endl;
-                    text1.setString("A");
+                    gameFont.setString("A");
                 }
 
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
@@ -136,7 +121,7 @@ int main(){
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
                     cout << "R key pressed " << endl;
-                    text1.setString("R");
+                    gameFont.setString("R");
                 }
             }
             if (event.type == sf::Event::MouseButtonPressed) {
@@ -189,7 +174,7 @@ int main(){
         window.clear();
 
         // drawing the background
-        window.draw(background_sprite);
+        window.draw(background_sprite.getSprite());
 
         // Knight sprite
         window.draw(character.getSprite());
@@ -199,7 +184,7 @@ int main(){
         counter++;
 
         // this is the font
-        window.draw(text1);
+        window.draw(gameFont.getText());
 
         window.display();
     }

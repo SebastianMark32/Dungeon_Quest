@@ -18,6 +18,10 @@ public:
 
     void setString(std::string message);
 
+    void setStyle(sf::Text::Style style);
+
+    void setPosition(float x, float y);
+
     sf::Text getText();
 
 private:
