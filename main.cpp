@@ -14,9 +14,6 @@ bool playerMoving = false;
 void updateInput(){
     sf::Event event;
 
-
-
-
     while(window.pollEvent(event)) {
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Right) {
@@ -77,6 +74,9 @@ int main(){
     //enemy1.setScale(0.5f, 1.5f);
     enemy1.setPosition(500.0f, 400.0f);
 
+    Enemy enemy2("../Assets/images.png");
+    enemy2.setPosition(600.f, 800.f);
+
 //    sf::Texture texture1;
 //    texture1.loadFromFile("../Assets/Enemy.png");
 //    sf::Sprite enemy;
@@ -94,6 +94,8 @@ int main(){
     float enemyXPos = 0.0f;
     float enemyYPos = 400.f;
     int counter = 0;
+    float enemy2XPos = 10.0f;
+    float enemy2YPos = 600.f;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -186,6 +188,24 @@ int main(){
             counter = 0;
         }
 
+        if (enemy2XPos > 400 && enemy2YPos > 200) {
+            enemy2XPos = 0;
+            enemy2YPos = 100.0f;
+            counter = 0;
+        }
+
+        enemy2.setPosition(enemy2XPos, enemy2YPos);
+        if (counter >= 100) {
+            enemy2YPos += 2;
+        }
+        enemy2XPos++;
+
+        if (enemyXPos > 400 && enemyYPos > 200) {
+            enemyXPos = 0;
+            enemyYPos = 100.0f;
+            counter = 0;
+        }
+
         // static member function
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && mouseReleased) {
             cout << "Left mouse button pressed " << endl;
@@ -203,6 +223,7 @@ int main(){
 
         // sprite sprite
         window.draw(enemy1.getSprite());
+        window.draw(enemy2.getSprite());
         counter++;
 
         // this is the font
