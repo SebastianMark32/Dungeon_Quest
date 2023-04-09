@@ -57,14 +57,6 @@ int main(){
     character.setPosition(1100.f, 500.0f);
 
 
-//    sf::Texture texture;
-//    texture.loadFromFile("../Assets/Knight3Walk.png");
-//    sf::Sprite sprite;
-//    sprite.setTexture(texture);
-//    sprite.setScale(0.5f, 0.5f);
-//    sprite.setPosition(300.f, 200.0f);
-
-
     // this is background
     Background background_sprite("../Assets/Background_1080p.png");
 
@@ -77,20 +69,11 @@ int main(){
     Enemy enemy2("../Assets/images.png");
     enemy2.setPosition(600.f, 800.f);
 
-//    sf::Texture texture1;
-//    texture1.loadFromFile("../Assets/Enemy.png");
-//    sf::Sprite enemy;
-//    enemy.setTexture(texture1);
-//    enemy.setScale(2.5f, 2.5f);
-//    enemy.setPosition(500.0f, 400.0f);
-
     // Music
     Music gameMusic("");
 
     window.setVerticalSyncEnabled(true);
 
-//    float xpos = 0.0f;
-//    float ypos = 0.0f;
     float enemyXPos = 0.0f;
     float enemyYPos = 400.f;
     float enemy2XPos = 10.0f;
@@ -99,41 +82,28 @@ int main(){
 
     // speed
     float speedX = 0;
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
+    //  movement speed for right and left
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
         speedX += 0.1f;
     }
-
-    else
-    {
+    else{
         //if your speed is close to 0, stop
-        if (abs(speedX) <= 0.2f)
-        {
+        if (abs(speedX) <= 0.2f){
             speedX = 0;
         }
-        else
-        {
+        else{
             //decrease the speed
             speedX -= 0.2f;
         }
     }
 
-    while (window.isOpen()) {
+    while (window.isOpen()){
         sf::Event event;
-
-        /***********NEW CODE**************
-        // adding a new function here
-        updateInput();
-        sf::Time dt = clock.restart();
-        update(dt.asSeconds());
-       *********************************/
 
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
                 std::cout << "Event window handled" << std::endl;
-
             }
             if (event.type == sf::Event::KeyPressed) {
                 cout << "Button is pressed " << endl;
@@ -141,9 +111,7 @@ int main(){
                     cout << "Moving Up " << endl;
                     gameFont.setString("W");
                     character.getSprite()->move(0.0f, -2.0f);
-
                 }
-
                 // closing the window when user presses escape
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
                     window.close();
@@ -160,44 +128,16 @@ int main(){
                     character.getSprite()->move(speedX, 0.0f);
                     speedX += 1.1f;
                 }
-
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
                     cout << "Moving Down" << endl;
                     gameFont.setString("S");
                     character.getSprite()->move(0.0f, 2.0f);
                 }
             }
-//            if (event.type == sf::Event::MouseButtonPressed) {
-//                cout << "Mouse button pressed " << endl;
-//            }
-//            mouseReleased = false;
-//            if (event.type == sf::Event::MouseButtonReleased) {
-//                mouseReleased = true;
-//            }
             if (event.type == sf::Event::KeyReleased) {
                 cout << "Button released " << endl;
             }
         }
-
-//        character.setPosition(xpos, ypos);
-//        if (counter >= 100) {
-//            ypos += 2;
-//        }
-//        xpos++;
-//        //ypos += 0.001;
-//        if (xpos > 100 && ypos > 100) {
-//            xpos = 0;
-//            ypos = 0;
-//            counter = 0;
-//        }
-
-        // counting the frames
-        //cout << counter << endl;
-
-
-        // One direction
-
-        // Moving right
 
         // this is the sprite movement
         enemy1.setPosition(enemyXPos, enemyYPos);
