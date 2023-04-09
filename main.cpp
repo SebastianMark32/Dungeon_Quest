@@ -1,5 +1,7 @@
 #include "Dependencies.h"
 
+static int score = 0;
+
 // boolean for mouse being pressed
 bool mouseReleased = false;
 
@@ -11,27 +13,6 @@ sf:: Vector2f playerPosition;
 
 bool playerMoving = false;
 
-void updateInput(){
-    sf::Event event;
-
-    while(window.pollEvent(event)) {
-        if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Right) {
-                playerMoving = true;
-            }
-        }
-
-        if (event.type == sf::Event::KeyReleased) {
-            if (event.key.code == sf::Keyboard::Right) {
-                playerMoving = false;
-            }
-        }
-
-        if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed) {
-            window.close();
-        }
-    }
-}
 void update(float dt){
 
     sf::Sprite hero;
@@ -43,6 +24,10 @@ void update(float dt){
 int main(){
 
     sf::Clock clock;
+    bool wKeyReleased = true;
+    bool aKeyReleased = true;
+    bool sKeyReleased = true;
+    bool dKeyReleased = true;
 
     // game font
     Fonts gameFont("../Assets/ArianaVioleta-dz2K.ttf");
@@ -53,8 +38,8 @@ int main(){
 
 
     Character character("../Assets/Knight3Walk.png");
-    character.setScale(0.5f, 0.5f);
-    character.setPosition(1100.f, 500.0f);
+    character.setScale(0.7f, 0.7f);
+    character.setPosition(60.f, 35.0f);
 
 
     // this is background
@@ -65,9 +50,11 @@ int main(){
     Enemy enemy1("../Assets/Enemy.png");
     //enemy1.setScale(0.5f, 1.5f);
     enemy1.setPosition(500.0f, 400.0f);
+    enemy1.setScale(3, 3);
 
     Enemy enemy2("../Assets/images.png");
     enemy2.setPosition(600.f, 800.f);
+    enemy2.setScale(2, 2);
 
     // Music
     Music gameMusic("");
@@ -101,41 +88,65 @@ int main(){
         sf::Event event;
 
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
+            if (event.type == sf::Event::Closed){
                 window.close();
                 std::cout << "Event window handled" << std::endl;
             }
             if (event.type == sf::Event::KeyPressed) {
                 cout << "Button is pressed " << endl;
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-                    cout << "Moving Up " << endl;
-                    gameFont.setString("W");
-                    character.getSprite()->move(0.0f, -2.0f);
+
+                //for testing cordinates
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+                    character.getPosition();
+                    gameFont.setString("P");
                 }
+
                 // closing the window when user presses escape
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
                     window.close();
                 }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) & wKeyReleased & (character.getPosition().y > 35)) {
+                    cout << "Moving Up " << endl;
+                    gameFont.setString("W");
+                    character.getSprite()->move(0.0f, -235.0f);
+                    wKeyReleased = false;
+                }
+
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) & aKeyReleased & (character.getPosition().x > 60)){
                     cout << "Moving left" << endl;
                     gameFont.setString("A");
-                    character.getSprite()->move(-speedX, 0.0f);
+                    character.getSprite()->move(-237, 0.0f);
+                    aKeyReleased = false;
                 }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-                    cout << "Moving right" << endl;
-                    gameFont.setString("D");
-
-                    character.getSprite()->move(speedX, 0.0f);
-                    speedX += 1.1f;
-                }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) & sKeyReleased & (character.getPosition().y < 1445)) {
                     cout << "Moving Down" << endl;
                     gameFont.setString("S");
-                    character.getSprite()->move(0.0f, 2.0f);
+                    character.getSprite()->move(0.0f, 235.0f);
+                    sKeyReleased = false;
+                }
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) & dKeyReleased & (character.getPosition().x < 2430)) {
+                    cout << "Moving right" << endl;
+                    gameFont.setString("D");
+                    character.getSprite()->move(237, 0.0f);
+                    speedX += 1.1f;
+                    dKeyReleased = false;
                 }
             }
             if (event.type == sf::Event::KeyReleased) {
                 cout << "Button released " << endl;
+                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+                    wKeyReleased = true;
+                }
+                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+                    aKeyReleased = true;
+                }
+                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+                    sKeyReleased = true;
+                }
+                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+                    dKeyReleased = true;
+                }
             }
         }
 
