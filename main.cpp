@@ -4,7 +4,7 @@
 bool mouseReleased = false;
 
 // this is rendering a window which displays the viewer window
-sf::RenderWindow window(sf::VideoMode(2560 , 1600), "Sebastian SFML!", sf::Style::Resize);
+sf::RenderWindow window(sf::VideoMode(2560 , 1600), "Dungeon Quest!", sf::Style::Resize);
 
 // global vector
 sf:: Vector2f playerPosition;
@@ -13,6 +13,9 @@ bool playerMoving = false;
 
 void updateInput(){
     sf::Event event;
+
+
+
 
     while(window.pollEvent(event)) {
         if (event.type == sf::Event::KeyPressed) {
@@ -66,12 +69,12 @@ int main(){
 
 
     // this is background
-    Background background_sprite("../Assets/Game_Background.png");
+    Background background_sprite("../Assets/Background_1080p.png");
 
-    background_sprite.setScale(8.0f, 9.5f);
+    background_sprite.setScale(2.0f, 2.0f);
     // sprite sprite
     Enemy enemy1("../Assets/Enemy.png");
-    enemy1.setScale(2.5f, 2.5f);
+    //enemy1.setScale(0.5f, 1.5f);
     enemy1.setPosition(500.0f, 400.0f);
 
 //    sf::Texture texture1;
@@ -107,49 +110,68 @@ int main(){
             if (event.type == sf::Event::Closed) {
                 window.close();
                 std::cout << "Event window handled" << std::endl;
-                //exit();
+
             }
             if (event.type == sf::Event::KeyPressed) {
                 cout << "Button is pressed " << endl;
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-                    cout << "A key pressed " << endl;
-                    gameFont.setString("A");
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+                    cout << "Moving Up " << endl;
+                    gameFont.setString("W");
+                    character.getSprite()->move(0.0f, -2.0f);
                 }
 
+                // closing the window when user presses escape
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
                     window.close();
                 }
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-                    cout << "R key pressed " << endl;
-                    gameFont.setString("R");
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+                    cout << "Moving left" << endl;
+                    gameFont.setString("A");
+                    character.getSprite()->move(-2.0f, 0.0f);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                    cout << "Moving right" << endl;
+                    gameFont.setString("D");
+
+                    character.getSprite()->move(2.0f, 0.0f);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                    cout << "Moving Down" << endl;
+                    gameFont.setString("S");
+                    character.getSprite()->move(0.0f, 2.0f);
                 }
             }
-            if (event.type == sf::Event::MouseButtonPressed) {
-                cout << "Mouse button pressed " << endl;
-            }
-            mouseReleased = false;
-            if (event.type == sf::Event::MouseButtonReleased) {
-                mouseReleased = true;
-            }
+//            if (event.type == sf::Event::MouseButtonPressed) {
+//                cout << "Mouse button pressed " << endl;
+//            }
+//            mouseReleased = false;
+//            if (event.type == sf::Event::MouseButtonReleased) {
+//                mouseReleased = true;
+//            }
             if (event.type == sf::Event::KeyReleased) {
                 cout << "Button released " << endl;
             }
         }
 
-        character.setPosition(xpos, ypos);
-        if (counter >= 100) {
-            ypos += 2;
-        }
-        xpos++;
-        //ypos += 0.001;
-        if (xpos > 100 && ypos > 100) {
-            xpos = 0;
-            ypos = 0;
-            counter = 0;
-        }
+//        character.setPosition(xpos, ypos);
+//        if (counter >= 100) {
+//            ypos += 2;
+//        }
+//        xpos++;
+//        //ypos += 0.001;
+//        if (xpos > 100 && ypos > 100) {
+//            xpos = 0;
+//            ypos = 0;
+//            counter = 0;
+//        }
 
         // counting the frames
         //cout << counter << endl;
+
+
+        // One direction
+
+        // Moving right
 
         // this is the sprite movement
         enemy1.setPosition(enemyXPos, enemyYPos);
@@ -177,7 +199,7 @@ int main(){
         window.draw(background_sprite.getSprite());
 
         // Knight sprite
-        window.draw(character.getSprite());
+        window.draw(*character.getSprite());
 
         // sprite sprite
         window.draw(enemy1.getSprite());

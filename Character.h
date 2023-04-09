@@ -16,7 +16,7 @@ public:
 
     void setScale(float x, float y);
 
-    sf::Sprite getSprite();
+    sf::Sprite* getSprite();
 
 private:
     // making the sprite
