@@ -49,12 +49,12 @@ int main(){
     gameFont.setSize(200);
     gameFont.setStyle(sf::Text::Regular);
     gameFont.setString("Welcome to our game!");
-    gameFont.setPosition(350.f, 10.0f);
+    gameFont.setPosition(700.f, 5.0f);
 
 
     Character character("../Assets/Knight3Walk.png");
     character.setScale(0.5f, 0.5f);
-    character.setPosition(300.f, 200.0f);
+    character.setPosition(1100.f, 500.0f);
 
 
 //    sf::Texture texture;
@@ -89,17 +89,38 @@ int main(){
 
     window.setVerticalSyncEnabled(true);
 
-    float xpos = 0.0f;
-    float ypos = 0.0f;
+//    float xpos = 0.0f;
+//    float ypos = 0.0f;
     float enemyXPos = 0.0f;
     float enemyYPos = 400.f;
-    int counter = 0;
     float enemy2XPos = 10.0f;
     float enemy2YPos = 600.f;
+    int counter = 0;
+
+    // speed
+    float speedX = 0;
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+        speedX += 0.1f;
+    }
+
+    else
+    {
+        //if your speed is close to 0, stop
+        if (abs(speedX) <= 0.2f)
+        {
+            speedX = 0;
+        }
+        else
+        {
+            //decrease the speed
+            speedX -= 0.2f;
+        }
+    }
 
     while (window.isOpen()) {
         sf::Event event;
-
 
         /***********NEW CODE**************
         // adding a new function here
@@ -120,6 +141,7 @@ int main(){
                     cout << "Moving Up " << endl;
                     gameFont.setString("W");
                     character.getSprite()->move(0.0f, -2.0f);
+
                 }
 
                 // closing the window when user presses escape
@@ -129,14 +151,16 @@ int main(){
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
                     cout << "Moving left" << endl;
                     gameFont.setString("A");
-                    character.getSprite()->move(-2.0f, 0.0f);
+                    character.getSprite()->move(-speedX, 0.0f);
                 }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
                     cout << "Moving right" << endl;
                     gameFont.setString("D");
 
-                    character.getSprite()->move(2.0f, 0.0f);
+                    character.getSprite()->move(speedX, 0.0f);
+                    speedX += 1.1f;
                 }
+
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
                     cout << "Moving Down" << endl;
                     gameFont.setString("S");
@@ -182,18 +206,6 @@ int main(){
         }
         enemyXPos++;
 
-        if (enemyXPos > 400 && enemyYPos > 200) {
-            enemyXPos = 0;
-            enemyYPos = 100.0f;
-            counter = 0;
-        }
-
-        if (enemy2XPos > 400 && enemy2YPos > 200) {
-            enemy2XPos = 0;
-            enemy2YPos = 100.0f;
-            counter = 0;
-        }
-
         enemy2.setPosition(enemy2XPos, enemy2YPos);
         if (counter >= 100) {
             enemy2YPos += 2;
@@ -203,6 +215,12 @@ int main(){
         if (enemyXPos > 400 && enemyYPos > 200) {
             enemyXPos = 0;
             enemyYPos = 100.0f;
+            counter = 0;
+        }
+
+        if (enemy2XPos > 700 && enemy2YPos > 400) {
+            enemy2XPos = 0;
+            enemy2YPos = 300.0f;
             counter = 0;
         }
 
