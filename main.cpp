@@ -6,21 +6,11 @@ static int score = 0;
 bool mouseReleased = false;
 
 // this is rendering a window which displays the viewer window
-sf::RenderWindow window(sf::VideoMode(2560 , 1600), "Dungeon Quest!", sf::Style::Resize);
+sf::RenderWindow window(sf::VideoMode(800, 600), "Dungeon Quest!", sf::Style::Resize);
 
 // global vector
 sf:: Vector2f playerPosition;
 
-bool playerMoving = false;
-
-void update(float dt){
-
-    sf::Sprite hero;
-
-    if(playerMoving){
-        hero.move(50.0f*dt, 0);
-    }
-}
 int main(){
     //Create random number
     srand((int)time(0));
@@ -53,7 +43,7 @@ int main(){
     // sprite sprite
     Enemy enemy1("../Assets/Enemy.png");
     //enemy1.setScale(0.5f, 1.5f);
-    enemy1.setPosition(500.0f, 400.0f);
+    enemy1.setPosition(673.0f, 484.0f);
     enemy1.setScale(0.93f, 0.93f);
 
     Enemy enemy2("../Assets/images.png");
@@ -83,7 +73,7 @@ int main(){
 
                 //for testing cordinates
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
-                    character.getPosition();
+                    cout << character.getPosition().x << " " << character.getPosition().y << endl;
                     gameFont.setString("P");
                 }
 
