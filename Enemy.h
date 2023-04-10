@@ -20,6 +20,8 @@ public:
 
     sf::Sprite getSprite();
 
+    void randomEnemyMove(int number);
+
 private:
     sf::Sprite sprite;
     sf::Texture texture;

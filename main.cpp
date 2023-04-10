@@ -22,12 +22,17 @@ void update(float dt){
     }
 }
 int main(){
-
+    //Create random number
+    srand((int)time(0));
     sf::Clock clock;
+    //int to get random number from
+    int randomNum;
+    //player control logic
     bool wKeyReleased = true;
     bool aKeyReleased = true;
     bool sKeyReleased = true;
     bool dKeyReleased = true;
+    sf::Event event;
 
     // game font
     Fonts gameFont("../Assets/ArianaVioleta-dz2K.ttf");
@@ -36,7 +41,7 @@ int main(){
     gameFont.setString("Welcome to our game!");
     gameFont.setPosition(700.f, 5.0f);
 
-
+    //player character
     Character character("../Assets/Knight3Walk.png");
     character.setScale(0.7f, 0.7f);
     character.setPosition(60.f, 35.0f);
@@ -49,7 +54,7 @@ int main(){
     // sprite sprite
     Enemy enemy1("../Assets/Enemy.png");
     //enemy1.setScale(0.5f, 1.5f);
-    enemy1.setPosition(500.0f, 400.0f);
+    enemy1.setPosition(2430.0f, 1445.0f);
     enemy1.setScale(3, 3);
 
     Enemy enemy2("../Assets/images.png");
@@ -67,26 +72,8 @@ int main(){
     float enemy2YPos = 600.f;
     int counter = 0;
 
-    // speed
-    float speedX = 0;
-    //  movement speed for right and left
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        speedX += 0.1f;
-    }
-    else{
-        //if your speed is close to 0, stop
-        if (abs(speedX) <= 0.2f){
-            speedX = 0;
-        }
-        else{
-            //decrease the speed
-            speedX -= 0.2f;
-        }
-    }
-
     while (window.isOpen()){
-        sf::Event event;
-
+        int randomNum = rand();
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed){
                 window.close();
@@ -97,7 +84,7 @@ int main(){
 
                 //for testing cordinates
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
-                    character.getPosition();
+                    cout << character.getPosition().x << " " << character.getPosition().y << "\n";
                     gameFont.setString("P");
                 }
 
@@ -111,6 +98,7 @@ int main(){
                     gameFont.setString("W");
                     character.getSprite()->move(0.0f, -235.0f);
                     wKeyReleased = false;
+                    enemy1.randomEnemyMove(randomNum);
                 }
 
                 if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) & aKeyReleased & (character.getPosition().x > 60)){
@@ -118,19 +106,21 @@ int main(){
                     gameFont.setString("A");
                     character.getSprite()->move(-237, 0.0f);
                     aKeyReleased = false;
+                    enemy1.randomEnemyMove(randomNum);
                 }
                 if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) & sKeyReleased & (character.getPosition().y < 1445)) {
                     cout << "Moving Down" << endl;
                     gameFont.setString("S");
                     character.getSprite()->move(0.0f, 235.0f);
                     sKeyReleased = false;
+                    enemy1.randomEnemyMove(randomNum);
                 }
                 if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) & dKeyReleased & (character.getPosition().x < 2430)) {
                     cout << "Moving right" << endl;
                     gameFont.setString("D");
                     character.getSprite()->move(237, 0.0f);
-                    speedX += 1.1f;
                     dKeyReleased = false;
+                    enemy1.randomEnemyMove(randomNum);
                 }
             }
             if (event.type == sf::Event::KeyReleased) {
@@ -150,38 +140,6 @@ int main(){
             }
         }
 
-        // this is the sprite movement
-        enemy1.setPosition(enemyXPos, enemyYPos);
-        if (counter >= 100) {
-            enemyYPos += 2;
-        }
-        enemyXPos++;
-
-        enemy2.setPosition(enemy2XPos, enemy2YPos);
-        if (counter >= 100) {
-            enemy2YPos += 2;
-        }
-        enemy2XPos++;
-
-        if (enemyXPos > 400 && enemyYPos > 200) {
-            enemyXPos = 0;
-            enemyYPos = 100.0f;
-            counter = 0;
-        }
-
-        if (enemy2XPos > 700 && enemy2YPos > 400) {
-            enemy2XPos = 0;
-            enemy2YPos = 300.0f;
-            counter = 0;
-        }
-
-        // static member function
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && mouseReleased) {
-            cout << "Left mouse button pressed " << endl;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)) {
-            cout << "Q key pressed" << endl;
-        }
         window.clear();
 
         // drawing the background

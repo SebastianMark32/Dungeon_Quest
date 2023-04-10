@@ -13,4 +13,19 @@ void Enemy::setScale(float x, float y) {
 sf::Sprite Enemy::getSprite() {
     return this->sprite;
 }
+void Enemy::randomEnemyMove(int number){
+    number = number % 4;
 
+    if ((number == 0) & (sprite.getPosition().y > 35)){
+        sprite.move(0.0f, -235.0f);
+    }
+    if ((number == 1) & (sprite.getPosition().x > 60)){
+        sprite.move(-237, 0.0f);
+    }
+    if ((number == 2) & (sprite.getPosition().y < 1445)){
+        sprite.move(0.0f, 235.0f);
+    }
+    if ((number == 3) & (sprite.getPosition().x < 2430)) {
+        sprite.move(237, 0.0f);
+    }
+}
