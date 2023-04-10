@@ -13,6 +13,10 @@ void Character::setScale(float x, float y){
     this->sprite.setScale(x, y);
 }
 
-sf::Sprite Character::getSprite(){
-    return this->sprite;
+sf::Vector2f Character::getPosition() {
+    return this->sprite.getPosition();
+}
+
+sf::Sprite* Character::getSprite(){
+    return &this->sprite;
 }

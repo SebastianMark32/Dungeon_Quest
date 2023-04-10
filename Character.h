@@ -1,6 +1,8 @@
 #ifndef DUNGEON_QUEST_CHARACTER_H
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <iostream>
+using namespace std;
 #define DUNGEON_QUEST_CHARACTER_H
 
 
@@ -16,7 +18,9 @@ public:
 
     void setScale(float x, float y);
 
-    sf::Sprite getSprite();
+    sf::Vector2f getPosition();
+
+    sf::Sprite* getSprite();
 
 private:
     // making the sprite
