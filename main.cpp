@@ -43,19 +43,18 @@ int main(){
 
     //player character
     Character character("../Assets/Knight3Walk.png");
-    character.setScale(0.7f, 0.7f);
-    character.setPosition(60.f, 35.0f);
+    character.setScale(0.93f, 0.93f);
+    character.setPosition(8.0f, 0.0f);
 
 
     // this is background
-    Background background_sprite("../Assets/Background_1080p.png");
+    Background background_sprite("../Assets/background800x600.png");
 
-    background_sprite.setScale(2.0f, 2.0f);
     // sprite sprite
     Enemy enemy1("../Assets/Enemy.png");
     //enemy1.setScale(0.5f, 1.5f);
-    enemy1.setPosition(2430.0f, 1445.0f);
-    enemy1.setScale(3, 3);
+    enemy1.setPosition(500.0f, 400.0f);
+    enemy1.setScale(0.93f, 0.93f);
 
     Enemy enemy2("../Assets/images.png");
     enemy2.setPosition(600.f, 800.f);
@@ -84,7 +83,7 @@ int main(){
 
                 //for testing cordinates
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
-                    cout << character.getPosition().x << " " << character.getPosition().y << "\n";
+                    character.getPosition();
                     gameFont.setString("P");
                 }
 
@@ -93,32 +92,32 @@ int main(){
                     window.close();
                 }
 
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) & wKeyReleased & (character.getPosition().y > 35)) {
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) & wKeyReleased & (character.getPosition().y > 0)) {
                     cout << "Moving Up " << endl;
                     gameFont.setString("W");
-                    character.getSprite()->move(0.0f, -235.0f);
+                    character.getSprite()->move(0.0f, -121.0f);
                     wKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
                 }
 
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) & aKeyReleased & (character.getPosition().x > 60)){
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) & aKeyReleased & (character.getPosition().x > 8)){
                     cout << "Moving left" << endl;
                     gameFont.setString("A");
-                    character.getSprite()->move(-237, 0.0f);
+                    character.getSprite()->move(-133, 0.0f);
                     aKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
                 }
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) & sKeyReleased & (character.getPosition().y < 1445)) {
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) & sKeyReleased & (character.getPosition().y < 484)) {
                     cout << "Moving Down" << endl;
                     gameFont.setString("S");
-                    character.getSprite()->move(0.0f, 235.0f);
+                    character.getSprite()->move(0.0f, 121.0f);
                     sKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
                 }
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) & dKeyReleased & (character.getPosition().x < 2430)) {
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) & dKeyReleased & (character.getPosition().x < 673)) {
                     cout << "Moving right" << endl;
                     gameFont.setString("D");
-                    character.getSprite()->move(237, 0.0f);
+                    character.getSprite()->move(133, 0.0f);
                     dKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
                 }
