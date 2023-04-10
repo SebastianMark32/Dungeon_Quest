@@ -26,10 +26,10 @@ int main(){
 
     // game font
     Fonts gameFont("../Assets/ArianaVioleta-dz2K.ttf");
-    gameFont.setSize(200);
+    gameFont.setSize(100);
     gameFont.setStyle(sf::Text::Regular);
     gameFont.setString("Welcome to our game!");
-    gameFont.setPosition(700.f, 5.0f);
+    gameFont.setPosition(120.f, 10.0f);
 
     //player character
     Character character("../Assets/Knight3Walk.png");
