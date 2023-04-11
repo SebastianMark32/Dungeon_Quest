@@ -82,7 +82,7 @@ int main(){
                     window.close();
                 }
 
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) & wKeyReleased & (character.getPosition().y > 0)) {
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && wKeyReleased && (character.getPosition().y > 0)) {
                     cout << "Moving Up " << endl;
                     gameFont.setString("W");
                     character.getSprite()->move(0.0f, -121.0f);
@@ -90,21 +90,21 @@ int main(){
                     enemy1.randomEnemyMove(randomNum);
                 }
 
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) & aKeyReleased & (character.getPosition().x > 8)){
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && aKeyReleased && (character.getPosition().x > 8)){
                     cout << "Moving left" << endl;
                     gameFont.setString("A");
                     character.getSprite()->move(-133, 0.0f);
                     aKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
                 }
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) & sKeyReleased & (character.getPosition().y < 484)) {
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased && (character.getPosition().y < 484)) {
                     cout << "Moving Down" << endl;
                     gameFont.setString("S");
                     character.getSprite()->move(0.0f, 121.0f);
                     sKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
                 }
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) & dKeyReleased & (character.getPosition().x < 673)) {
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased && (character.getPosition().x < 673)) {
                     cout << "Moving right" << endl;
                     gameFont.setString("D");
                     character.getSprite()->move(133, 0.0f);

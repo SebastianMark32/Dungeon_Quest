@@ -13,6 +13,8 @@ void Enemy::setScale(float x, float y) {
 sf::Sprite Enemy::getSprite() {
     return this->sprite;
 }
+
+// Nate code
 void Enemy::randomEnemyMove(int number){
     number = number % 4;
 
