@@ -9,6 +9,7 @@
 #include "Background.h"
 #include "Character.h"
 #include "Music.h"
+#include "Sound.h"
 
 using namespace std;
 

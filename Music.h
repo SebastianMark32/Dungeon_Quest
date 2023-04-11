@@ -18,7 +18,6 @@ public:
 
 private:
     sf::Music music;
-
 };
 
 

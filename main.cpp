@@ -51,9 +51,11 @@ int main(){
     enemy2.setScale(2, 2);
 
     // Music
-    Music gameMusic("");
-
+    Music gameMusic("../Assets/A01_B.ogg");
     window.setVerticalSyncEnabled(true);
+
+    //walk sound effect
+    Sound walkSound("../Assets/step.wav");
 
     float enemyXPos = 0.0f;
     float enemyYPos = 400.f;
@@ -69,7 +71,7 @@ int main(){
                 std::cout << "Event window handled" << std::endl;
             }
             if (event.type == sf::Event::KeyPressed) {
-                cout << "Button is pressed " << endl;
+                //cout << "Button is pressed " << endl;
 
                 //for testing cordinates
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
@@ -83,37 +85,41 @@ int main(){
                 }
 
                 if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && wKeyReleased && (character.getPosition().y > 0)) {
-                    cout << "Moving Up " << endl;
+                    //cout << "Moving Up " << endl;
                     gameFont.setString("W");
                     character.getSprite()->move(0.0f, -121.0f);
                     wKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
+                    walkSound.Play();
                 }
 
                 if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && aKeyReleased && (character.getPosition().x > 8)){
-                    cout << "Moving left" << endl;
+                    //cout << "Moving left" << endl;
                     gameFont.setString("A");
                     character.getSprite()->move(-133, 0.0f);
                     aKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
+                    walkSound.Play();
                 }
                 if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased && (character.getPosition().y < 484)) {
-                    cout << "Moving Down" << endl;
+                    //cout << "Moving Down" << endl;
                     gameFont.setString("S");
                     character.getSprite()->move(0.0f, 121.0f);
                     sKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
+                    walkSound.Play();
                 }
                 if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased && (character.getPosition().x < 673)) {
-                    cout << "Moving right" << endl;
+                    //cout << "Moving right" << endl;
                     gameFont.setString("D");
                     character.getSprite()->move(133, 0.0f);
                     dKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
+                    walkSound.Play();
                 }
             }
             if (event.type == sf::Event::KeyReleased) {
-                cout << "Button released " << endl;
+                //cout << "Button released " << endl;
                 if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
                     wKeyReleased = true;
                 }
