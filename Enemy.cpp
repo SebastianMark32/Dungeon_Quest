@@ -14,7 +14,7 @@ sf::Sprite Enemy::getSprite() {
     return this->sprite;
 }
 
-// Nate code
+// Nate's code for random enemy movement
 void Enemy::randomEnemyMove(int number){
     number = number % 4;
 

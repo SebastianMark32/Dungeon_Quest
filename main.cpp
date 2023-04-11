@@ -1,10 +1,6 @@
 #include "Dependencies.h"
 
 static int score = 0;
-
-// boolean for mouse being pressed
-bool mouseReleased = false;
-
 // this is rendering a window which displays the viewer window
 sf::RenderWindow window(sf::VideoMode(800, 600), "Dungeon Quest!", sf::Style::Resize);
 
@@ -36,7 +32,6 @@ int main(){
     character.setScale(0.93f, 0.93f);
     character.setPosition(8.0f, 0.0f);
 
-
     // this is background
     Background background_sprite("../Assets/background800x600.png");
 
@@ -46,19 +41,16 @@ int main(){
     enemy1.setPosition(673.0f, 484.0f);
     enemy1.setScale(0.93f, 0.93f);
 
-    Enemy enemy2("../Assets/images.png");
-    enemy2.setPosition(600.f, 800.f);
-    enemy2.setScale(2, 2);
+    // second enemy
+    Enemy enemy2("../Assets/monster.png");
+    enemy2.setPosition(300.0f, 484.0f);
+    enemy2.setScale(0.4f, 0.4f);
 
     // Music
-    Music gameMusic("");
+    //Music gameMusic("");
 
     window.setVerticalSyncEnabled(true);
 
-    float enemyXPos = 0.0f;
-    float enemyYPos = 400.f;
-    float enemy2XPos = 10.0f;
-    float enemy2YPos = 600.f;
     int counter = 0;
 
     while (window.isOpen()){
@@ -71,7 +63,7 @@ int main(){
             if (event.type == sf::Event::KeyPressed) {
                 cout << "Button is pressed " << endl;
 
-                //for testing cordinates
+                //for testing coordinates
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
                     cout << character.getPosition().x << " " << character.getPosition().y << endl;
                     gameFont.setString("P");
@@ -137,12 +129,12 @@ int main(){
         // Knight sprite
         window.draw(*character.getSprite());
 
-        // sprite sprite
+        // enemy sprite
         window.draw(enemy1.getSprite());
         window.draw(enemy2.getSprite());
         counter++;
 
-        // this is the font
+        // font
         window.draw(gameFont.getText());
 
         window.display();
