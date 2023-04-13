@@ -20,3 +20,9 @@ sf::Vector2f Character::getPosition() {
 sf::Sprite* Character::getSprite(){
     return &this->sprite;
 }
+void setHealth(int health){
+
+}
+void setHealth(int health){
+
+}

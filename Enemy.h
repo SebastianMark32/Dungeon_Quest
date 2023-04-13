@@ -22,11 +22,14 @@ public:
 
     void randomEnemyMove(int number);
 
+    int getDamage(int damage);
+
 private:
     sf::Sprite sprite;
     sf::Texture texture;
+    int health;
+    int damage;
 
 };
-
 
 #endif //DUNGEON_QUEST_ENEMY_H

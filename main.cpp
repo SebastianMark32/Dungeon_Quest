@@ -5,12 +5,18 @@ static int score = 0;
 sf::RenderWindow window(sf::VideoMode(800, 600), "Dungeon Quest!", sf::Style::Resize);
 
 // global vector
-sf:: Vector2f playerPosition;
+sf::Vector2f playerPosition;
 
-int main(){
+
+int main() {
+
+    //initialize score
     //Create random number
-    srand((int)time(0));
+    srand((int) time(0));
     sf::Clock clock;
+
+    int damage = 10;
+    int health = 100;
     //int to get random number from
     int randomNum;
     //player control logic
@@ -20,17 +26,30 @@ int main(){
     bool dKeyReleased = true;
     sf::Event event;
 
+
+    sf::Text scoreText;
+    sf::Font scoreFont;
+    scoreFont.loadFromFile("../Assets/ArianaVioleta-dz2K.ttf");
+
+    scoreText.setFont(scoreFont);
+    scoreText.setString("Score: 0");
+    scoreText.setCharacterSize(100);
+    scoreText.setFillColor(sf::Color::Red);
+    scoreText.setPosition(window.getSize().x/2 - scoreText.getLocalBounds().width/2, 60);
+
     // game font
     Fonts gameFont("../Assets/ArianaVioleta-dz2K.ttf");
-    gameFont.setSize(100);
+    gameFont.setSize(70);
     gameFont.setStyle(sf::Text::Regular);
     gameFont.setString("Welcome to our game!");
-    gameFont.setPosition(120.f, 10.0f);
+    gameFont.setPosition(250.f, 10.0f);
 
     //player character
     Character character("../Assets/Knight3Walk.png");
     character.setScale(0.93f, 0.93f);
     character.setPosition(8.0f, 0.0f);
+
+    //Character::hero = *character.getSprite(); // this is the sprite
 
     // this is background
     Background background_sprite("../Assets/background800x600.png");
@@ -47,7 +66,7 @@ int main(){
     enemy2.setScale(0.4f, 0.4f);
 
     // Music
-    Music gameMusic("../Assets/A01_B.ogg");
+    //Music gameMusic("../Assets/A01_B.ogg");
     window.setVerticalSyncEnabled(true);
 
     //walk sound effect
@@ -55,10 +74,10 @@ int main(){
 
     int counter = 0;
 
-    while (window.isOpen()){
+    while (window.isOpen()) {
         int randomNum = rand();
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed){
+            if (event.type == sf::Event::Closed) {
                 window.close();
                 std::cout << "Event window handled" << std::endl;
             }
@@ -66,65 +85,79 @@ int main(){
                 //cout << "Button is pressed " << endl;
 
                 //for testing coordinates
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
                     cout << character.getPosition().x << " " << character.getPosition().y << endl;
                     gameFont.setString("P");
                 }
 
                 // closing the window when user presses escape
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                     window.close();
                 }
 
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)) && wKeyReleased && (character.getPosition().y > 0)) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (character.getPosition().y > 0)) {
                     //cout << "Moving Up " << endl;
                     gameFont.setString("W");
                     character.getSprite()->move(0.0f, -121.0f);
                     wKeyReleased = false;
-                    enemy1.randomEnemyMove(randomNum);
+                    enemy1.randomEnemyMove(rand());
+                    enemy2.randomEnemyMove(rand());
                     walkSound.Play();
                 }
 
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && aKeyReleased && (character.getPosition().x > 8)){
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && aKeyReleased && (character.getPosition().x > 8)) {
                     //cout << "Moving left" << endl;
                     gameFont.setString("A");
                     character.getSprite()->move(-133, 0.0f);
                     aKeyReleased = false;
-                    enemy1.randomEnemyMove(randomNum);
+                    enemy1.randomEnemyMove(rand());
+                    enemy2.randomEnemyMove(rand());
                     walkSound.Play();
                 }
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased && (character.getPosition().y < 484)) {
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased &&
+                    (character.getPosition().y < 484)) {
                     //cout << "Moving Down" << endl;
                     gameFont.setString("S");
                     character.getSprite()->move(0.0f, 121.0f);
                     sKeyReleased = false;
-                    enemy1.randomEnemyMove(randomNum);
+                    enemy1.randomEnemyMove(rand());
+                    enemy2.randomEnemyMove(rand());
                     walkSound.Play();
                 }
-                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased && (character.getPosition().x < 673)) {
+                if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased &&
+                    (character.getPosition().x < 673)) {
                     //cout << "Moving right" << endl;
                     gameFont.setString("D");
                     character.getSprite()->move(133, 0.0f);
                     dKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
+                    enemy2.randomEnemyMove(randomNum);
                     walkSound.Play();
                 }
             }
             if (event.type == sf::Event::KeyReleased) {
                 //cout << "Button released " << endl;
-                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
                     wKeyReleased = true;
                 }
-                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
                     aKeyReleased = true;
                 }
-                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
                     sKeyReleased = true;
                 }
-                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+                if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
                     dKeyReleased = true;
                 }
             }
+        }
+
+        // collision
+        if (character.getSprite()->getGlobalBounds().intersects(enemy2.getSprite().getGlobalBounds()) ||
+            character.getSprite()->getGlobalBounds().intersects(enemy1.getSprite().getGlobalBounds())) {
+
+            cout << "Hello enemy!" << endl;
+
         }
 
         window.clear();
@@ -142,6 +175,9 @@ int main(){
 
         // font
         window.draw(gameFont.getText());
+
+        // drawing the score
+        window.draw(scoreText);
 
         window.display();
     }
