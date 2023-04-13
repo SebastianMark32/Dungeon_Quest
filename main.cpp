@@ -67,6 +67,7 @@ int main() {
 
     // Music
     Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
+    gameMusic.setVolume(50);
 
 
     //walk sound effect
