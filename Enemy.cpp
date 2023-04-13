@@ -10,8 +10,8 @@ void Enemy::setPosition(float x, float y) {
 void Enemy::setScale(float x, float y) {
     this->sprite.setScale(x, y);
 }
-sf::Sprite Enemy::getSprite() {
-    return this->sprite;
+sf::Sprite * Enemy::getSprite() {
+    return &this->sprite;
 }
 
 int getDamage(int damage){
@@ -33,5 +33,25 @@ void Enemy::randomEnemyMove(int number){
     }
     if ((number == 3) & (sprite.getPosition().x < 673)) {
         sprite.move(133, 0.0f);
+    }
+}
+
+void Enemy::respawn(int number){
+    number = number % 3;
+    switch (number){
+        case 0:
+            sprite.setPosition(141.f, 121.f);
+            break;
+        case 1:
+            sprite.setPosition(540.f, 121.f);
+            break;
+        case 2:
+            sprite.setPosition(540.f, 363.f);
+            break;
+        case 3:
+            sprite.setPosition(141.f, 363.f);
+            break;
+        default:
+            break;
     }
 }

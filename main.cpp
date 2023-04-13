@@ -8,6 +8,13 @@ sf::RenderWindow window(sf::VideoMode(800, 600), "Dungeon Quest!", sf::Style::Re
 sf::Vector2f playerPosition;
 
 
+bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
+    if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
+        return true;
+    }
+        return false;
+}
+
 int main() {
 
     window.setVerticalSyncEnabled(true);
@@ -24,6 +31,7 @@ int main() {
     bool aKeyReleased = true;
     bool sKeyReleased = true;
     bool dKeyReleased = true;
+    bool endGame = false;
     sf::Event event;
 
 
@@ -61,9 +69,9 @@ int main() {
     enemy1.setScale(0.93f, 0.93f);
 
     // second enemy
-    Enemy enemy2("../Assets/monster.png");
-    enemy2.setPosition(300.0f, 484.0f);
-    enemy2.setScale(0.4f, 0.4f);
+    Enemy chest("../Assets/Chest.png");
+    chest.setPosition(274.0f, 484.0f);
+    chest.setScale(0.93f, 0.93f);
 
     // Music
     Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
@@ -73,6 +81,11 @@ int main() {
     //walk sound effect
     Sound walkSound("../Assets/step.wav");
     walkSound.getSound().setVolume(50);
+    //score sound effect
+    Sound scoreSound("../Assets/Score.wav");
+    scoreSound.getSound().setVolume(50);
+    Sound lostScoreSound("../Assets/lostScore.wav");
+    lostScoreSound.getSound().setVolume(50);
 
     int counter = 0;
 
@@ -103,7 +116,15 @@ int main() {
                     character.getSprite()->move(0.0f, -121.0f);
                     wKeyReleased = false;
                     enemy1.randomEnemyMove(rand());
-                    enemy2.randomEnemyMove(rand());
+                    if (checkCollision(character.getSprite(), enemy1.getSprite())){
+                        endGame = true;
+                    }
+                    chest.randomEnemyMove(rand());
+                    if (checkCollision(character.getSprite(), chest.getSprite())){
+                        chest.respawn(rand());
+                        scoreSound.Play();
+                        score += 1;
+                    }
                     walkSound.Play();
                 }
 
@@ -113,7 +134,15 @@ int main() {
                     character.getSprite()->move(-133, 0.0f);
                     aKeyReleased = false;
                     enemy1.randomEnemyMove(rand());
-                    enemy2.randomEnemyMove(rand());
+                    if (checkCollision(character.getSprite(), enemy1.getSprite())){
+                        endGame = true;
+                    }
+                    chest.randomEnemyMove(rand());
+                    if (checkCollision(character.getSprite(), chest.getSprite())){
+                        chest.respawn(rand());
+                        scoreSound.Play();
+                        score += 1;
+                    }
                     walkSound.Play();
                 }
                 if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased &&
@@ -123,7 +152,15 @@ int main() {
                     character.getSprite()->move(0.0f, 121.0f);
                     sKeyReleased = false;
                     enemy1.randomEnemyMove(rand());
-                    enemy2.randomEnemyMove(rand());
+                    if (checkCollision(character.getSprite(), enemy1.getSprite())){
+                        endGame = true;
+                    }
+                    chest.randomEnemyMove(rand());
+                    if (checkCollision(character.getSprite(), chest.getSprite())){
+                        chest.respawn(rand());
+                        scoreSound.Play();
+                        score += 1;
+                    }
                     walkSound.Play();
                 }
                 if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased &&
@@ -133,7 +170,15 @@ int main() {
                     character.getSprite()->move(133, 0.0f);
                     dKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
-                    enemy2.randomEnemyMove(randomNum);
+                    if (checkCollision(character.getSprite(), enemy1.getSprite())){
+                        endGame = true;
+                    }
+                    chest.randomEnemyMove(randomNum);
+                    if (checkCollision(character.getSprite(), chest.getSprite())){
+                        chest.respawn(rand());
+                        scoreSound.Play();
+                        score += 1;
+                    }
                     walkSound.Play();
                 }
             }
@@ -154,13 +199,17 @@ int main() {
             }
         }
 
-        // collision
-        if (character.getSprite()->getGlobalBounds().intersects(enemy2.getSprite().getGlobalBounds()) ||
-            character.getSprite()->getGlobalBounds().intersects(enemy1.getSprite().getGlobalBounds())) {
-
-            cout << "Hello enemy!" << endl;
-
+        if (checkCollision(enemy1.getSprite(), chest.getSprite())){
+            score -= 1;
+            cout << "Oh no! the enemy stole you treasure!";
+            chest.respawn(rand());
+            lostScoreSound.Play();
         }
+
+        scoreText.setString(to_string(score));
+        /*if (endGame == true){
+            gameFont.setString("GAME OVER");
+        }*/
 
         window.clear();
 
@@ -171,8 +220,8 @@ int main() {
         window.draw(*character.getSprite());
 
         // enemy sprite
-        window.draw(enemy1.getSprite());
-        window.draw(enemy2.getSprite());
+        window.draw(*enemy1.getSprite());
+        window.draw(*chest.getSprite());
         counter++;
 
         // font
@@ -182,6 +231,29 @@ int main() {
         window.draw(scoreText);
 
         window.display();
-    }
+
+        if (endGame == true){
+            cout << "You died. GAME OVER.";
+            window.close();
+        }
+
+        //forever keep game open till game is closed.
+        /*if (endGame == true){
+            while (true) {
+                while (window.pollEvent(event)) {
+                    if (event.type == sf::Event::Closed) {
+                        window.close();
+                        std::cout << "Event window handled" << std::endl;
+                    }
+                    // closing the window when user presses escape
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                        window.close();
+                        window.display();
+                    }
+            }
+        }*/
+
+        }
     return 0;
 }
+

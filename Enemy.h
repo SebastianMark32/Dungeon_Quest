@@ -18,11 +18,13 @@ public:
 
     void setScale(float x, float y);
 
-    sf::Sprite getSprite();
+    sf::Sprite * getSprite();
 
     void randomEnemyMove(int number);
 
     int getDamage(int damage);
+
+    void respawn(int number);
 
 private:
     sf::Sprite sprite;
