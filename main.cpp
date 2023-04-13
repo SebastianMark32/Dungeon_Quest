@@ -10,7 +10,7 @@ sf::Vector2f playerPosition;
 
 int main() {
 
-    //initialize score
+    window.setVerticalSyncEnabled(true);
     //Create random number
     srand((int) time(0));
     sf::Clock clock;
@@ -66,11 +66,12 @@ int main() {
     enemy2.setScale(0.4f, 0.4f);
 
     // Music
-    //Music gameMusic("../Assets/A01_B.ogg");
-    window.setVerticalSyncEnabled(true);
+    Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
+
 
     //walk sound effect
     Sound walkSound("../Assets/step.wav");
+    walkSound.getSound().setVolume(50);
 
     int counter = 0;
 

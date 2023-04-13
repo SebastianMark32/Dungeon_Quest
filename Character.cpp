@@ -23,6 +23,3 @@ sf::Sprite* Character::getSprite(){
 void setHealth(int health){
 
 }
-void setHealth(int health){
-
-}
