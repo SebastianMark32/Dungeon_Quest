@@ -22,10 +22,14 @@ public:
 
     sf::Sprite* getSprite();
 
+    int getHealth(int health);
+
 private:
     // making the sprite
     sf::Sprite sprite;
     sf::Texture texture;
+    int health;
+    int damage;
 };
 
 #endif //DUNGEON_QUEST_CHARACTER_H

@@ -14,6 +14,10 @@ sf::Sprite Enemy::getSprite() {
     return this->sprite;
 }
 
+int getDamage(int damage){
+    return damage;
+}
+
 // Nate's code for random enemy movement
 void Enemy::randomEnemyMove(int number){
     number = number % 4;
