@@ -37,16 +37,15 @@ int main() {
 
     sf::Text scoreText;
     sf::Font scoreFont;
-    scoreFont.loadFromFile("../Assets/ArianaVioleta-dz2K.ttf");
+    scoreFont.loadFromFile("../Assets/Hack-Regular.ttf");
 
     scoreText.setFont(scoreFont);
-    scoreText.setString("Score: 0");
-    scoreText.setCharacterSize(100);
+    scoreText.setCharacterSize(50);
     scoreText.setFillColor(sf::Color::Red);
-    scoreText.setPosition(window.getSize().x/2 - scoreText.getLocalBounds().width/2, 60);
+    scoreText.setPosition(0, 0);
 
     // game font
-    Fonts gameFont("../Assets/ArianaVioleta-dz2K.ttf");
+    Fonts gameFont("../Assets/Hack-Regular.ttf");
     gameFont.setSize(70);
     gameFont.setStyle(sf::Text::Regular);
     gameFont.setString("Welcome to our game!");
@@ -201,12 +200,12 @@ int main() {
 
         if (checkCollision(enemy1.getSprite(), chest.getSprite())){
             score -= 1;
-            cout << "Oh no! the enemy stole you treasure!";
+            cout << "Oh no! the enemy stole you treasure!\n";
             chest.respawn(rand());
             lostScoreSound.Play();
         }
 
-        scoreText.setString(to_string(score));
+        scoreText.setString("Score: " + to_string(score));
         /*if (endGame == true){
             gameFont.setString("GAME OVER");
         }*/
