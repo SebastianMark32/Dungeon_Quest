@@ -36,6 +36,7 @@ void Enemy::randomEnemyMove(int number){
     }
 }
 
+//A random respawn method in case an enemy object "dies"
 void Enemy::respawn(int number){
     number = number % 3;
     switch (number){

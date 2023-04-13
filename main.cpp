@@ -45,11 +45,11 @@ int main() {
     scoreText.setPosition(0, 0);
 
     // game font
-    Fonts gameFont("../Assets/Hack-Regular.ttf");
+    /*Fonts gameFont("../Assets/Hack-Regular.ttf");
     gameFont.setSize(70);
     gameFont.setStyle(sf::Text::Regular);
     gameFont.setString("Welcome to our game!");
-    gameFont.setPosition(250.f, 10.0f);
+    gameFont.setPosition(250.f, 10.0f);*/
 
     //player character
     Character character("../Assets/Knight3Walk.png");
@@ -101,7 +101,7 @@ int main() {
                 //for testing coordinates
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
                     cout << character.getPosition().x << " " << character.getPosition().y << endl;
-                    gameFont.setString("P");
+                    //gameFont.setString("P");
                 }
 
                 // closing the window when user presses escape
@@ -111,7 +111,7 @@ int main() {
 
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (character.getPosition().y > 0)) {
                     //cout << "Moving Up " << endl;
-                    gameFont.setString("W");
+                    //gameFont.setString("W");
                     character.getSprite()->move(0.0f, -121.0f);
                     wKeyReleased = false;
                     enemy1.randomEnemyMove(rand());
@@ -129,7 +129,7 @@ int main() {
 
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && aKeyReleased && (character.getPosition().x > 8)) {
                     //cout << "Moving left" << endl;
-                    gameFont.setString("A");
+                    //gameFont.setString("A");
                     character.getSprite()->move(-133, 0.0f);
                     aKeyReleased = false;
                     enemy1.randomEnemyMove(rand());
@@ -147,7 +147,7 @@ int main() {
                 if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased &&
                     (character.getPosition().y < 484)) {
                     //cout << "Moving Down" << endl;
-                    gameFont.setString("S");
+                    //gameFont.setString("S");
                     character.getSprite()->move(0.0f, 121.0f);
                     sKeyReleased = false;
                     enemy1.randomEnemyMove(rand());
@@ -165,7 +165,7 @@ int main() {
                 if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased &&
                     (character.getPosition().x < 673)) {
                     //cout << "Moving right" << endl;
-                    gameFont.setString("D");
+                    //gameFont.setString("D");
                     character.getSprite()->move(133, 0.0f);
                     dKeyReleased = false;
                     enemy1.randomEnemyMove(randomNum);
@@ -181,6 +181,8 @@ int main() {
                     walkSound.Play();
                 }
             }
+
+            //makes it so you have to realase the key to move in that direction again.
             if (event.type == sf::Event::KeyReleased) {
                 //cout << "Button released " << endl;
                 if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
@@ -224,7 +226,7 @@ int main() {
         counter++;
 
         // font
-        window.draw(gameFont.getText());
+        //window.draw(gameFont.getText());
 
         // drawing the score
         window.draw(scoreText);
