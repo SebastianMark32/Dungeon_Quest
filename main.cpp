@@ -12,7 +12,7 @@ bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
         return true;
     }
-        return false;
+    return false;
 }
 
 int main() {
@@ -37,7 +37,7 @@ int main() {
 
     sf::Text scoreText;
     sf::Font scoreFont;
-    scoreFont.loadFromFile("./Assets/Hack-Regular.ttf");
+    scoreFont.loadFromFile("../Assets/Hack-Regular.ttf");
 
     scoreText.setFont(scoreFont);
     scoreText.setCharacterSize(50);
@@ -52,38 +52,38 @@ int main() {
     gameFont.setPosition(250.f, 10.0f);*/
 
     //player character
-    Character character("./Assets/Knight3Walk.png");
+    Character character("../Assets/Knight3Walk.png");
     character.setScale(0.93f, 0.93f);
     character.setPosition(8.0f, 0.0f);
 
     //Character::hero = *character.getSprite(); // this is the sprite
 
     // this is background
-    Background background_sprite("./Assets/background800x600.png");
+    Background background_sprite("../Assets/background800x600.png");
 
     // sprite sprite
-    Enemy enemy1("./Assets/Enemy.png");
+    Enemy enemy1("../Assets/Enemy.png");
     //enemy1.setScale(0.5f, 1.5f);
     enemy1.setPosition(673.0f, 484.0f);
     enemy1.setScale(0.93f, 0.93f);
 
     // second enemy
-    Enemy chest("./Assets/Chest.png");
+    Enemy chest("../Assets/Chest.png");
     chest.setPosition(274.0f, 484.0f);
     chest.setScale(0.93f, 0.93f);
 
     // Music
-    Music gameMusic("./Assets/VillageConsort-KevinMacLeod.ogg");
+    Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
     gameMusic.setVolume(50);
 
 
     //walk sound effect
-    Sound walkSound("./Assets/step.wav");
+    Sound walkSound("../Assets/step.wav");
     walkSound.getSound().setVolume(50);
     //score sound effect
-    Sound scoreSound("./Assets/Score.wav");
+    Sound scoreSound("../Assets/Score.wav");
     scoreSound.getSound().setVolume(50);
-    Sound lostScoreSound("./Assets/lostScore.wav");
+    Sound lostScoreSound("../Assets/lostScore.wav");
     lostScoreSound.getSound().setVolume(50);
 
     int counter = 0;
@@ -224,10 +224,6 @@ int main() {
         window.draw(*enemy1.getSprite());
         window.draw(*chest.getSprite());
         counter++;
-
-        // font
-        //window.draw(gameFont.getText());
-
         // drawing the score
         window.draw(scoreText);
 
@@ -237,22 +233,6 @@ int main() {
             cout << "You died. GAME OVER.";
             window.close();
         }
-
-        //forever keep game open till game is closed.
-        /*if (endGame == true){
-            while (true) {
-                while (window.pollEvent(event)) {
-                    if (event.type == sf::Event::Closed) {
-                        window.close();
-                        std::cout << "Event window handled" << std::endl;
-                    }
-                    // closing the window when user presses escape
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-                        window.close();
-                        window.display();
-                    }
-            }
-        }*/
 
         }
     return 0;
