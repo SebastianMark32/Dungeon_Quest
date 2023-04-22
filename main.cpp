@@ -1,12 +1,13 @@
 #include "Dependencies.h"
 
 static int score = 0;
+static const float VIEW_WITDH = 800.f;
+static const float VIEW_HEIGHT = 600.f;
 // this is rendering a window which displays the viewer window
-sf::RenderWindow window(sf::VideoMode(800, 600), "Dungeon Quest!", sf::Style::Resize);
-
+sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!", sf::Style::Resize | sf::Style::Close);
+sf::View view(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 // global vector
 sf::Vector2f playerPosition;
-
 
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
@@ -18,6 +19,7 @@ bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
 int main() {
 
     window.setVerticalSyncEnabled(true);
+    window.setView(view);
     //Create random number
     srand((int) time(0));
     sf::Clock clock;
@@ -91,14 +93,42 @@ int main() {
     while (window.isOpen()) {
         int randomNum = rand();
         while (window.pollEvent(event)) {
+
+            //Code gotten from SFML wiki https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view
             if (event.type == sf::Event::Closed) {
                 window.close();
                 std::cout << "Event window handled" << std::endl;
             }
+            if (event.type == sf::Event::Resized){
+                float windowRatio = event.size.width / (float) event.size.height;
+                float viewRatio = view.getSize().x / (float) view.getSize().y;
+                float sizeX = 1;
+                float sizeY = 1;
+                float posX = 0;
+                float posY = 0;
+
+                bool horizontalSpacing = true;
+                if (windowRatio < viewRatio)
+                    horizontalSpacing = false;
+
+                // If horizontalSpacing is true, the black bars will appear on the left and right side.
+                // Otherwise, the black bars will appear on the top and bottom.
+
+                if (horizontalSpacing) {
+                    sizeX = viewRatio / windowRatio;
+                    posX = (1 - sizeX) / 2.f;
+                }
+
+                else {
+                    sizeY = windowRatio / viewRatio;
+                    posY = (1 - sizeY) / 2.f;
+                }
+
+                view.setViewport( sf::FloatRect(posX, posY, sizeX, sizeY) );
+            }
             if (event.type == sf::Event::KeyPressed) {
                 //cout << "Button is pressed " << endl;
 
-                //for testing coordinates
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
                     cout << character.getPosition().x << " " << character.getPosition().y << endl;
                     //gameFont.setString("P");
@@ -213,6 +243,7 @@ int main() {
         }*/
 
         window.clear();
+        window.setView(view);
 
         // drawing the background
         window.draw(background_sprite.getSprite());
