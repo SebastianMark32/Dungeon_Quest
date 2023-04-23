@@ -107,7 +107,6 @@ void resize_window(){
 }
 void update_KeyRelease(){
     if (event.type == sf::Event::KeyReleased) {
-        //cout << "Button released " << endl;
         if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
             wKeyReleased = true;
         }
@@ -146,7 +145,7 @@ int main() {
     window.setVerticalSyncEnabled(true);
     window.setView(view);
     //Create random number
-//    srand((int) time(0));
+    srand((int) time(0));
     sf::Clock clock;
 
     chest_object();
