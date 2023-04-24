@@ -88,14 +88,14 @@ sf::Event event;
 sf::Text scoreText;
 sf::Font scoreFont;
 
-Sound walkSound("../Assets/step.wav");
-Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
-Background background_sprite("../Assets/background800x600.png");
-Character character("../Assets/Knight3Walk.png");
-Enemy chest("../Assets/Chest.png");
-Enemy enemy1("../Assets/Enemy.png");
-Sound scoreSound("../Assets/Score.wav");
-Sound lostScoreSound("../Assets/lostScore.wav");
+Sound walkSound("./Assets/step.wav");
+Music gameMusic("./Assets/VillageConsort-KevinMacLeod.ogg");
+Background background_sprite("./Assets/background800x600.png");
+Character character("./Assets/Knight3Walk.png");
+Enemy chest("./Assets/Chest.png");
+Enemy enemy1("./Assets/Enemy.png");
+Sound scoreSound("./Assets/Score.wav");
+Sound lostScoreSound("./Assets/lostScore.wav");
 
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
@@ -146,7 +146,7 @@ void close_window(){
     }
 }
 void score_font(){
-    scoreFont.loadFromFile("../Assets/Hack-Regular.ttf");
+    scoreFont.loadFromFile("./Assets/Hack-Regular.ttf");
 }
 void resize_window(){
     if (event.type == sf::Event::Resized){
@@ -219,47 +219,24 @@ int main() {
     const int level[] =
             {
                     // #78 is a black tile
-                    1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 1, 1, 1, 1,
-                    11, 12, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
-                    11, 12, 18, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-                    0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
-                    0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 78, 79,
-                    0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
-                    2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
-                    0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
-                    0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                    0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
-                    1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-                    0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
-                    0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
-                    0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
-                    2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
-                    0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
-                    0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                    0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
-                    1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-                    0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
-                    0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
-                    0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
-                    2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
-                    0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
-                    0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                    0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
-                    1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-                    0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
-                    0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
-                    0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
-                    2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
-                    0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
+                    78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
+                    78, 0, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 5, 78,
+                    78, 10, 11, 12, 13, 12, 12, 13, 12, 13, 13, 12, 13, 14, 15, 78,
+                    78, 20, 21, 6, 7, 8, 9, 7, 8, 9, 17, 16, 9, 24, 25, 78,
+                    78, 30, 21, 16, 17, 27, 28, 29, 18, 17, 7, 6, 7, 24, 35, 78,
+                    78, 10, 21, 26, 27, 7, 6, 18, 19, 9, 26, 28, 18, 24, 25, 78,
+                    78, 20, 31, 32, 33, 33, 32, 33, 32, 33, 32, 32, 33, 34, 35, 78,
+                    78, 40, 41, 42, 43, 41, 42, 43, 44, 41, 42, 43, 44, 41, 45, 78,
+                    78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
 
             };
 
     // create the tilemap from the level definition
     TileMap map;
-    if (!map.load("../Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 32, 16))
+    if (!map.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9))
         return -1;
 
-    map.setScale(4.f,4.f);
+    map.setScale(7.5f,7.5f);
     map.setPosition(0,0);
 
     window.setVerticalSyncEnabled(true);
@@ -268,8 +245,7 @@ int main() {
     srand((int) time(0));
     sf::Clock clock;
 
-    chest_object();
-    hero_attributes();
+    chest_object();    hero_attributes();
     enemy_attributes();
     enemy_one();
     music_attributes();
