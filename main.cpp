@@ -88,14 +88,14 @@ sf::Event event;
 sf::Text scoreText;
 sf::Font scoreFont;
 
-Sound walkSound("./Assets/step.wav");
-Music gameMusic("./Assets/VillageConsort-KevinMacLeod.ogg");
-Background background_sprite("./Assets/background800x600.png");
-Character character("./Assets/Knight3Walk.png");
-Enemy chest("./Assets/Chest.png");
-Enemy enemy1("./Assets/Enemy.png");
-Sound scoreSound("./Assets/Score.wav");
-Sound lostScoreSound("./Assets/lostScore.wav");
+Sound walkSound("../Assets/step.wav");
+Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
+Background background_sprite("../Assets/background800x600.png");
+Character character("../Assets/Knight3Walk.png");
+Enemy chest("../Assets/Chest.png");
+Enemy enemy1("../Assets/Enemy.png");
+Sound scoreSound("../Assets/Score.wav");
+Sound lostScoreSound("../Assets/lostScore.wav");
 
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
@@ -146,7 +146,7 @@ void close_window(){
     }
 }
 void score_font(){
-    scoreFont.loadFromFile("./Assets/Hack-Regular.ttf");
+    scoreFont.loadFromFile("../Assets/Hack-Regular.ttf");
 }
 void resize_window(){
     if (event.type == sf::Event::Resized){
@@ -233,7 +233,7 @@ int main() {
 
     // create the tilemap from the level definition
     TileMap map;
-    if (!map.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9))
+    if (!map.load("../Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9))
         return -1;
 
     map.setScale(7.5f,7.5f);
