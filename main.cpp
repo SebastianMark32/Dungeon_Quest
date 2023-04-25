@@ -1,76 +1,7 @@
 #include "Dependencies.h"
-
-// Testing tilemap
-class TileMap:
-        public sf::Drawable,
-        public sf::Transformable
-{
-public:
-
-    bool load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height)
-    {
-        // load the tileset texture
-        if (!m_tileset.loadFromFile(tileset))
-            return false;
-
-        // resize the vertex array to fit the level size
-        m_vertices.setPrimitiveType(sf::Quads);
-        m_vertices.resize(width * height * 4);
-
-        // populate the vertex array, with one quad per tile
-        for (unsigned int i = 0; i < width; ++i)
-            for (unsigned int j = 0; j < height; ++j)
-            {
-                // get the current tile number
-                int tileNumber = tiles[i + j * width];
-
-                // find its position in the tileset texture
-                int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
-                int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
-
-                // get a pointer to the current tile's quad
-                sf::Vertex* quad = &m_vertices[(i + j * width) * 4];
-
-                // define its 4 corners
-                quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y);
-                quad[1].position = sf::Vector2f((i + 1) * tileSize.x, j * tileSize.y);
-                quad[2].position = sf::Vector2f((i + 1) * tileSize.x, (j + 1) * tileSize.y);
-                quad[3].position = sf::Vector2f(i * tileSize.x, (j + 1) * tileSize.y);
-
-                // define its 4 texture coordinates
-                quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
-                quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
-                quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
-                quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
-            }
-
-        return true;
-    }
-
-private:
-
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
-    {
-        // apply the transform
-        states.transform *= getTransform();
-
-        // apply the tileset texture
-        states.texture = &m_tileset;
-
-        // draw the vertex array
-        target.draw(m_vertices, states);
-    }
-
-    sf::VertexArray m_vertices;
-    sf::Texture m_tileset;
-};
-
-
 static int score = 0;
 static const float VIEW_WITDH = 1920.f;
 static const float VIEW_HEIGHT = 1080.f;
-
-
 
 bool wKeyReleased = true;
 bool aKeyReleased = true;
@@ -121,10 +52,10 @@ void enemy_one(){
 }
 void hero_attributes(){
     character.setScale(0.93f, 0.93f);
-    character.setPosition(8.0f, 0.0f);
+    character.setPosition(968.0f, 605.0f);
 }
 void chest_object(){
-    chest.setPosition(274.0f, 484.0f);
+    chest.setPosition(363.0f, 484.0f);
     chest.setScale(0.93f, 0.93f);
 }
 void sound_score(){
@@ -216,8 +147,7 @@ int main() {
     // define the level with an array of tile indices
     window.setView(view);
 
-    const int level[] =
-            {
+    const int level[] = {
                     // #78 is a black tile
                     78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
                     78, 0, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 5, 78,
@@ -236,6 +166,7 @@ int main() {
     if (!map.load("../Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9))
         return -1;
 
+   // scaling the map size for full screen
     map.setScale(7.5f,7.5f);
     map.setPosition(0,0);
 
@@ -245,7 +176,8 @@ int main() {
     srand((int) time(0));
     sf::Clock clock;
 
-    chest_object();    hero_attributes();
+    chest_object();
+    hero_attributes();
     enemy_attributes();
     enemy_one();
     music_attributes();
@@ -290,7 +222,6 @@ int main() {
         // drawing the score
         window.draw(scoreText);
 
-
         window.display();
 
         if (endGame == true){
@@ -301,7 +232,7 @@ int main() {
 }
 
 void character_movement(){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (character.getPosition().y > 0)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (character.getPosition().y > 242)) {
         character.getSprite()->move(0.0f, -121.0f);
         wKeyReleased = false;
         enemy1.randomEnemyMove(rand());
@@ -316,8 +247,8 @@ void character_movement(){
         }
         walkSound.Play();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && aKeyReleased && (character.getPosition().x > 8)) {
-        character.getSprite()->move(-133, 0.0f);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && aKeyReleased && (character.getPosition().x > 242)) {
+        character.getSprite()->move(-121, 0.0f);
         aKeyReleased = false;
         enemy1.randomEnemyMove(rand());
         if (checkCollision(character.getSprite(), enemy1.getSprite())){
@@ -332,7 +263,7 @@ void character_movement(){
         walkSound.Play();
     }
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased &&
-        (character.getPosition().y < 484)) {
+        (character.getPosition().y < 700)) {
         character.getSprite()->move(0.0f, 121.0f);
         sKeyReleased = false;
         enemy1.randomEnemyMove(rand());
@@ -348,8 +279,8 @@ void character_movement(){
         walkSound.Play();
     }
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased &&
-        (character.getPosition().x < 673)) {
-        character.getSprite()->move(133, 0.0f);
+        (character.getPosition().x < 1500)) {
+        character.getSprite()->move(121, 0.0f);
         dKeyReleased = false;
         enemy1.randomEnemyMove(randomNum);
         if (checkCollision(character.getSprite(), enemy1.getSprite())){
