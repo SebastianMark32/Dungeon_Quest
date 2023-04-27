@@ -4,6 +4,13 @@ Enemy::Enemy(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
 }
+
+Enemy::Enemy(std::string path, sf::IntRect textRec) {
+    this->texture.loadFromFile(path);
+    this->sprite.setTextureRect(textRec);
+    this->sprite.setTexture(texture);
+}
+
 void Enemy::setPosition(float x, float y) {
     this->sprite.setPosition(x, y);
 }

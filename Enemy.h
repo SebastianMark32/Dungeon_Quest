@@ -13,6 +13,7 @@ public:
      * using this in the Enemy.cpp file
      ***/
     Enemy(std::string path);
+    Enemy(std::string path, sf::IntRect textRec);
 
     void setPosition(float x, float y);
 

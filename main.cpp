@@ -23,7 +23,7 @@ Sound walkSound("./Assets/step.wav");
 Music gameMusic("./Assets/VillageConsort-KevinMacLeod.ogg");
 Character character("./Assets/Character_animation/priests_idle/priest3/v1/priest3_v1_1.png");
 Enemy chest("./Assets/Chest.png");
-Enemy enemy1("./Assets/Character_animation/monsters_idle/vampire/v2/vampire_v2_1.png");
+Enemy enemy1("./Assets/Character_animation/monsters_idle/vampire/Vampire.png", sf::IntRect(0, 0, 16, 16));
 Sound scoreSound("./Assets/Score.wav");
 Sound lostScoreSound("./Assets/lostScore.wav");
 
