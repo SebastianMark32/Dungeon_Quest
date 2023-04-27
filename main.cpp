@@ -19,14 +19,13 @@ sf::Event event;
 sf::Text scoreText;
 sf::Font scoreFont;
 
-Sound walkSound("../Assets/step.wav");
-Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
-Background background_sprite("../Assets/background800x600.png");
-Character character("../Assets/Knight3Walk.png");
-Enemy chest("../Assets/Chest.png");
-Enemy enemy1("../Assets/Enemy.png");
-Sound scoreSound("../Assets/Score.wav");
-Sound lostScoreSound("../Assets/lostScore.wav");
+Sound walkSound("./Assets/step.wav");
+Music gameMusic("./Assets/VillageConsort-KevinMacLeod.ogg");
+Character character("./Assets/Character_animation/priests_idle/priest3/v1/priest3_v1_1.png");
+Enemy chest("./Assets/Chest.png");
+Enemy enemy1("./Assets/Character_animation/monsters_idle/vampire/v2/vampire_v2_1.png");
+Sound scoreSound("./Assets/Score.wav");
+Sound lostScoreSound("./Assets/lostScore.wav");
 
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
@@ -38,7 +37,7 @@ void music_attributes(){
     gameMusic.setVolume(50);
 }
 void enemy_attributes(){
-    chest.setPosition(274.0f, 484.0f);
+    chest.setPosition(968.0f, 484.0f);
     chest.setScale(0.93f, 0.93f);
 }
 void walk_attributes(){
@@ -47,11 +46,11 @@ void walk_attributes(){
     scoreSound.getSound().setVolume(50);
 }
 void enemy_one(){
-    enemy1.setPosition(673.0f, 484.0f);
-    enemy1.setScale(0.93f, 0.93f);
+    enemy1.setPosition(1573.0f, 605.0f);
+    enemy1.setScale(7.f, 7.f);
 }
 void hero_attributes(){
-    character.setScale(0.93f, 0.93f);
+    character.setScale(7.f, 7.f);
     character.setPosition(968.0f, 605.0f);
 }
 void chest_object(){
@@ -77,7 +76,7 @@ void close_window(){
     }
 }
 void score_font(){
-    scoreFont.loadFromFile("../Assets/Hack-Regular.ttf");
+    scoreFont.loadFromFile("./Assets/Hack-Regular.ttf");
 }
 void resize_window(){
     if (event.type == sf::Event::Resized){
@@ -149,21 +148,21 @@ int main() {
 
     const int level[] = {
                     // #78 is a black tile
-                    78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
-                    78, 0, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 5, 78,
-                    78, 10, 11, 12, 13, 12, 12, 13, 12, 13, 13, 12, 13, 14, 15, 78,
-                    78, 20, 21, 6, 7, 8, 9, 7, 8, 9, 17, 16, 9, 24, 25, 78,
-                    78, 30, 21, 16, 17, 27, 28, 29, 18, 17, 7, 6, 7, 24, 35, 78,
-                    78, 10, 21, 26, 27, 7, 6, 18, 19, 9, 26, 28, 18, 24, 25, 78,
-                    78, 20, 31, 32, 33, 33, 32, 33, 32, 33, 32, 32, 33, 34, 35, 78,
-                    78, 40, 41, 42, 43, 41, 42, 43, 44, 41, 42, 43, 44, 41, 45, 78,
-                    78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
+                     0,  1,  2,  3,  4,  5, 78, 78, 78, 78,  0,  1,  2,  3,  4,  5,
+                    10, 11, 12, 13, 14,  2,  1,  2,  3,  4,  1, 11, 12, 13, 14, 15,
+                    20, 31,  6,  7,  8, 12, 12, 13, 12, 13, 13,  6,  7,  9, 34, 25,
+                    40, 55, 21,  6,  7,  8,  9,  7,  8,  9, 17, 16,  9, 24, 54, 45,
+                    78, 10, 21, 16, 17, 27, 28, 29, 18, 17,  7,  6,  7, 24, 35, 78,
+                     0,  1, 21, 26, 27,  27,  6, 18, 19,  9, 26, 28, 18, 24,  4, 5,
+                    20, 11, 17, 18, 19, 33, 32, 33, 32, 33, 32,  8,  7,  6, 14, 25,
+                    30, 31, 32, 33, 34, 50, 42, 43, 44, 41, 55, 31, 32, 33, 34, 15,
+                    40, 41, 42, 43, 44, 45, 78, 78, 78, 78, 40, 41, 42, 43, 44, 45,
 
             };
 
     // create the tilemap from the level definition
     TileMap map;
-    if (!map.load("../Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9))
+    if (!map.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9))
         return -1;
 
    // scaling the map size for full screen
