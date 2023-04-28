@@ -57,7 +57,7 @@ void enemy_one(){
 }
 void hero_attributes(){
     character.setScale(7.f, 7.f);
-    character.setPosition(968.0f, 605.0f);
+    character.setPosition(242.0f, 242.0f);
     characterAnimation.addFrame({sf::IntRect(0, 0, 16, 16), 3});
     characterAnimation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
     characterAnimation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
@@ -157,21 +157,28 @@ int main() {
     window.setView(view);
 
     const int level[] = {
-                    // #78 is a black tile
-                     0,  1,  2,  3,  4,  5, 78, 78, 78, 78,  0,  1,  2,  3,  4,  5,
-                    10, 11, 12, 13, 14,  2,  1,  2,  3,  4,  1, 11, 12, 13, 14, 15,
-                    20, 31,  6,  7,  8, 12, 12, 13, 12, 13, 13,  6,  7,  9, 34, 25,
-                    40, 55, 21,  6,  7,  8,  9,  7,  8,  9, 17, 16,  9, 24, 54, 45,
-                    78, 10, 21, 16, 17, 27, 28, 29, 18, 17,  7,  6,  7, 24, 35, 78,
-                     0,  1, 21, 26, 27,  27,  6, 18, 19,  9, 26, 28, 18, 24,  4, 5,
-                    20, 11, 17, 18, 19, 33, 32, 33, 32, 33, 32,  8,  7,  6, 14, 25,
-                    30, 31, 32, 33, 34, 50, 42, 43, 44, 41, 55, 31, 32, 33, 34, 15,
-                    40, 41, 42, 43, 44, 45, 78, 78, 78, 78, 40, 41, 42, 43, 44, 45,
-
-            };
+            // #78 is a black tile
+            78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
+            78,  0,  1,  2,  3,  4,  1,  2,  3,  4,  1,  2,  3,  4,  5, 78,
+            78, 10, 11, 12, 13, 12, 12, 13, 12, 13, 13, 12, 13, 14, 15, 78,
+            78, 20, 21,  6,  7,  8,  9,  7,  8,  9, 17, 16,  9, 24, 25, 78,
+            78, 30, 21, 16, 17, 27, 28, 29, 18, 17,  7,  6,  7, 24, 35, 78,
+            78, 10, 21, 26, 17,  8,  6, 18, 19,  9, 26, 28, 18, 24, 25, 78,
+            78, 20, 31, 32, 33, 33, 32, 33, 32, 33, 32, 32, 33, 34, 35, 78,
+            78, 40, 41, 42, 43, 41, 42, 43, 44, 41, 42, 43, 44, 41, 45, 78,
+            78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
+    };
 
     const bool walkable[] = {
-            true, true, true
+            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
     };
 
 

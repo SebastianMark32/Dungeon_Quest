@@ -26,6 +26,11 @@ sf::Vector2f Character::getPosition() {
 sf::Sprite* Character::getSprite(){
     return &this->sprite;
 }
+
+void Character::setTile(int tileIndex) {
+    this->currentTile = tileIndex;
+}
+
 void setHealth(int health){
 
 }

@@ -23,6 +23,8 @@ public:
 
     sf::Sprite* getSprite();
 
+    void setTile(int tileIndex);
+
     int getHealth(int health);
 
 private:
@@ -31,6 +33,7 @@ private:
     sf::Texture texture;
     int health;
     int damage;
+    int currentTile;
 };
 
 #endif //DUNGEON_QUEST_CHARACTER_H
