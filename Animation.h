@@ -14,17 +14,14 @@ struct Frame {
 class Animation {
 public:
     Animation(sf::Sprite &target);
-    virtual ~Animation();
     void addFrame(Frame&& frame);
     void update(double elapsed);
     const double getLength() const { return totalLength; }
-
 private:
     std::vector<Frame> frames;
     double totalLength;
     double progress;
     sf::Sprite &target;
 };
-
 
 #endif //DUNGEON_QUEST_ANIMATION_H

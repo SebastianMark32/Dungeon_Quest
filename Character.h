@@ -13,6 +13,7 @@ public:
      * using this in the Character.cpp file
      ***/
     Character(std::string path);
+    Character(std::string path, sf::IntRect textRec);
 
     void setPosition(float x, float y);
 

@@ -21,11 +21,13 @@ sf::Font scoreFont;
 
 Sound walkSound("./Assets/step.wav");
 Music gameMusic("./Assets/VillageConsort-KevinMacLeod.ogg");
-Character character("./Assets/Character_animation/priests_idle/priest3/v1/priest3_v1_1.png");
+Character character("./Assets/Character_animation/Knight.png", sf::IntRect( 0, 0, 16, 16));
 Enemy chest("./Assets/Chest.png");
-Enemy enemy1("./Assets/Character_animation/monsters_idle/vampire/Vampire.png", sf::IntRect(0, 0, 16, 16));
+Enemy enemy1("./Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
 Sound scoreSound("./Assets/Score.wav");
 Sound lostScoreSound("./Assets/lostScore.wav");
+Animation vampireAnimation(*enemy1.getSprite());
+Animation characterAnimation(*character.getSprite());
 
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
@@ -48,10 +50,18 @@ void walk_attributes(){
 void enemy_one(){
     enemy1.setPosition(1573.0f, 605.0f);
     enemy1.setScale(7.f, 7.f);
+    vampireAnimation.addFrame({sf::IntRect(0, 0, 16, 16), 3});
+    vampireAnimation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
+    vampireAnimation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
+    vampireAnimation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
 }
 void hero_attributes(){
     character.setScale(7.f, 7.f);
     character.setPosition(968.0f, 605.0f);
+    characterAnimation.addFrame({sf::IntRect(0, 0, 16, 16), 3});
+    characterAnimation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
+    characterAnimation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
+    characterAnimation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
 }
 void chest_object(){
     chest.setPosition(363.0f, 484.0f);
@@ -160,6 +170,11 @@ int main() {
 
             };
 
+    const bool walkable[] = {
+            true, true, true
+    };
+
+
     // create the tilemap from the level definition
     TileMap map;
     if (!map.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9))
@@ -212,9 +227,11 @@ int main() {
        // window.draw(background_sprite.getSprite());
 
         // Knight sprite
+        characterAnimation.update(0.1);
         window.draw(*character.getSprite());
 
         // enemy sprite
+        vampireAnimation.update(0.1);
         window.draw(*enemy1.getSprite());
         window.draw(*chest.getSprite());
         counter++;

@@ -10,6 +10,7 @@
 #include "Character.h"
 #include "Music.h"
 #include "Sound.h"
+#include "Animation.h"
 
 using namespace std;
 
