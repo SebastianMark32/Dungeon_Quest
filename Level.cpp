@@ -3,6 +3,7 @@
 //
 
 #include "Level.h"
+#include <iostream>
 
 Level::Level() {
     this->currentLevel = 1;
@@ -22,14 +23,14 @@ Level::Level() {
     this->levelDesign.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9);
     bool tileisWalkableLevel1[] = {
         false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-                false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
-                false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
-                false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
-                false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
-                false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+        false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+        false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+        false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+        false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+        false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+        false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
     };
     for (int i = 0; i < 144; i++){
         tileIsWalkable[i] = tileisWalkableLevel1[i];
@@ -56,8 +57,10 @@ void Level::nextLevel() {
 
 bool Level::isTileXWalkable(int indexX) {
     if (indexX < 0 || indexX > 144){
+        cout << "false";
         return false;
     }
+    cout << tileIsWalkable[indexX] << false <<  true << endl;
     return tileIsWalkable[indexX];
 }
 
@@ -84,9 +87,12 @@ void Level::level2() {
             false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
             false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
             false, true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, true, false,
-            false, true, true, true, false, false, false, false, false, false, false, true, true, true, true, false,
+            false, true, true, true, true, false, false, false, false, false, false, true, true, true, true, false,
             false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
     };
+    for (int i = 0; i < 144; i++){
+        tileIsWalkable[i] = tileisWalkableLevel2[i];
+    }
 }
 
 

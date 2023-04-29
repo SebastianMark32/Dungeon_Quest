@@ -23,7 +23,9 @@ public:
 
     sf::Sprite* getSprite();
 
-    void setTile(int tileIndex);
+    int getCurrentTile();
+
+    void setCurrentTile(int tileIndex);
 
     int getHealth(int health);
 

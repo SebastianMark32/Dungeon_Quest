@@ -28,6 +28,7 @@ Sound scoreSound("./Assets/Score.wav");
 Sound lostScoreSound("./Assets/lostScore.wav");
 Animation vampireAnimation(*enemy1.getSprite());
 Animation characterAnimation(*character.getSprite());
+Level level;
 
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
@@ -58,6 +59,7 @@ void enemy_one(){
 void hero_attributes(){
     character.setScale(7.f, 7.f);
     character.setPosition(242.0f, 242.0f);
+    character.setCurrentTile(34);
     characterAnimation.addFrame({sf::IntRect(0, 0, 16, 16), 3});
     characterAnimation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
     characterAnimation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
@@ -156,8 +158,6 @@ int main() {
     // define the level with an array of tile indices
     window.setView(view);
 
-    Level level;
-
    // scaling the map size for full screen
     level.getTilemap()->setScale(7.5f,7.5f);
     level.getTilemap()->setPosition(0,0);
@@ -227,8 +227,9 @@ int main() {
 }
 
 void character_movement(){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (character.getPosition().y > 242)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 16))) {
         character.getSprite()->move(0.0f, -121.0f);
+        character.setCurrentTile(character.getCurrentTile() - 16);
         wKeyReleased = false;
         enemy1.randomEnemyMove(rand());
         if (checkCollision(character.getSprite(), enemy1.getSprite())){
@@ -242,8 +243,9 @@ void character_movement(){
         }
         walkSound.Play();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && aKeyReleased && (character.getPosition().x > 242)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && aKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 1))) {
         character.getSprite()->move(-121, 0.0f);
+        character.setCurrentTile(character.getCurrentTile() - 1);
         aKeyReleased = false;
         enemy1.randomEnemyMove(rand());
         if (checkCollision(character.getSprite(), enemy1.getSprite())){
@@ -257,9 +259,9 @@ void character_movement(){
         }
         walkSound.Play();
     }
-    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased &&
-        (character.getPosition().y < 700)) {
+    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased && (level.isTileXWalkable(character.getCurrentTile() + 16))) {
         character.getSprite()->move(0.0f, 121.0f);
+        character.setCurrentTile(character.getCurrentTile() + 16);
         sKeyReleased = false;
         enemy1.randomEnemyMove(rand());
         if (checkCollision(character.getSprite(), enemy1.getSprite())){
@@ -273,9 +275,9 @@ void character_movement(){
         }
         walkSound.Play();
     }
-    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased &&
-        (character.getPosition().x < 1500)) {
+    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased && (level.isTileXWalkable(character.getCurrentTile() + 1))) {
         character.getSprite()->move(121, 0.0f);
+        character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
         enemy1.randomEnemyMove(randomNum);
         if (checkCollision(character.getSprite(), enemy1.getSprite())){

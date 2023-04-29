@@ -27,8 +27,12 @@ sf::Sprite* Character::getSprite(){
     return &this->sprite;
 }
 
-void Character::setTile(int tileIndex) {
-    this->currentTile = tileIndex;
+int Character::getCurrentTile() {
+    return currentTile;
+}
+
+void Character::setCurrentTile(int currentTile) {
+    this->currentTile = currentTile;
 }
 
 void setHealth(int health){
