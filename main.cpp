@@ -191,6 +191,7 @@ int main() {
             if (event.type == sf::Event::KeyPressed) {
                 keyPressed_functions();
                 character_movement();
+                level.nextLevel();
             }
             update_KeyRelease();
         }

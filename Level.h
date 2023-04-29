@@ -12,11 +12,14 @@ public:
     Level();
     TileMap* getTilemap();
     void nextLevel();
+    bool isTileXWalkable(int indexX);
 
 private:
+    void level2();
+    void level3();
     TileMap levelDesign;
     int currentLevel;
-
+    bool tileIsWalkable[144];
 };
 
 

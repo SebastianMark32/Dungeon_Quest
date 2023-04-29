@@ -20,6 +20,20 @@ Level::Level() {
             78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
     };
     this->levelDesign.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9);
+    bool tileisWalkableLevel1[] = {
+        false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+                false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+                false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+                false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+                false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+                false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+    };
+    for (int i = 0; i < 144; i++){
+        tileIsWalkable[i] = tileisWalkableLevel1[i];
+    }
 }
 
 TileMap* Level::getTilemap() {
@@ -29,28 +43,56 @@ TileMap* Level::getTilemap() {
 void Level::nextLevel() {
     this->currentLevel += 1;
     if (currentLevel == 2) {
-        const int level[] = {
-                // #78 is a black tile
-                0, 1, 2, 3, 4, 5, 78, 78, 78, 78, 0, 1, 2, 3, 4, 5,
-                10, 11, 12, 13, 14, 2, 1, 2, 3, 4, 1, 11, 12, 13, 14, 15,
-                20, 31, 6, 7, 8, 12, 12, 13, 12, 13, 13, 6, 7, 9, 34, 25,
-                40, 55, 21, 6, 7, 8, 9, 7, 8, 9, 17, 16, 9, 24, 54, 45,
-                78, 10, 21, 16, 17, 27, 28, 29, 18, 17, 7, 6, 7, 24, 35, 78,
-                0, 1, 21, 26, 27, 27, 6, 18, 19, 9, 26, 28, 18, 24, 4, 5,
-                20, 11, 17, 18, 19, 33, 32, 33, 32, 33, 32, 8, 7, 6, 14, 25,
-                30, 31, 32, 33, 34, 50, 42, 43, 44, 41, 55, 31, 32, 33, 34, 15,
-                40, 41, 42, 43, 44, 45, 78, 78, 78, 78, 40, 41, 42, 43, 44, 45,
-
-        };
-        this->levelDesign.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9);
+        level2();
         return;
     }
 
     if (currentLevel == 3){
-        //fill in
+//fill in
         return;
     }
 
 }
+
+bool Level::isTileXWalkable(int indexX) {
+    if (indexX < 0 || indexX > 144){
+        return false;
+    }
+    return tileIsWalkable[indexX];
+}
+
+void Level::level2() {
+    const int level[] = {
+            // #78 is a black tile
+            0, 1, 2, 3, 4, 5, 78, 78, 78, 78, 0, 1, 2, 3, 4, 5,
+            10, 11, 12, 13, 14, 2, 1, 2, 3, 4, 1, 11, 12, 13, 14, 15,
+            20, 31, 6, 7, 8, 12, 12, 13, 12, 13, 13, 6, 7, 9, 34, 25,
+            40, 55, 21, 6, 7, 8, 9, 7, 8, 9, 17, 16, 9, 24, 54, 45,
+            78, 10, 21, 16, 17, 27, 28, 29, 18, 17, 7, 6, 7, 24, 35, 78,
+            0, 1, 21, 26, 27, 27, 6, 18, 19, 9, 26, 28, 18, 24, 4, 5,
+            20, 11, 17, 18, 19, 33, 32, 33, 32, 33, 32, 8, 7, 6, 14, 25,
+            30, 31, 32, 33, 34, 50, 42, 43, 44, 41, 55, 31, 32, 33, 34, 15,
+            40, 41, 42, 43, 44, 45, 78, 78, 78, 78, 40, 41, 42, 43, 44, 45,
+
+    };
+    this->levelDesign.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9);
+    bool tileisWalkableLevel2[] = {
+            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+            false, true, true, true, true, false, false, false, false, false, false, true, true, true, true, false,
+            false, true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, true, false,
+            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
+            false, true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, true, false,
+            false, true, true, true, false, false, false, false, false, false, false, true, true, true, true, false,
+            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+    };
+}
+
+
+void Level::level3() {
+
+}
+
 
 
