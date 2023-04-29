@@ -8,6 +8,7 @@ bool aKeyReleased = true;
 bool sKeyReleased = true;
 bool dKeyReleased = true;
 bool endGame = false;
+bool isFireball = false;
 int randomNum;
 
 // this is rendering a window which displays the viewer window
@@ -30,6 +31,7 @@ Animation vampireAnimation(*enemy1.getSprite());
 Animation characterAnimation(*character.getSprite());
 Level level;
 
+
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
         return true;
@@ -42,6 +44,7 @@ void music_attributes(){
 void enemy_attributes(){
     chest.setPosition(968.0f, 484.0f);
     chest.setScale(0.93f, 0.93f);
+    chest.setCurrentTile(72);
 }
 void walk_attributes(){
     walkSound.getSound().setVolume(50);
@@ -51,6 +54,7 @@ void walk_attributes(){
 void enemy_one(){
     enemy1.setPosition(1573.0f, 605.0f);
     enemy1.setScale(7.f, 7.f);
+    enemy1.setCurrentTile(93);
     vampireAnimation.addFrame({sf::IntRect(0, 0, 16, 16), 3});
     vampireAnimation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
     vampireAnimation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
@@ -191,7 +195,6 @@ int main() {
             if (event.type == sf::Event::KeyPressed) {
                 keyPressed_functions();
                 character_movement();
-                level.nextLevel();
             }
             update_KeyRelease();
         }
@@ -231,11 +234,11 @@ void character_movement(){
         character.getSprite()->move(0.0f, -121.0f);
         character.setCurrentTile(character.getCurrentTile() - 16);
         wKeyReleased = false;
-        enemy1.randomEnemyMove(rand());
+        enemy1.randomEnemyMove(rand(), &level);
         if (checkCollision(character.getSprite(), enemy1.getSprite())){
             endGame = true;
         }
-        chest.randomEnemyMove(rand());
+        chest.randomEnemyMove(rand(), &level);
         if (checkCollision(character.getSprite(), chest.getSprite())){
             chest.respawn(rand());
             scoreSound.Play();
@@ -247,11 +250,11 @@ void character_movement(){
         character.getSprite()->move(-121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() - 1);
         aKeyReleased = false;
-        enemy1.randomEnemyMove(rand());
+        enemy1.randomEnemyMove(rand(), &level);
         if (checkCollision(character.getSprite(), enemy1.getSprite())){
             endGame = true;
         }
-        chest.randomEnemyMove(rand());
+        chest.randomEnemyMove(rand(), &level);
         if (checkCollision(character.getSprite(), chest.getSprite())){
             chest.respawn(rand());
             scoreSound.Play();
@@ -263,11 +266,11 @@ void character_movement(){
         character.getSprite()->move(0.0f, 121.0f);
         character.setCurrentTile(character.getCurrentTile() + 16);
         sKeyReleased = false;
-        enemy1.randomEnemyMove(rand());
+        enemy1.randomEnemyMove(rand(), &level);
         if (checkCollision(character.getSprite(), enemy1.getSprite())){
             endGame = true;
         }
-        chest.randomEnemyMove(rand());
+        chest.randomEnemyMove(rand(), &level);
         if (checkCollision(character.getSprite(), chest.getSprite())){
             chest.respawn(rand());
             scoreSound.Play();
@@ -279,11 +282,11 @@ void character_movement(){
         character.getSprite()->move(121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
-        enemy1.randomEnemyMove(randomNum);
+        enemy1.randomEnemyMove(randomNum, &level);
         if (checkCollision(character.getSprite(), enemy1.getSprite())){
             endGame = true;
         }
-        chest.randomEnemyMove(randomNum);
+        chest.randomEnemyMove(randomNum, &level);
         if (checkCollision(character.getSprite(), chest.getSprite())){
             chest.respawn(rand());
             scoreSound.Play();

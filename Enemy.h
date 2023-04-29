@@ -3,6 +3,7 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "Level.h"
 
 class Enemy{
 
@@ -21,7 +22,11 @@ public:
 
     sf::Sprite * getSprite();
 
-    void randomEnemyMove(int number);
+    void randomEnemyMove(int number, Level* currentLevel);
+
+    int getCurrentTile();
+
+    void setCurrentTile(int currentTile);
 
     int getDamage(int damage);
 
@@ -32,7 +37,7 @@ private:
     sf::Texture texture;
     int health;
     int damage;
-
+    int currentTile;
 };
 
 #endif //DUNGEON_QUEST_ENEMY_H

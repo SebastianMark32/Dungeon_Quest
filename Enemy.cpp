@@ -1,5 +1,6 @@
 #include "Enemy.h"
 
+
 Enemy::Enemy(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
@@ -26,19 +27,22 @@ int getDamage(int damage){
 }
 
 // Nate's code for random enemy movement
-void Enemy::randomEnemyMove(int number){
+void Enemy::randomEnemyMove(int number, Level* currentLevel){
     number = number % 4;
-
-    if ((number == 0) & (sprite.getPosition().y > 242)){
+    if (number == 0 && currentLevel->isTileXWalkable(currentTile - 16)){
+        currentTile -= 16;
         sprite.move(0.0f, -121.0f);
     }
-    if ((number == 1) & (sprite.getPosition().x > 242)){
+    if (number == 1 && currentLevel->isTileXWalkable(currentTile - 1)){
+        currentTile -= 1;
         sprite.move(-121, 0.0f);
     }
-    if ((number == 2) & (sprite.getPosition().y < 726)){
+    if (number == 2 && currentLevel->isTileXWalkable(currentTile + 16)){
+        currentTile += 16;
         sprite.move(0.0f, 121.0f);
     }
-    if ((number == 3) & (sprite.getPosition().x < 1573)) {
+    if (number == 3 && currentLevel->isTileXWalkable(currentTile + 1)) {
+        currentTile += 1;
         sprite.move(121, 0.0f);
     }
 }
@@ -62,4 +66,12 @@ void Enemy::respawn(int number){
         default:
             break;
     }
+}
+
+int Enemy::getCurrentTile() {
+    return this->currentTile;
+}
+
+void Enemy::setCurrentTile(int currentTile) {
+    this->currentTile = currentTile;
 }

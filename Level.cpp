@@ -49,7 +49,7 @@ void Level::nextLevel() {
     }
 
     if (currentLevel == 3){
-//fill in
+        level3();
         return;
     }
 
@@ -57,10 +57,8 @@ void Level::nextLevel() {
 
 bool Level::isTileXWalkable(int indexX) {
     if (indexX < 0 || indexX > 144){
-        cout << "false";
         return false;
     }
-    cout << tileIsWalkable[indexX] << false <<  true << endl;
     return tileIsWalkable[indexX];
 }
 
@@ -97,6 +95,34 @@ void Level::level2() {
 
 
 void Level::level3() {
+    const int level[] = {
+            // #78 is a black tile
+             0,  1,  2,  3,  4,  1,  2,  3,  4,  1,  2,  3,  4,  1,  2,  5,
+            10, 11, 12, 13, 12, 12, 13, 12, 13, 12, 13, 12, 13, 12, 14, 15,
+            20, 21,  6,  7,  8, 26, 27, 27,  6, 18, 17,  6,  7,  9, 24, 25,
+            10, 21, 26, 50, 41,  55,  9,  7,  8,  9, 50, 42, 55, 19, 24, 35,
+            20, 21,  9,  1,  2, 3, 28, 29, 18, 17,  3,  1,  2,  9, 24, 15,
+            10, 21, 23, 26, 27, 27, 6, 18, 19, 9, 26, 28, 18, 6, 24, 25,
+            20, 21, 22, 18, 19, 33, 32, 23, 22, 33, 32, 8, 7, 6, 24, 35,
+            30, 31, 32, 33, 34, 50, 53, 31, 34, 54, 55, 31, 32, 33, 34, 15,
+            40, 41, 42, 43, 44, 45, 40, 41, 42, 45, 40, 41, 42, 43, 44, 45,
+    };
+    this->levelDesign.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9);
+    bool tileisWalkableLevel3[] = {
+            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+            false,  true,  true,  true,  true, true, true, true, true, true, true, true, true, true, true, false,
+            false, true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, true, false,
+            false, true,  true, false, false, false,  true,  true,  true,  true, false, false, false,  true, true, false,
+            false, true,  true, false, false, false,  true,  true,  true,  true, false, false, false,  true, true, false,
+            false, true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, true, false,
+            false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, true, false,
+            false,  true,  true,  true, true, false, false,  true,  true, false, false, true, true, true, true, false,
+            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+    };
+    for (int i = 0; i < 144; i++){
+        tileIsWalkable[i] = tileisWalkableLevel3[i];
+    }
+
 
 }
 
