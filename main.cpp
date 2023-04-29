@@ -156,40 +156,11 @@ int main() {
     // define the level with an array of tile indices
     window.setView(view);
 
-    const int level[] = {
-            // #78 is a black tile
-            78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
-            78,  0,  1,  2,  3,  4,  1,  2,  3,  4,  1,  2,  3,  4,  5, 78,
-            78, 10, 11, 12, 13, 12, 12, 13, 12, 13, 13, 12, 13, 14, 15, 78,
-            78, 20, 21,  6,  7,  8,  9,  7,  8,  9, 17, 16,  9, 24, 25, 78,
-            78, 30, 21, 16, 17, 27, 28, 29, 18, 17,  7,  6,  7, 24, 35, 78,
-            78, 10, 21, 26, 17,  8,  6, 18, 19,  9, 26, 28, 18, 24, 25, 78,
-            78, 20, 31, 32, 33, 33, 32, 33, 32, 33, 32, 32, 33, 34, 35, 78,
-            78, 40, 41, 42, 43, 41, 42, 43, 44, 41, 42, 43, 44, 41, 45, 78,
-            78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
-    };
-
-    const bool walkable[] = {
-            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
-            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
-            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
-            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
-            false, false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true,  true, false, false,
-            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-    };
-
-
-    // create the tilemap from the level definition
-    TileMap map;
-    if (!map.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9))
-        return -1;
+    Level level;
 
    // scaling the map size for full screen
-    map.setScale(7.5f,7.5f);
-    map.setPosition(0,0);
+    level.getTilemap()->setScale(7.5f,7.5f);
+    level.getTilemap()->setPosition(0,0);
 
     window.setVerticalSyncEnabled(true);
     window.setView(view);
@@ -227,7 +198,7 @@ int main() {
         scoreText.setString("Score: " + to_string(score));
         window.clear();
         window.setView(view);
-        window.draw(map);
+        window.draw(*level.getTilemap());
 
 
         // drawing the background
