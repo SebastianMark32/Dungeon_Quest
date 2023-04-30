@@ -12,6 +12,7 @@
 #include "Sound.h"
 #include "Animation.h"
 #include "Level.h"
+#include "Fireball.h"
 
 using namespace std;
 
