@@ -3,7 +3,6 @@
 #include <SFML/Audio.hpp>
 #define DUNGEON_QUEST_MUSIC_H
 
-
 class Music {
 public:
     Music(std::string path);
@@ -15,10 +14,7 @@ public:
     void changeMusic(std::string path);
 
     void setVolume(float volume);
-
 private:
     sf::Music music;
 };
-
-
 #endif //DUNGEON_QUEST_MUSIC_H

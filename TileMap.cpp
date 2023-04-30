@@ -1,20 +1,17 @@
 //Code is from this SFML tutorial: https://www.sfml-dev.org/tutorials/2.1/graphics-vertex-array.php
-
 #include "TileMap.h"
 
 bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height){
     // load the tileset texture
     if (!m_tileset.loadFromFile(tileset))
         return false;
-
     // resize the vertex array to fit the level size
     m_vertices.setPrimitiveType(sf::Quads);
     m_vertices.resize(width * height * 4);
 
     // populate the vertex array, with one quad per tile
     for (unsigned int i = 0; i < width; ++i)
-        for (unsigned int j = 0; j < height; ++j)
-        {
+        for (unsigned int j = 0; j < height; ++j){
             // get the current tile number
             int tileNumber = tiles[i + j * width];
 
@@ -37,7 +34,6 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int*
             quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
             quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
         }
-
     return true;
 }
 

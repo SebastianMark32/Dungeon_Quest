@@ -1,23 +1,17 @@
-//
 // Created by Cyborg on 4/29/23.
-//
-
 #include "Fireball.h"
 
 Fireball::Fireball(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
 }
-
 void Fireball::setTexture(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
 }
-
 sf::Sprite* Fireball::getSprite() {
     return &sprite;
 }
-
 void Fireball::move() {
     if (currentDirection == up){
         currentTile -= 16;
@@ -36,19 +30,15 @@ void Fireball::move() {
         sprite.move(121.0f, 0);
     }
 }
-
 void Fireball::shoot(int direction, int currentTile, sf::Vector2f cords) {
     this->currentDirection = static_cast<Fireball::direction>(direction);
     this->currentTile = currentTile;
     sprite.setPosition(cords);
 }
 
-
 int Fireball::getCurrentTile() {
     return 0;
 }
-
 void Fireball::setCurrentTile(int currentTile) {
-
 }
 

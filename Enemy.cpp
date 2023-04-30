@@ -21,11 +21,9 @@ void Enemy::setScale(float x, float y) {
 sf::Sprite * Enemy::getSprite() {
     return &this->sprite;
 }
-
 int getDamage(int damage){
     return damage;
 }
-
 // Nate's code for random enemy movement
 void Enemy::randomEnemyMove(int number, Level* currentLevel){
     number = number % 4;
@@ -46,7 +44,6 @@ void Enemy::randomEnemyMove(int number, Level* currentLevel){
         sprite.move(121.0f, 0.0f);
     }
 }
-
 //A random respawn method in case an enemy object "dies"
 void Enemy::respawn(int number){
     number = number % 3;
@@ -67,11 +64,9 @@ void Enemy::respawn(int number){
             break;
     }
 }
-
 int Enemy::getCurrentTile() {
     return this->currentTile;
 }
-
 void Enemy::setCurrentTile(int currentTile) {
     this->currentTile = currentTile;
 }

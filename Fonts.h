@@ -7,7 +7,6 @@
 class Fonts {
 
 public:
-
     /**
      * declaring parameter for the constructor
      * using this in the Enemy.cpp file
@@ -27,8 +26,5 @@ public:
 private:
     sf::Font fonts;
     sf::Text text1;
-
 };
-
-
 #endif //DUNGEON_QUEST_FONTS_H

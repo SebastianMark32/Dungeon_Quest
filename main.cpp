@@ -15,6 +15,8 @@ int randomNum;
 //sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!", sf::Style::Resize | sf::Style::Close);
 sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!", sf::Style::Resize | sf::Style::Close);
 sf::View view(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
+sf::RectangleShape pauseScreen(sf::Vector2f (60, 70));
+
 sf::Vector2f playerPosition;
 sf::Event event;
 sf::Text scoreText;
@@ -152,9 +154,14 @@ void character_collision(){
     }
 }
 void character_movement();
+/**
+ *
+ *
+ * Testing pause feature
+ */
 
+bool pause = false;
 int main() {
-
     window.setView(view);
 
    // scaling the map size for full screen
@@ -188,24 +195,23 @@ int main() {
 
             //Code gotten from SFML wiki https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view
             resize_window();
-
             if (event.type == sf::Event::KeyPressed) {
                 keyPressed_functions();
                 character_movement();
+
                 if(score == 3) {
                     level.nextLevel();
                     score += 1;
                 }
                     if(score == 7){
                         level.nextLevel();
-
                     }
                     if(score == 14){
                         cout << "You win!" << endl;
                         window.close();
                     }
                 }
-            }
+        }
         update_KeyRelease();
         character_collision();
         scoreText.setString("Score: " + to_string(score));
@@ -225,7 +231,6 @@ int main() {
         counter++;
         // drawing the score
         window.draw(scoreText);
-
         window.display();
 
         if (endGame == true){
