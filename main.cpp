@@ -20,17 +20,17 @@ sf::Event event;
 sf::Text scoreText;
 sf::Font scoreFont;
 
-Sound walkSound("./Assets/step.wav");
-Music gameMusic("./Assets/VillageConsort-KevinMacLeod.ogg");
-Character character("./Assets/Character_animation/Knight.png", sf::IntRect( 0, 0, 16, 16));
-Enemy chest("./Assets/Chest.png");
-Enemy enemy1("./Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
-Sound scoreSound("./Assets/Score.wav");
-Sound lostScoreSound("./Assets/lostScore.wav");
+Sound walkSound("../Assets/step.wav");
+Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
+Character character("../Assets/Character_animation/Knight.png", sf::IntRect( 0, 0, 16, 16));
+Enemy chest("../Assets/Chest.png");
+Enemy enemy1("../Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
+Sound scoreSound("../Assets/Score.wav");
+Sound lostScoreSound("../Assets/lostScore.wav");
 Animation vampireAnimation(*enemy1.getSprite());
 Animation characterAnimation(*character.getSprite());
 Level level;
-Fireball playerFireball("./Assets/fire.png");
+Fireball playerFireball("../Assets/fire.png");
 
 
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
@@ -42,7 +42,6 @@ bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
 void music_attributes(){
     gameMusic.setVolume(50);
 }
-
 void walk_attributes(){
     walkSound.getSound().setVolume(50);
     //score sound effect
@@ -90,7 +89,7 @@ void close_window(){
     }
 }
 void score_font(){
-    scoreFont.loadFromFile("./Assets/Hack-Regular.ttf");
+    scoreFont.loadFromFile("../Assets/Hack-Regular.ttf");
 }
 void resize_window(){
     if (event.type == sf::Event::Resized){
@@ -156,9 +155,6 @@ void character_movement();
 
 int main() {
 
-//    sf::RenderWindow window(sf::VideoMode(512, 256), "Tilemap");
-//    sf::View view(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
-    // define the level with an array of tile indices
     window.setView(view);
 
    // scaling the map size for full screen
@@ -196,18 +192,26 @@ int main() {
             if (event.type == sf::Event::KeyPressed) {
                 keyPressed_functions();
                 character_movement();
+                if(score == 3) {
+                    level.nextLevel();
+                    score += 1;
+                }
+                    if(score == 7){
+                        level.nextLevel();
+
+                    }
+                    if(score == 14){
+                        cout << "You win!" << endl;
+                        window.close();
+                    }
+                }
             }
-            update_KeyRelease();
-        }
+        update_KeyRelease();
         character_collision();
         scoreText.setString("Score: " + to_string(score));
         window.clear();
         window.setView(view);
         window.draw(*level.getTilemap());
-
-
-        // drawing the background
-       // window.draw(background_sprite.getSprite());
 
         // Knight sprite
         characterAnimation.update(0.1);
