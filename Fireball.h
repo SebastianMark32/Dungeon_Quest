@@ -18,9 +18,9 @@ public:
 
     int getCurrentTile();
 
-    void shoot(int direction, int currentTile, sf::Vector2f cords);
+    void shoot(int direction, int newCurrentTile, sf::Vector2f cords);
 
-    void setCurrentTile(int currentTile);
+    void setCurrentTile(int newCurrentTile);
 
     void playFizzleSound();
 
