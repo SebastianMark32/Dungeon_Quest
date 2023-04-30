@@ -5,7 +5,6 @@
 using namespace std;
 #define DUNGEON_QUEST_CHARACTER_H
 
-
 class Character{
 public:
     /**
@@ -13,6 +12,7 @@ public:
      * using this in the Character.cpp file
      ***/
     Character(std::string path);
+
     Character(std::string path, sf::IntRect textRec);
 
     void setPosition(float x, float y);
@@ -37,5 +37,4 @@ private:
     int damage;
     int currentTile;
 };
-
 #endif //DUNGEON_QUEST_CHARACTER_H

@@ -14,6 +14,4 @@ private:
     sf::Sound sound;
     sf::SoundBuffer soundBuffer;
 };
-
-
 #endif //DUNGEON_QUEST_SOUND_H

@@ -1,10 +1,6 @@
-//
 // Created by Cyborg on 4/28/23.
-//
-
 #include "Level.h"
 #include <iostream>
-
 Level::Level() {
     this->currentLevel = 1;
     //level 1 array
@@ -36,32 +32,26 @@ Level::Level() {
         tileIsWalkable[i] = tileisWalkableLevel1[i];
     }
 }
-
 TileMap* Level::getTilemap() {
     return &levelDesign;
 }
-
 void Level::nextLevel() {
     this->currentLevel += 1;
     if (currentLevel == 2) {
         level2();
         return;
     }
-
     if (currentLevel == 3){
         level3();
         return;
     }
-
 }
-
 bool Level::isTileXWalkable(int indexX) {
     if (indexX < 0 || indexX > 144){
         return false;
     }
     return tileIsWalkable[indexX];
 }
-
 void Level::level2() {
     const int level[] = {
             // #78 is a black tile
@@ -74,7 +64,6 @@ void Level::level2() {
             20, 11, 17, 18, 19, 33, 32, 33, 32, 33, 32, 8, 7, 6, 14, 25,
             30, 31, 32, 33, 34, 50, 42, 43, 44, 41, 55, 31, 32, 33, 34, 15,
             40, 41, 42, 43, 44, 45, 78, 78, 78, 78, 40, 41, 42, 43, 44, 45,
-
     };
     this->levelDesign.load("../Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9);
     bool tileisWalkableLevel2[] = {
@@ -92,8 +81,6 @@ void Level::level2() {
         tileIsWalkable[i] = tileisWalkableLevel2[i];
     }
 }
-
-
 void Level::level3() {
     const int level[] = {
             // #78 is a black tile

@@ -14,6 +14,7 @@ public:
      * using this in the Enemy.cpp file
      ***/
     Enemy(std::string path);
+
     Enemy(std::string path, sf::IntRect textRec);
 
     void setPosition(float x, float y);
@@ -39,5 +40,4 @@ private:
     int damage;
     int currentTile;
 };
-
 #endif //DUNGEON_QUEST_ENEMY_H

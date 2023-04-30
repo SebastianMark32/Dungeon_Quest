@@ -1,6 +1,4 @@
-//
 // Created by Cyborg on 4/29/23.
-//
 
 #ifndef DUNGEON_QUEST_FIREBALL_H
 #define DUNGEON_QUEST_FIREBALL_H
@@ -22,6 +20,7 @@ public:
 
     void setCurrentTile(int currentTile);
 
+
 private:
     enum direction{up = 1, down = 2, left = 3, right = 4};
     direction currentDirection;
@@ -29,6 +28,4 @@ private:
     sf::Sprite sprite;
     int currentTile;
 };
-
-
 #endif //DUNGEON_QUEST_FIREBALL_H
