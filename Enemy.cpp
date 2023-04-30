@@ -35,7 +35,7 @@ void Enemy::randomEnemyMove(int number, Level* currentLevel){
     }
     if (number == 1 && currentLevel->isTileXWalkable(currentTile - 1)){
         currentTile -= 1;
-        sprite.move(-121, 0.0f);
+        sprite.move(-121.0f, 0.0f);
     }
     if (number == 2 && currentLevel->isTileXWalkable(currentTile + 16)){
         currentTile += 16;
@@ -43,7 +43,7 @@ void Enemy::randomEnemyMove(int number, Level* currentLevel){
     }
     if (number == 3 && currentLevel->isTileXWalkable(currentTile + 1)) {
         currentTile += 1;
-        sprite.move(121, 0.0f);
+        sprite.move(121.0f, 0.0f);
     }
 }
 

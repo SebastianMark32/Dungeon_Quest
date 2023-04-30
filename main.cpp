@@ -42,11 +42,7 @@ bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
 void music_attributes(){
     gameMusic.setVolume(50);
 }
-void enemy_attributes(){
-    chest.setPosition(968.0f, 484.0f);
-    chest.setScale(0.93f, 0.93f);
-    chest.setCurrentTile(72);
-}
+
 void walk_attributes(){
     walkSound.getSound().setVolume(50);
     //score sound effect
@@ -71,8 +67,9 @@ void hero_attributes(){
     characterAnimation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
 }
 void chest_object(){
-    chest.setPosition(363.0f, 484.0f);
+    chest.setPosition(968.0f, 484.0f);
     chest.setScale(0.93f, 0.93f);
+    chest.setCurrentTile(72);
 }
 void sound_score(){
     scoreSound.getSound().setVolume(50);
@@ -140,6 +137,7 @@ void update_KeyRelease(){
 void keyPressed_functions(){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
         cout << character.getPosition().x << " " << character.getPosition().y << endl;
+        cout << character.getCurrentTile() << endl;
     }
     // closing the window when user presses escape
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
@@ -178,7 +176,6 @@ int main() {
 
     chest_object();
     hero_attributes();
-    enemy_attributes();
     enemy_one();
     music_attributes();
     walk_attributes();
@@ -305,7 +302,7 @@ void character_movement(){
             scoreSound.Play();
             score += 1;
         }
-        playerFireball.move(level);
+        playerFireball.move();
         walkSound.Play();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && aKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 1))) {
@@ -322,7 +319,7 @@ void character_movement(){
             scoreSound.Play();
             score += 1;
         }
-        playerFireball.move(level);
+        playerFireball.move();
         walkSound.Play();
     }
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased && (level.isTileXWalkable(character.getCurrentTile() + 16))) {
@@ -339,7 +336,7 @@ void character_movement(){
             scoreSound.Play();
             score += 1;
         }
-        playerFireball.move(level);
+        playerFireball.move();
         walkSound.Play();
     }
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased && (level.isTileXWalkable(character.getCurrentTile() + 1))) {
@@ -356,7 +353,7 @@ void character_movement(){
             scoreSound.Play();
             score += 1;
         }
-        playerFireball.move(level);
+        playerFireball.move();
         walkSound.Play();
     }
 }

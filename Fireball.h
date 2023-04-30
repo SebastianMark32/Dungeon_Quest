@@ -5,7 +5,6 @@
 #ifndef DUNGEON_QUEST_FIREBALL_H
 #define DUNGEON_QUEST_FIREBALL_H
 #include <SFML/Graphics.hpp>
-#include "Level.h"
 
 class Fireball {
 public:
@@ -15,7 +14,7 @@ public:
 
     sf::Sprite* getSprite();
 
-    void move(Level currentLevel);
+    void move();
 
     int getCurrentTile();
 
@@ -24,7 +23,7 @@ public:
     void setCurrentTile(int currentTile);
 
 private:
-    enum direction{up = 1, down, left, right};
+    enum direction{up = 1, down = 2, left = 3, right = 4};
     direction currentDirection;
     sf::Texture texture;
     sf::Sprite sprite;

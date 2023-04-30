@@ -18,25 +18,22 @@ sf::Sprite* Fireball::getSprite() {
     return &sprite;
 }
 
-void Fireball::move(Level currentLevel) {
-    if (currentDirection == up && currentLevel.isTileXWalkable(currentTile - 16)){
+void Fireball::move() {
+    if (currentDirection == up){
         currentTile -= 16;
         sprite.move(0, -121.0f);
     }
-    if (currentDirection == down && currentLevel.isTileXWalkable(currentTile + 16)){
+    if (currentDirection == down){
         currentTile += 16;
         sprite.move(0, 121.0f);
     }
-    if (currentDirection == left && currentLevel.isTileXWalkable(currentTile - 1)){
+    if (currentDirection == left){
         currentTile -= 1;
         sprite.move(-121.0f, 0);
     }
-    if (currentDirection == right && currentLevel.isTileXWalkable(currentTile + 1)){
+    if (currentDirection == right){
         currentTile += 1;
         sprite.move(121.0f, 0);
-    }
-    else{
-        sprite.setPosition(-100, -100);
     }
 }
 
