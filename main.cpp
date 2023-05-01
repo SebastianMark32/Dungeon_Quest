@@ -21,6 +21,9 @@ sf::Vector2f playerPosition;
 sf::Event event;
 sf::Text scoreText;
 sf::Font scoreFont;
+sf::Font pause_screen;
+sf::Text pause_screen_text;
+
 
 Sound walkSound("../Assets/step.wav");
 Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
@@ -148,7 +151,11 @@ void keyPressed_functions(){
 
 void handle_userInput();
 
+void waitForUnpause();
+
 bool pause = false;
+
+
 
 void handle_collision(){
     if (checkCollision(character.getSprite(), enemy1.getSprite())){
@@ -165,7 +172,10 @@ void handle_collision(){
         chest.respawn(rand());
         lostScoreSound.Play();
     }
-
+    if(checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
+        score += 1;
+        cout << "Enemy hit!" << endl;
+    }
     // logic for fireballs
     if(isFireball){
        if(!level.isTileXWalkable(playerFireball.getCurrentTile())){
@@ -173,13 +183,11 @@ void handle_collision(){
        }
     }
 }
-
 void handle_levelChange(){
     if(score == 3) {
         level.nextLevel();
-        score += 1;
-    }
-    if(score == 7){
+
+    } if(score == 7){
         level.nextLevel();
     }
     if(score == 14){
@@ -187,7 +195,7 @@ void handle_levelChange(){
         window.close();
     }
 }
-void pausing();
+void pause_game();
 
 int main() {
     window.setView(view);
@@ -223,13 +231,16 @@ int main() {
 
             //Code gotten from SFML wiki https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view
             resize_window();
-            if (event.type == sf::Event::KeyPressed) {
+            if (event.type == sf::Event::KeyPressed && pause == false) {
 
                 keyPressed_functions();
                 handle_userInput();
                 handle_collision();
                 handle_levelChange();
                 }
+            else if (event.type == sf::Event::KeyPressed && pause == true){
+                waitForUnpause();
+            }
         }
         update_KeyRelease();
 
@@ -244,15 +255,21 @@ int main() {
 
         // enemy sprite
         vampireAnimation.update(0.1);
-        window.draw(*enemy1.getSprite());
-        window.draw(*chest.getSprite());
 
-        if(isFireball){
+        window.draw(*chest.getSprite());
+        window.draw(*enemy1.getSprite());
+
+        // this is to display the fireball
+        if(isFireball) {
             window.draw(*playerFireball.getSprite());
         }
         counter++;
         // drawing the score
         window.draw(scoreText);
+        if(pause){
+            window.draw(game_pause);
+            window.draw(pause_screen_text);
+        }
         window.display();
 
         if (endGame == true){
@@ -314,13 +331,28 @@ void handle_userInput(){
         playerFireball.move();
         walkSound.Play();
     }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+        pause_game();
+        pause = true;
+        cout << "Testing if the pause game works!" << endl;
+    }
 }
 
-void pausing(){
-    game_pause.setSize(sf::Vector2f(800, 600));
-    game_pause.setOutlineColor(sf::Color::White);
-    game_pause.setPosition(10,20);
+void waitForUnpause(){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+        pause = false;
+    }
+}
+
+void pause_game(){
+    game_pause.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
+    game_pause.setFillColor(sf::Color{105,108, 125, 50});
+    game_pause.setOutlineColor(sf::Color::Transparent);
     game_pause.setOutlineThickness(5);
-    window.draw(game_pause);
+    pause_screen_text.setFont(scoreFont);
+    pause_screen_text.setString("GAME IS PAUSED!");
+    pause_screen_text.setCharacterSize(40);
+    pause_screen_text.setFillColor(sf::Color::White);
+    pause_screen_text.setPosition(700,500);
 }
 
