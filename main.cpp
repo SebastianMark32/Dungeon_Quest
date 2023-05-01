@@ -9,7 +9,7 @@ bool sKeyReleased = true;
 bool dKeyReleased = true;
 bool endGame = false;
 bool isFireball = false; //is there already a fireball?
-int randomNum;
+bool pause = false;
 
 // this is rendering a window which displays the viewer window
 //sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!", sf::Style::Resize | sf::Style::Close);
@@ -17,11 +17,9 @@ sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!"
 sf::View view(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 sf::RectangleShape game_pause;
 
-sf::Vector2f playerPosition;
 sf::Event event;
 sf::Text scoreText;
 sf::Font scoreFont;
-sf::Font pause_screen;
 sf::Text pause_screen_text;
 
 
@@ -152,10 +150,6 @@ void keyPressed_functions(){
 void handle_userInput();
 
 void waitForUnpause();
-
-bool pause = false;
-
-
 
 void handle_collision(){
     if (checkCollision(character.getSprite(), enemy1.getSprite())){
@@ -350,7 +344,7 @@ void pause_game(){
     game_pause.setOutlineColor(sf::Color::Transparent);
     game_pause.setOutlineThickness(5);
     pause_screen_text.setFont(scoreFont);
-    pause_screen_text.setString("GAME IS PAUSED!");
+    pause_screen_text.setString(" GAME IS PAUSED!\nPRESS P TO UNPAUSE");
     pause_screen_text.setCharacterSize(40);
     pause_screen_text.setFillColor(sf::Color::White);
     pause_screen_text.setPosition(700,500);
