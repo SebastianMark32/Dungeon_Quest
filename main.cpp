@@ -168,7 +168,9 @@ void handle_collision(){
 
     // logic for fireballs
     if(isFireball){
-        
+       if(!level.isTileXWalkable(playerFireball.getCurrentTile())){
+        isFireball = false;
+       }
     }
 }
 
@@ -244,7 +246,10 @@ int main() {
         vampireAnimation.update(0.1);
         window.draw(*enemy1.getSprite());
         window.draw(*chest.getSprite());
-        window.draw(*playerFireball.getSprite());
+
+        if(isFireball){
+            window.draw(*playerFireball.getSprite());
+        }
         counter++;
         // drawing the score
         window.draw(scoreText);
