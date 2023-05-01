@@ -337,7 +337,6 @@ void waitForUnpause(){
         pause = false;
     }
 }
-
 void pause_game(){
     game_pause.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
     game_pause.setFillColor(sf::Color{105,108, 125, 50});
