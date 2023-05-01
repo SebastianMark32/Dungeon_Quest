@@ -37,8 +37,9 @@ void Fireball::shoot(int direction, int currentTile, sf::Vector2f cords) {
 }
 
 int Fireball::getCurrentTile() {
-    return 0;
+    return this->currentTile;
 }
 void Fireball::setCurrentTile(int currentTile) {
+    this->currentTile = currentTile;
 }
 

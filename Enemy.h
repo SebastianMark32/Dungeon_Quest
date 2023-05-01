@@ -36,8 +36,6 @@ public:
 private:
     sf::Sprite sprite;
     sf::Texture texture;
-    int health;
-    int damage;
     int currentTile;
 };
 #endif //DUNGEON_QUEST_ENEMY_H

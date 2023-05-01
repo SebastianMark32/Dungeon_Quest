@@ -26,6 +26,8 @@ int getDamage(int damage){
 }
 // Nate's code for random enemy movement
 void Enemy::randomEnemyMove(int number, Level* currentLevel){
+
+    // we need to comment
     number = number % 4;
     if (number == 0 && currentLevel->isTileXWalkable(currentTile - 16)){
         currentTile -= 16;
