@@ -16,11 +16,14 @@ bool pause = false;
 sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!", sf::Style::Resize | sf::Style::Close);
 sf::View view(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 sf::RectangleShape game_pause;
+sf::RectangleShape game_menu;
 
 sf::Event event;
 sf::Text scoreText;
 sf::Font scoreFont;
 sf::Text pause_screen_text;
+sf::Text game_menu_text;
+sf::Font game_menu_font;
 
 
 Sound walkSound("./Assets/step.wav");
@@ -180,6 +183,7 @@ void handle_collision(){
 void handle_levelChange(){
     if(score == 3) {
         level.nextLevel();
+        score +=1;
 
     } if(score == 7){
         level.nextLevel();
@@ -190,6 +194,7 @@ void handle_levelChange(){
     }
 }
 void pause_game();
+
 
 int main() {
     window.setView(view);
@@ -219,22 +224,20 @@ int main() {
 
     int counter = 0;
     while (window.isOpen()) {
-        int randomNum = rand();
         while (window.pollEvent(event)) {
             close_window();
 
             //Code gotten from SFML wiki https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view
             resize_window();
             if (event.type == sf::Event::KeyPressed && pause == false) {
-
                 keyPressed_functions();
                 handle_userInput();
                 handle_collision();
-                handle_levelChange();
                 }
             else if (event.type == sf::Event::KeyPressed && pause == true){
                 waitForUnpause();
             }
+            handle_levelChange();
         }
         update_KeyRelease();
 
@@ -274,29 +277,39 @@ int main() {
 }
 
 void handle_userInput(){
-    enemy1.randomEnemyMove(rand(), &level);
-    chest.randomEnemyMove(rand(), &level);
+//    enemy1.randomEnemyMove(rand(), &level);
+//    chest.randomEnemyMove(rand(), &level);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !isFireball){
         playerFireball.shoot(1, character.getCurrentTile() - 16, sf::Vector2f(character.getPosition().x + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y - 121 + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !isFireball){
         playerFireball.shoot(2, character.getCurrentTile() + 16, sf::Vector2f(character.getPosition().x  + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y + 121  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !isFireball){
         playerFireball.shoot(3, character.getCurrentTile() - 1, sf::Vector2f(character.getPosition().x - 121 + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !isFireball){
         playerFireball.shoot(4, character.getCurrentTile() + 1, sf::Vector2f(character.getPosition().x + 121 + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 16))) {
         character.getSprite()->move(0.0f, -121.0f);
         character.setCurrentTile(character.getCurrentTile() - 16);
         wKeyReleased = false;
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
 
         playerFireball.move();
         walkSound.Play();
@@ -305,6 +318,8 @@ void handle_userInput(){
         character.getSprite()->move(-121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() - 1);
         aKeyReleased = false;
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
 
         playerFireball.move();
         walkSound.Play();
@@ -313,6 +328,8 @@ void handle_userInput(){
         character.getSprite()->move(0.0f, 121.0f);
         character.setCurrentTile(character.getCurrentTile() + 16);
         sKeyReleased = false;
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
 
         playerFireball.move();
         walkSound.Play();
@@ -321,6 +338,8 @@ void handle_userInput(){
         character.getSprite()->move(121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
 
         playerFireball.move();
         walkSound.Play();
@@ -349,3 +368,8 @@ void pause_game(){
     pause_screen_text.setPosition(700,500);
 }
 
+void game_menu_window(){
+    game_menu.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
+    game_menu.setFillColor(sf::Color::White);
+    
+}
