@@ -4,6 +4,7 @@
 Fireball::Fireball(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
+    this->sprite.setOrigin(sprite.getGlobalBounds().width/2, sprite.getGlobalBounds().height/2);
 }
 void Fireball::setTexture(std::string path) {
     this->texture.loadFromFile(path);
@@ -34,6 +35,25 @@ void Fireball::shoot(int direction, int currentTile, sf::Vector2f cords) {
     this->currentDirection = static_cast<Fireball::direction>(direction);
     this->currentTile = currentTile;
     sprite.setPosition(cords);
+    switch(direction){
+        case 1:
+            sprite.setRotation(270);
+            break;
+        case 2:
+            sprite.setRotation(90);
+            break;
+
+        case 3:
+            sprite.setRotation(180);
+            break;
+
+        case 4:
+            sprite.setRotation(0);
+            break;
+
+        default:
+            std::cout << "ERROR: direction is an invalid value";
+    }
 }
 
 int Fireball::getCurrentTile() {

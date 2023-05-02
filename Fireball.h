@@ -3,6 +3,7 @@
 #ifndef DUNGEON_QUEST_FIREBALL_H
 #define DUNGEON_QUEST_FIREBALL_H
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Fireball {
 public:
