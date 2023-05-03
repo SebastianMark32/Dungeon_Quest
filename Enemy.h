@@ -4,6 +4,8 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "Level.h"
+#include "Animation.h"
+#include "Sound.h"
 
 class Enemy{
 

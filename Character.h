@@ -2,6 +2,8 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Animation.h"
+#include "Sound.h"
 using namespace std;
 #define DUNGEON_QUEST_CHARACTER_H
 
@@ -36,5 +38,6 @@ private:
     int health;
     int damage;
     int currentTile;
+
 };
 #endif //DUNGEON_QUEST_CHARACTER_H

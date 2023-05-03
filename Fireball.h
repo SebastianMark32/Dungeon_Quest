@@ -4,6 +4,7 @@
 #define DUNGEON_QUEST_FIREBALL_H
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Sound.h"
 
 class Fireball {
 public:
@@ -28,5 +29,6 @@ private:
     sf::Texture texture;
     sf::Sprite sprite;
     int currentTile;
+
 };
 #endif //DUNGEON_QUEST_FIREBALL_H
