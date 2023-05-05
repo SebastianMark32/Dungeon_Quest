@@ -36,13 +36,13 @@ sf::Text game_menu_text;
 sf::Text game_over_text;
 
 
-Sound walkSound("../Assets/step.wav");
-Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
-Character character("../Assets/Character_animation/Knight.png", sf::IntRect( 0, 0, 16, 16));
-Enemy chest("../Assets/Chest.png");
-Enemy enemy1("../Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
-Sound scoreSound("../Assets/Score.wav");
-Sound lostScoreSound("../Assets/lostScore.wav");
+Sound walkSound("./Assets/step.wav");
+Music gameMusic("./Assets/VillageConsort-KevinMacLeod.ogg");
+Character character("./Assets/Character_animation/Knight.png", sf::IntRect( 0, 0, 16, 16));
+Enemy chest("./Assets/Chest.png");
+Enemy enemy1("./Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
+Sound scoreSound("./Assets/Score.wav");
+Sound lostScoreSound("./Assets/lostScore.wav");
 Animation vampireAnimation(*enemy1.getSprite());
 Animation characterAnimation(*character.getSprite());
 Level level;
@@ -105,7 +105,7 @@ void close_window(){
     }
 }
 void score_font(){
-    scoreFont.loadFromFile("../Assets/Hack-Regular.ttf");
+    scoreFont.loadFromFile("./Assets/Hack-Regular.ttf");
 }
 void resize_window(){
     if (event.type == sf::Event::Resized){
@@ -244,7 +244,6 @@ int main() {
             //Code gotten from SFML wiki https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view
             resize_window();
             if(event.type == sf::Event::KeyPressed && game_menu_toggle){
-
                 close_game_menu();
             }
             else if (event.type == sf::Event::KeyPressed && pause == false) {
@@ -255,6 +254,7 @@ int main() {
             else if (event.type == sf::Event::KeyPressed && pause == true){
                 waitForUnpause();
             }
+
             handle_levelChange();
         }
         update_KeyRelease();
@@ -279,6 +279,7 @@ int main() {
         if(isFireball) {
             window.draw(*playerFireball.getSprite());
         }
+
         // drawing the score
         window.draw(scoreText);
         if(pause){
@@ -310,75 +311,77 @@ void handle_userInput(){
         pause = true;
         return;
     }
-
+    enemy1.randomEnemyMove(rand(), &level);
+    chest.randomEnemyMove(rand(), &level);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !isFireball){
         playerFireball.shoot(1, character.getCurrentTile() - 16, sf::Vector2f(character.getPosition().x + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y - 121 + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
+
         enemy1.randomEnemyMove(rand(), &level);
         chest.randomEnemyMove(rand(), &level);
-
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !isFireball){
         playerFireball.shoot(2, character.getCurrentTile() + 16, sf::Vector2f(character.getPosition().x  + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y + 121  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
-        enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
 
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !isFireball){
         playerFireball.shoot(3, character.getCurrentTile() - 1, sf::Vector2f(character.getPosition().x - 121 + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
+
         enemy1.randomEnemyMove(rand(), &level);
         chest.randomEnemyMove(rand(), &level);
-
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !isFireball){
         playerFireball.shoot(4, character.getCurrentTile() + 1, sf::Vector2f(character.getPosition().x + 121 + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
+
         enemy1.randomEnemyMove(rand(), &level);
         chest.randomEnemyMove(rand(), &level);
-
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 16))) {
         character.getSprite()->move(0.0f, -121.0f);
         character.setCurrentTile(character.getCurrentTile() - 16);
         wKeyReleased = false;
-        enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
 
         playerFireball.move();
         walkSound.Play();
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && aKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 1))) {
         character.getSprite()->move(-121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() - 1);
         aKeyReleased = false;
-        enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
+
 
         playerFireball.move();
         walkSound.Play();
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
     }
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased && (level.isTileXWalkable(character.getCurrentTile() + 16))) {
         character.getSprite()->move(0.0f, 121.0f);
         character.setCurrentTile(character.getCurrentTile() + 16);
         sKeyReleased = false;
-        enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
+
 
         playerFireball.move();
         walkSound.Play();
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
     }
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased && (level.isTileXWalkable(character.getCurrentTile() + 1))) {
         character.getSprite()->move(121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
-        enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
+
 
         playerFireball.move();
         walkSound.Play();
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
     }
 }
 void waitForUnpause(){
@@ -389,8 +392,10 @@ void waitForUnpause(){
 // closing the start screen
 void close_game_menu(){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-        pause = false;
         game_menu_toggle = false;
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+        window.close();
     }
 }
 void pause_game(){
@@ -413,14 +418,13 @@ void game_menu_window(){
      **/
     game_menu_text.setFont(scoreFont);
     game_menu_text.setCharacterSize(20);
-//    game_menu.setPosition(500,200);
     game_menu_text.setPosition(650, 300);
 
     /**
      * THIS IS NOT WORKING RIGHT NOW
      */
     fstream game_menu_file;
-    game_menu_file.open("../Assets/text/game_menu.txt", fstream::in);
+    game_menu_file.open("./Assets/text/game_menu.txt", fstream::in);
     string sentence;
 
     stringstream all_lines;
@@ -430,7 +434,7 @@ void game_menu_window(){
 //    game_menu_text.setString(all_lines.str().c_str());
 // This works for a temp solution
 game_menu_text.setString("Welcome to Dungeon Quest!\n\n"
-                         "Here is how you play the game:\n\nTo move press wasd\n\n"
+                         "Here is how you play the game:\n\nTo move press W to go up, A to go left, S to go right\n\n"
                          "To shoot fireballs press the arrow key\n\n"
                          "And kill the enemy/s to move onto the next level.\n\n"
                          "Be careful as danger lurks behind these walls muhahahahah!!\n\n"
