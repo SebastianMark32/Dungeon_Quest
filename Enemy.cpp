@@ -1,11 +1,9 @@
 #include "Enemy.h"
 
-
 Enemy::Enemy(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
 }
-
 Enemy::Enemy(std::string path, sf::IntRect textRec) {
     this->texture.loadFromFile(path);
     this->sprite.setTextureRect(textRec);
