@@ -1,6 +1,8 @@
 #include "Dependencies.h"
 #include <fstream>
 #include <string>
+#include <sstream>
+
 
 static int score = 0;
 static const float VIEW_WITDH = 1920.f;
@@ -13,7 +15,7 @@ bool dKeyReleased = true;
 bool endGame = false;
 bool isFireball = false; //is there already a fireball?
 bool pause = false;
-bool game_menu_toggle;
+bool game_menu_toggle = true;
 
 // this is rendering a window which displays the viewer window
 //sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!", sf::Style::Resize | sf::Style::Close);
@@ -27,7 +29,6 @@ sf::Text scoreText;
 sf::Font scoreFont;
 sf::Text pause_screen_text;
 sf::Text game_menu_text;
-sf::Font game_menu_font;
 
 
 Sound walkSound("../Assets/step.wav");
@@ -199,6 +200,7 @@ void handle_levelChange(){
 }
 void pause_game();
 void game_menu_window();
+void close_game_menu();
 
 int main() {
     window.setView(view);
@@ -225,6 +227,8 @@ int main() {
     score_text();
     lost_score();
     score_font();
+    game_menu_window();
+
 
     int counter = 0;
     while (window.isOpen()) {
@@ -240,7 +244,9 @@ int main() {
                 }
             else if (event.type == sf::Event::KeyPressed && pause == true){
                 waitForUnpause();
-
+            }
+            if(event.type == sf::Event::KeyPressed && game_menu_toggle){
+                close_game_menu();
             }
             handle_levelChange();
         }
@@ -272,6 +278,10 @@ int main() {
             window.draw(game_pause);
             window.draw(pause_screen_text);
         }
+        if(game_menu_toggle){
+            window.draw(game_menu);
+            window.draw(game_menu_text);
+        }
         window.display();
 
         if (endGame == true){
@@ -280,13 +290,11 @@ int main() {
         }
     return 0;
 }
-
 void handle_userInput(){
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
         pause_game();
         pause = true;
-        cout << "Testing if the pause game works!" << endl;
         return;
     }
     enemy1.randomEnemyMove(rand(), &level);
@@ -316,7 +324,6 @@ void handle_userInput(){
         character.getSprite()->move(0.0f, -121.0f);
         character.setCurrentTile(character.getCurrentTile() - 16);
         wKeyReleased = false;
-
 
         playerFireball.move();
         walkSound.Play();
@@ -348,21 +355,14 @@ void handle_userInput(){
         playerFireball.move();
         walkSound.Play();
     }
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-        game_menu_window();
-        game_menu_toggle = true;
-        cout << "Testing game_menu" << endl;
-    }
-
 }
-
 void waitForUnpause(){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
         pause = false;
     }
 }
-void game_menu_display(){
+// closing the start screen
+void close_game_menu(){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
         game_menu_toggle = false;
     }
@@ -378,33 +378,38 @@ void pause_game(){
     pause_screen_text.setFillColor(sf::Color::White);
     pause_screen_text.setPosition(700,500);
 }
-
 void game_menu_window(){
-    game_menu.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
-    game_menu.setFillColor(sf::Color::White);
+    game_menu.setSize(sf::Vector2f(VIEW_WITDH/2, VIEW_HEIGHT/2));
+    game_menu.setFillColor(sf::Color::Black);
     game_menu.setOutlineThickness(5);
     /**
      * We might want to update the font with old english
      **/
     game_menu_text.setFont(scoreFont);
-
-    pause_screen_text.setCharacterSize(40);
-    pause_screen_text.setFillColor(sf::Color::Black);
-    pause_screen_text.setPosition(700,500);
+    game_menu_text.setCharacterSize(20);
+    game_menu.setPosition(500,200);
+    game_menu_text.setPosition(650, 300);
 
 
     /**
-     * We want to read from a file
-     * this still needs work
-     **/
+     * THIS IS NOT WORKING RIGHT NOW
+     */
+    fstream game_menu_file;
+    game_menu_file.open("../Assets/text/game_menu.txt", fstream::in);
     string sentence;
-    std::ifstream myFile ("game_menu.txt");
-    if(myFile.is_open()){
-        while (getline(myFile, sentence)) {
-            cout << sentence << '\n';
-        }
-        myFile.close();
-    } else cout << "Unable to open file";
-    pause_screen_text.setString(sentence);
 
+    stringstream all_lines;
+    while(getline(game_menu_file, sentence)){
+       all_lines << sentence << '\n';
+    }
+
+//    game_menu_text.setString(all_lines.str().c_str());
+
+// This works for a temp solution
+game_menu_text.setString("Welcome to Dungeon Quest!\n\n"
+                         "Here is how you play the game:\n\nTo move press wasd\n\n"
+                         "To shoot fireballs press the arrow key\n\n"
+                         "And kill the enemy/s to move onto the next level.\n\n"
+                         "Be careful as danger lurks behind these walls muhahahahah!!\n\n"
+                         "Press the space bar to begin playing!");
 }
