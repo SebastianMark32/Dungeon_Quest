@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-
+#include <cstdlib>
 
 static int score = 0;
 static const float VIEW_WITDH = 1920.f;
@@ -29,7 +29,10 @@ sf::Event event;
 sf::Text scoreText;
 sf::Font scoreFont;
 sf::Text pause_screen_text;
+
+// when the game starts
 sf::Text game_menu_text;
+// when the player dies
 sf::Text game_over_text;
 
 
@@ -233,6 +236,7 @@ int main() {
     score_font();
     game_menu_window();
 
+
     while (window.isOpen()) {
         while (window.pollEvent(event)) {
             close_window();
@@ -285,14 +289,18 @@ int main() {
             window.draw(game_menu);
             window.draw(game_menu_text);
         }
+          window.draw(game_over);
+          window.draw(game_over_text);
         window.display();
 
         if (endGame == true){
             cout << "You died. GAME OVER.";
-            window.draw(game_over);
-            window.close();
+          game_over_window();
+          window.draw(game_over);
+//          sf::sleep(sf::milliseconds(10000));
+//          window.close();
         }
-        }
+    }
     return 0;
 }
 void handle_userInput(){
@@ -429,16 +437,16 @@ game_menu_text.setString("Welcome to Dungeon Quest!\n\n"
                          "Press the space bar to begin playing!");
 }
 void game_over_window(){
-    game_over.setSize(sf::Vector2f(VIEW_WITDH/2, VIEW_HEIGHT/2));
+    game_over.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
     game_over.setFillColor(sf::Color::Black);
     game_over.setOutlineThickness(5);
     /**
      * We might want to update the font with old english
      **/
     game_over_text.setFont(scoreFont);
-    game_over_text.setCharacterSize(60);
-    game_over.setPosition(500,200);
-    game_over_text.setPosition(650, 300);
+    game_over_text.setCharacterSize(90);
+    game_menu_text.setFillColor(sf::Color::White);
+    game_over_text.setPosition(650, 400);
 
     /**
      * THIS IS NOT WORKING RIGHT NOW
