@@ -1,10 +1,14 @@
 // Created by Cyborg on 4/29/23.
 #include "Fireball.h"
 
-Fireball::Fireball(std::string path) {
+Fireball::Fireball(std::string path, std::string shootSoundPath, std::string fizzleSoundPath) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
     this->sprite.setOrigin(sprite.getGlobalBounds().width/2, sprite.getGlobalBounds().height/2);
+    this->shootSoundBuffer.loadFromFile(fizzleSoundPath);
+    this->shootSound.setBuffer(this->shootSoundBuffer);
+    this->fizzleSoundBuffer.loadFromFile(fizzleSoundPath);
+    this->fizzleSound.setBuffer(this->fizzleSoundBuffer);
 }
 void Fireball::setTexture(std::string path) {
     this->texture.loadFromFile(path);
@@ -31,10 +35,16 @@ void Fireball::move() {
         sprite.move(121.0f, 0);
     }
 }
+
+void Fireball::playFizzleSound(){
+    fizzleSound.play();
+}
+
 void Fireball::shoot(int direction, int currentTile, sf::Vector2f cords) {
     this->currentDirection = static_cast<Fireball::direction>(direction);
     this->currentTile = currentTile;
     sprite.setPosition(cords);
+    shootSound.play();
     switch(direction){
         case 1:
             sprite.setRotation(270);

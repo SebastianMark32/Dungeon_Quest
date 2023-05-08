@@ -8,7 +8,7 @@
 
 class Fireball {
 public:
-    Fireball(std::string path);
+    Fireball(std::string path, std::string shootSoundPath, std::string fizzleSoundPath);
 
     void setTexture(std::string path);
 
@@ -22,6 +22,7 @@ public:
 
     void setCurrentTile(int currentTile);
 
+    void playFizzleSound();
 
 private:
     enum direction{up = 1, down = 2, left = 3, right = 4};
@@ -29,6 +30,9 @@ private:
     sf::Texture texture;
     sf::Sprite sprite;
     int currentTile;
-
+    sf::Sound shootSound;
+    sf::Sound fizzleSound;
+    sf::SoundBuffer shootSoundBuffer;
+    sf::SoundBuffer fizzleSoundBuffer;
 };
 #endif //DUNGEON_QUEST_FIREBALL_H
