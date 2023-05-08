@@ -5,10 +5,13 @@ Fireball::Fireball(std::string path, std::string shootSoundPath, std::string fiz
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
     this->sprite.setOrigin(sprite.getGlobalBounds().width/2, sprite.getGlobalBounds().height/2);
-    this->shootSoundBuffer.loadFromFile(fizzleSoundPath);
+    this->shootSoundBuffer.loadFromFile(shootSoundPath);
     this->shootSound.setBuffer(this->shootSoundBuffer);
     this->fizzleSoundBuffer.loadFromFile(fizzleSoundPath);
     this->fizzleSound.setBuffer(this->fizzleSoundBuffer);
+
+    this->shootSound.setVolume(50);
+    this->fizzleSound.setVolume(50);
 }
 void Fireball::setTexture(std::string path) {
     this->texture.loadFromFile(path);

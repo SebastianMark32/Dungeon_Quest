@@ -46,7 +46,7 @@ Sound lostScoreSound("./Assets/lostScore.wav");
 Animation vampireAnimation(*enemy1.getSprite());
 Animation characterAnimation(*character.getSprite());
 Level level;
-Fireball playerFireball("./Assets/fire.png", "./Assets/FireballShoot.wav", "FireHitWall.wav");
+Fireball playerFireball("./Assets/fire.png", "./Assets/FireballShoot.wav", "./Assets/FireHitWall.wav");
 
 
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
@@ -188,6 +188,7 @@ void handle_collision(){
     if(isFireball){
        if(!level.isTileXWalkable(playerFireball.getCurrentTile())){
         isFireball = false;
+        playerFireball.playFizzleSound();
        }
     }
 }
