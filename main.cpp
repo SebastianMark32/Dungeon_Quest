@@ -46,7 +46,7 @@ Sound lostScoreSound("./Assets/lostScore.wav");
 Animation vampireAnimation(*enemy1.getSprite());
 Animation characterAnimation(*character.getSprite());
 Level level;
-Fireball playerFireball("./Assets/fire.png");
+Fireball playerFireball("./Assets/fire.png", "./Assets/FireballShoot.wav", "FireHitWall.wav");
 
 
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
