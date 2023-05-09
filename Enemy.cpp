@@ -23,7 +23,7 @@ sf::Sprite * Enemy::getSprite() {
 }
 
 bool Enemy::isAlive(){
-    return this->alive = true;
+    return this->alive;
 }
 void Enemy::set_Alive(bool alive) {
     this->alive = alive;
