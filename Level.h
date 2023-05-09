@@ -15,8 +15,6 @@ public:
 
     void setTileMapPath(std::string timeMapPath);
 
-    int getCurrentLevel();
-
 private:
     void level2();
     void level3();
