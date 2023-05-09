@@ -118,5 +118,9 @@ void Level::setTileMapPath(std::string tileMapPath) {
     this->tileMapPath = tileMapPath;
 }
 
+int Level::getCurrentLevel() {
+    return currentLevel;
+}
+
 
 

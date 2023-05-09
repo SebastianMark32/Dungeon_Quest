@@ -168,6 +168,10 @@ void handle_collision(){
         cout << "Enemy hit!" << endl;
         enemy1.set_Alive(false);
         enemy1.respawn(rand());
+        //get the fireball off-screen to prevent it from hitting an enemy randomly during enemy respawn.
+        isFireball = false;
+        playerFireball.playFizzleSound();
+        playerFireball.getSprite()->setPosition(-100, -100);
     }
 
     // logic for fireballs
@@ -179,9 +183,8 @@ void handle_collision(){
     }
 }
 void handle_levelChange(){
-    if(score == 3) {
+    if(score == 1 and level.getCurrentLevel() == 1) {
         level.nextLevel();
-        score +=1;
 
     } if(score == 7){
         level.nextLevel();

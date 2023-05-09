@@ -27,6 +27,8 @@ public:
 
     sf::Sprite * getSprite();
 
+    void setSprite(std::string path);
+
     void randomEnemyMove(int number, Level* currentLevel);
 
     int getCurrentTile();
