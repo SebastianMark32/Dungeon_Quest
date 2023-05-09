@@ -157,24 +157,15 @@ void handle_userInput();
 void waitForUnpause();
 
 void handle_collision(){
-    if (checkCollision(character.getSprite(), enemy1.getSprite())){
+    if (enemy1.isAlive() && checkCollision(character.getSprite(), enemy1.getSprite())){
         endGame = true;
     }
-//    if (checkCollision(character.getSprite(), chest.getSprite())){
-//        chest.respawn(rand());
-//        scoreSound.Play();
-//        score += 1;
-//    }
-//    if (checkCollision(enemy1.getSprite(), chest.getSprite())){
-//        score -= 1;
-//        cout << "Oh no! the enemy stole you treasure!\n";
-//        chest.respawn(rand());
-//        lostScoreSound.Play();
-//    }
-    if(checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
+
+    if( enemy1.isAlive() && checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
         score += 1;
         cout << "Enemy hit!" << endl;
-        enemy1.respawn(rand());
+        enemy1.set_Alive(false);
+        //enemy1.respawn(rand());
     }
     // logic for fireballs
     if(isFireball){
@@ -242,6 +233,7 @@ int main() {
                 keyPressed_functions();
                 handle_userInput();
                 handle_collision();
+
                 }
             else if (event.type == sf::Event::KeyPressed && pause == true){
                 waitForUnpause();
@@ -264,8 +256,9 @@ int main() {
         vampireAnimation.update(0.1);
 
         // here is where we draw the chest
-//        window.draw(*chest.getSprite());
-        window.draw(*enemy1.getSprite());
+        if(enemy1.isAlive()){
+            window.draw(*enemy1.getSprite());
+        }
 
         // this is to display the fireball
         if(isFireball) {
@@ -282,17 +275,17 @@ int main() {
             window.draw(game_menu);
             window.draw(game_menu_text);
         }
-          window.draw(game_over);
-          window.draw(game_over_text);
-        window.display();
 
         if (endGame == true){
             cout << "You died. GAME OVER.";
-          game_over_window();
-          window.draw(game_over);
-//          sf::sleep(sf::milliseconds(10000));
-//          window.close();
+            game_over_window();
+            window.draw(game_over);
+            window.draw(game_over_text);
+            window.display();
+            sf::sleep(sf::milliseconds(10000));
+            window.close();
         }
+        window.display();
     }
     return 0;
 }
@@ -303,7 +296,6 @@ void handle_userInput(){
         pause = true;
         return;
     }
-
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !isFireball){
         playerFireball.shoot(1, character.getCurrentTile() - 16, sf::Vector2f(character.getPosition().x + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y - 121 + playerFireball.getSprite()->getGlobalBounds().height/2));
@@ -351,7 +343,9 @@ void handle_userInput(){
         character.move(0.0f, 121.0f);
         character.setCurrentTile(character.getCurrentTile() + 16);
         sKeyReleased = false;
-
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
+        cout << "S";
 
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
@@ -360,7 +354,9 @@ void handle_userInput(){
         character.move(121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
-
+        enemy1.randomEnemyMove(rand(), &level);
+        chest.randomEnemyMove(rand(), &level);
+        cout << "D";
 
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
