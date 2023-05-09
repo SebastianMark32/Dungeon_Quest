@@ -25,5 +25,6 @@ private:
     std::string tileMapPath;
     int currentLevel;
     bool tileIsWalkable[144];
+
 };
 #endif //DUNGEON_QUEST_LEVEL_H
