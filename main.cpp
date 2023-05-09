@@ -52,9 +52,6 @@ bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     }
     return false;
 }
-void music_attributes(){
-    gameMusic.setVolume(50);
-}
 void walk_attributes(){
     //score sound effect
     scoreSound.getSound().setVolume(50);
@@ -160,17 +157,6 @@ void handle_collision(){
     if (checkCollision(character.getSprite(), enemy1.getSprite())){
         endGame = true;
     }
-//    if (checkCollision(character.getSprite(), chest.getSprite())){
-//        chest.respawn(rand());
-//        scoreSound.Play();
-//        score += 1;
-//    }
-//    if (checkCollision(enemy1.getSprite(), chest.getSprite())){
-//        score -= 1;
-//        cout << "Oh no! the enemy stole you treasure!\n";
-//        chest.respawn(rand());
-//        lostScoreSound.Play();
-//    }
     if(checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
         score += 1;
         cout << "Enemy hit!" << endl;
@@ -220,13 +206,13 @@ int main() {
 
     hero_attributes();
     enemy_one();
-    music_attributes();
     walk_attributes();
     sound_score();
     score_text();
     lost_score();
     score_font();
     game_menu_window();
+    gameMusic.setVolume(50);
 
 
     while (window.isOpen()) {
