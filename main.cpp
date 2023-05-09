@@ -1,5 +1,7 @@
 #include "Dependencies.h"
+#include <fstream>
 #include <string>
+#include <sstream>
 #include <cstdlib>
 
 static int score = 0;
@@ -276,7 +278,6 @@ int main() {
                 keyPressed_functions();
                 handle_userInput();
                 handle_collision();
-
                 }
             else if (event.type == sf::Event::KeyPressed && pause == true){
                 waitForUnpause();
