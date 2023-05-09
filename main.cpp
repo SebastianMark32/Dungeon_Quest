@@ -59,9 +59,6 @@ bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     }
     return false;
 }
-void music_attributes(){
-    gameMusic.setVolume(50);
-}
 void walk_attributes(){
     //score sound effect
     scoreSound.getSound().setVolume(50);
@@ -250,13 +247,13 @@ int main() {
 
     hero_attributes();
     enemy_one();
-    music_attributes();
     walk_attributes();
     sound_score();
     score_text();
     lost_score();
     score_font();
     game_menu_window();
+    gameMusic.setVolume(50);
 
     // testing hero lives
     hero_lives();
@@ -375,15 +372,13 @@ void handle_userInput(){
         playerFireball.shoot(4, character.getCurrentTile() + 1, sf::Vector2f(character.getPosition().x + 121 + playerFireball.getSprite()->getGlobalBounds().width*2, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
 
-        cout << playerFireball.getSprite()->getGlobalBounds().height << " " << playerFireball.getSprite()->getGlobalBounds().width << endl;
-
-
         enemy1.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 16))) {
         character.move(0.0f, -121.0f);
         character.setCurrentTile(character.getCurrentTile() - 16);
         wKeyReleased = false;
+
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
@@ -391,6 +386,8 @@ void handle_userInput(){
         character.move(-121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() - 1);
         aKeyReleased = false;
+
+
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
@@ -398,6 +395,8 @@ void handle_userInput(){
         character.move(0.0f, 121.0f);
         character.setCurrentTile(character.getCurrentTile() + 16);
         sKeyReleased = false;
+
+
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
@@ -405,6 +404,8 @@ void handle_userInput(){
         character.move(121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
+
+
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
