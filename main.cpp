@@ -59,6 +59,9 @@ bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     }
     return false;
 }
+void music_attributes(){
+    gameMusic.setVolume(50);
+}
 void walk_attributes(){
     //score sound effect
     scoreSound.getSound().setVolume(50);
@@ -247,6 +250,7 @@ int main() {
 
     hero_attributes();
     enemy_one();
+    music_attributes();
     walk_attributes();
     sound_score();
     score_text();
@@ -395,7 +399,7 @@ void handle_userInput(){
         character.move(0.0f, 121.0f);
         character.setCurrentTile(character.getCurrentTile() + 16);
         sKeyReleased = false;
-
+        enemy1.randomEnemyMove(rand(), &level);
 
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
@@ -404,7 +408,7 @@ void handle_userInput(){
         character.move(121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
-
+        enemy1.randomEnemyMove(rand(), &level);
 
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
