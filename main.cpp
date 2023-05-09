@@ -41,8 +41,8 @@ Sound lostScoreSound("../Assets/lostScore.wav");
 Animation vampireAnimation(*enemy1.getSprite());
 Animation characterAnimation(*character.getSprite());
 Level level("../Assets/Dungeon_Tileset.png");
-Fireball playerFireball("../Assets/fire.png", "../Assets/FireballShoot.wav", "../Assets/FireHitWall.wav");
-
+Fireball playerFireball("../Assets/Fireball.png", "../Assets/FireballShoot.wav", "../Assets/FireHitWall.wav");
+Animation fireballAnimation(*playerFireball.getSprite());
 
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
@@ -71,6 +71,12 @@ void hero_attributes(){
     characterAnimation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
     characterAnimation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
     characterAnimation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
+
+    fireballAnimation.addFrame({sf::IntRect(0, 0, 16, 16), 3});
+    fireballAnimation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
+    fireballAnimation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
+    fireballAnimation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
+    fireballAnimation.update(0.5);  //work around to prevent an issue with global bounds being wrong when shooting fireball for first time.
 }
 
 void sound_score(){
@@ -94,6 +100,8 @@ void close_window(){
 void score_font(){
     scoreFont.loadFromFile("../Assets/Hack-Regular.ttf");
 }
+
+//code source: https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view
 void resize_window(){
     if (event.type == sf::Event::Resized){
         float windowRatio = event.size.width / (float) event.size.height;
@@ -242,11 +250,11 @@ int main() {
         window.draw(*level.getTilemap());
 
         // Knight sprite
-        characterAnimation.update(0.1);
+        characterAnimation.update(0.3);
         window.draw(*character.getSprite());
 
         // enemy sprite
-        vampireAnimation.update(0.1);
+        vampireAnimation.update(0.3);
 
         // here is where we draw the chest
         if(enemy1.isAlive()){
@@ -255,6 +263,7 @@ int main() {
 
         // this is to display the fireball
         if(isFireball) {
+            fireballAnimation.update(0.5);
             window.draw(*playerFireball.getSprite());
         }
 
@@ -337,8 +346,6 @@ void handle_userInput(){
         character.move(0.0f, 121.0f);
         character.setCurrentTile(character.getCurrentTile() + 16);
         sKeyReleased = false;
-
-
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
@@ -346,8 +353,6 @@ void handle_userInput(){
         character.move(121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
-
-
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
