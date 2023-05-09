@@ -16,6 +16,8 @@ public:
      * using this in the Enemy.cpp file
      ***/
     Enemy(std::string path);
+    bool isAlive();
+    void set_Alive(bool alive);
 
     Enemy(std::string path, sf::IntRect textRec);
 
@@ -39,5 +41,6 @@ private:
     sf::Sprite sprite;
     sf::Texture texture;
     int currentTile;
+    bool alive;
 };
 #endif //DUNGEON_QUEST_ENEMY_H

@@ -3,11 +3,13 @@
 Enemy::Enemy(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
+    this->alive = true;
 }
 Enemy::Enemy(std::string path, sf::IntRect textRec) {
     this->texture.loadFromFile(path);
     this->sprite.setTextureRect(textRec);
     this->sprite.setTexture(texture);
+    this->alive = true;
 }
 
 void Enemy::setPosition(float x, float y) {
@@ -19,9 +21,14 @@ void Enemy::setScale(float x, float y) {
 sf::Sprite * Enemy::getSprite() {
     return &this->sprite;
 }
-int getDamage(int damage){
-    return damage;
+
+bool Enemy::isAlive(){
+    return this->alive = true;
 }
+void Enemy::set_Alive(bool alive) {
+    this->alive = alive;
+}
+
 // Nate's code for random enemy movement
 void Enemy::randomEnemyMove(int number, Level* currentLevel){
 

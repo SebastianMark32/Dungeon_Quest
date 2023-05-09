@@ -154,13 +154,14 @@ void handle_userInput();
 void waitForUnpause();
 
 void handle_collision(){
-    if (checkCollision(character.getSprite(), enemy1.getSprite())){
+    if (enemy1.isAlive() && checkCollision(character.getSprite(), enemy1.getSprite())){
         endGame = true;
     }
-    if(checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
+    if( enemy1.isAlive() && checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
         score += 1;
         cout << "Enemy hit!" << endl;
-        enemy1.respawn(rand());
+        enemy1.set_Alive(false);
+        //enemy1.respawn(rand());
     }
     // logic for fireballs
     if(isFireball){
@@ -228,6 +229,7 @@ int main() {
                 keyPressed_functions();
                 handle_userInput();
                 handle_collision();
+
                 }
             else if (event.type == sf::Event::KeyPressed && pause == true){
                 waitForUnpause();
@@ -250,8 +252,9 @@ int main() {
         vampireAnimation.update(0.1);
 
         // here is where we draw the chest
-//        window.draw(*chest.getSprite());
-        window.draw(*enemy1.getSprite());
+        if(enemy1.isAlive()){
+            window.draw(*enemy1.getSprite());
+        }
 
         // this is to display the fireball
         if(isFireball) {
@@ -268,17 +271,17 @@ int main() {
             window.draw(game_menu);
             window.draw(game_menu_text);
         }
-          window.draw(game_over);
-          window.draw(game_over_text);
-        window.display();
 
         if (endGame == true){
             cout << "You died. GAME OVER.";
-          game_over_window();
-          window.draw(game_over);
-//          sf::sleep(sf::milliseconds(10000));
-//          window.close();
+            game_over_window();
+            window.draw(game_over);
+            window.draw(game_over_text);
+            window.display();
+            sf::sleep(sf::milliseconds(100));
+            window.close();
         }
+        window.display();
     }
     return 0;
 }
