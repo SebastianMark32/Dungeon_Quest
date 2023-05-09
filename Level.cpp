@@ -1,8 +1,9 @@
 // Created by Cyborg on 4/28/23.
 #include "Level.h"
 #include <iostream>
-Level::Level() {
+Level::Level(std::string tileMapPath) {
     this->currentLevel = 1;
+    this->tileMapPath = tileMapPath;
     //level 1 array
     const int level[] = {
             // #78 is a black tile
@@ -16,7 +17,7 @@ Level::Level() {
             78, 40, 41, 42, 43, 41, 42, 43, 44, 41, 42, 43, 44, 41, 45, 78,
             78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
     };
-    this->levelDesign.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9);
+    this->levelDesign.load(tileMapPath, sf::Vector2u(16, 16), level, 16, 9);
     bool tileisWalkableLevel1[] = {
         false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
         false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
@@ -65,7 +66,7 @@ void Level::level2() {
             30, 31, 32, 33, 34, 50, 42, 43, 44, 41, 55, 31, 32, 33, 34, 15,
             40, 41, 42, 43, 44, 45, 78, 78, 78, 78, 40, 41, 42, 43, 44, 45,
     };
-    this->levelDesign.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9);
+    this->levelDesign.load(tileMapPath, sf::Vector2u(16, 16), level, 16, 9);
     bool tileisWalkableLevel2[] = {
             false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
             false, true, true, true, true, false, false, false, false, false, false, true, true, true, true, false,
@@ -94,7 +95,7 @@ void Level::level3() {
             30, 31, 32, 33, 34, 50, 53, 31, 34, 54, 55, 31, 32, 33, 34, 15,
             40, 41, 42, 43, 44, 45, 40, 41, 42, 45, 40, 41, 42, 43, 44, 45,
     };
-    this->levelDesign.load("./Assets/Dungeon_Tileset.png", sf::Vector2u(16, 16), level, 16, 9);
+    this->levelDesign.load(tileMapPath, sf::Vector2u(16, 16), level, 16, 9);
     bool tileisWalkableLevel3[] = {
             false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
             false,  true,  true,  true,  true, true, true, true, true, true, true, true, true, true, true, false,
@@ -111,6 +112,10 @@ void Level::level3() {
     }
 
 
+}
+
+void Level::setTileMapPath(std::string tileMapPath) {
+    this->tileMapPath = tileMapPath;
 }
 
 
