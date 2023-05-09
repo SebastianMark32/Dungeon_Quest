@@ -3,7 +3,6 @@
 #ifndef DUNGEON_QUEST_ROCKET_H
 #define DUNGEON_QUEST_ROCKET_H
 
-
 class Rocket {
     Rocket();
     ~Rocket();
@@ -14,8 +13,5 @@ private:
     sf::Sprite m_sprite;
     sf::Vector2f  m_position;
     float m_speed;
-
 };
-
-
 #endif //DUNGEON_QUEST_ROCKET_H

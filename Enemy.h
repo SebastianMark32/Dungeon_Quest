@@ -4,6 +4,8 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "Level.h"
+#include "Animation.h"
+#include "Sound.h"
 
 class Enemy{
 
@@ -14,6 +16,7 @@ public:
      * using this in the Enemy.cpp file
      ***/
     Enemy(std::string path);
+
     Enemy(std::string path, sf::IntRect textRec);
 
     void setPosition(float x, float y);
@@ -35,9 +38,6 @@ public:
 private:
     sf::Sprite sprite;
     sf::Texture texture;
-    int health;
-    int damage;
     int currentTile;
 };
-
 #endif //DUNGEON_QUEST_ENEMY_H

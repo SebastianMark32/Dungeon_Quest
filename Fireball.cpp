@@ -1,23 +1,25 @@
-//
 // Created by Cyborg on 4/29/23.
-//
-
 #include "Fireball.h"
 
-Fireball::Fireball(std::string path) {
+#include <utility>
+
+Fireball::Fireball(std::string path, std::string shootSoundPath, std::string fizzleSoundPath) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
+    this->sprite.setOrigin(sprite.getGlobalBounds().width/2, sprite.getGlobalBounds().height/2);
+    this->shootSound.setSound(std::move(shootSoundPath));
+    this->fizzleSound.setSound(std::move(fizzleSoundPath));
+    this->shootSound.getSound().setVolume(50);
+    this->fizzleSound.getSound().setVolume(50);
 }
 
 void Fireball::setTexture(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
 }
-
 sf::Sprite* Fireball::getSprite() {
     return &sprite;
 }
-
 void Fireball::move() {
     if (currentDirection == up){
         currentTile -= 16;
@@ -37,18 +39,41 @@ void Fireball::move() {
     }
 }
 
+void Fireball::playFizzleSound(){
+    fizzleSound.play();
+}
+
+
 void Fireball::shoot(int direction, int newCurrentTile, sf::Vector2f cords) {
     this->currentDirection = static_cast<Fireball::direction>(direction);
     this->currentTile = newCurrentTile;
     sprite.setPosition(cords);
-}
+    shootSound.play();
+    switch(direction){
+        case 1:
+            sprite.setRotation(270);
+            break;
+        case 2:
+            sprite.setRotation(90);
+            break;
 
+        case 3:
+            sprite.setRotation(180);
+            break;
+
+        case 4:
+            sprite.setRotation(0);
+            break;
+
+        default:
+            std::cout << "ERROR: direction is an invalid value";
+    }
+}
 
 int Fireball::getCurrentTile() {
-    return 0;
+    return this->currentTile;
 }
-
 void Fireball::setCurrentTile(int currentTile) {
-
+    this->currentTile = currentTile;
 }
 

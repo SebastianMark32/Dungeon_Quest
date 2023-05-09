@@ -5,15 +5,17 @@
 
 class Sound {
 public:
+    Sound();
+
     Sound(std::string path);
 
     sf::Sound getSound();
 
-    void Play();
+    void setSound(std::string path);
+
+    void play();
 private:
     sf::Sound sound;
     sf::SoundBuffer soundBuffer;
 };
-
-
 #endif //DUNGEON_QUEST_SOUND_H

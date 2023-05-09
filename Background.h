@@ -3,7 +3,6 @@
 #include <string>
 #define DUNGEON_QUEST_BACKGROUND_H
 
-
 class Background{
 public:
     Background(std::string path);
