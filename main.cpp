@@ -205,14 +205,10 @@ void handle_collision(){
 }
 void handle_levelChange(){
 
+
     if(score == 1 and level.getCurrentLevel() == 1) {
         level.nextLevel();
-
-        /**
-         * NEED TO FIX THIS
-         *
-         **/
-//        enemy1.respawn(rand());
+        score +=1;
 
     } if(score == 7){
         level.nextLevel();
