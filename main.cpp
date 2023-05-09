@@ -344,8 +344,6 @@ void handle_userInput(){
         character.setCurrentTile(character.getCurrentTile() + 16);
         sKeyReleased = false;
         enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
-        cout << "S";
 
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
@@ -355,8 +353,6 @@ void handle_userInput(){
         character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
         enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
-        cout << "D";
 
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
