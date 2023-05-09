@@ -37,6 +37,7 @@ public:
 
     void respawn(int number);
 
+
 private:
     sf::Sprite sprite;
     sf::Texture texture;

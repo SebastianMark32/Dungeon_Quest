@@ -11,7 +11,11 @@ struct Frame {
 
 class Animation {
 public:
+    Animation();
+
     Animation(sf::Sprite &target);
+
+    void setSpriteTarget();
 
     void addFrame(Frame&& frame);
 
@@ -24,5 +28,6 @@ private:
     double totalLength;
     double progress;
     sf::Sprite &target;
+    sf::Sprite dummySprite;
 };
 #endif //DUNGEON_QUEST_ANIMATION_H
