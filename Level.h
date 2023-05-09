@@ -4,22 +4,16 @@
 #include "TileMap.h"
 #include <SFML/Graphics.hpp>
 
-
 class Level {
 public:
     Level(std::string tileMapPath);
-
     TileMap* getTilemap();
 
     void nextLevel();
 
     bool isTileXWalkable(int indexX);
 
-    // need these
     void setTileMapPath(std::string timeMapPath);
-
-    int getCurrentLevel();
-
 
 private:
     void level2();
@@ -28,7 +22,5 @@ private:
     std::string tileMapPath;
     int currentLevel;
     bool tileIsWalkable[144];
-
-
 };
 #endif //DUNGEON_QUEST_LEVEL_H
