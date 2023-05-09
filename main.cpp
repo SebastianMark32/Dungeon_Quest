@@ -34,9 +34,11 @@ sf::Text game_over_text;
 Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
 Character character("../Assets/Character_animation/Knight.png", sf::IntRect( 0, 0, 16, 16), "../Assets/step.wav");
 Enemy enemy1("../Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
+Enemy enemy2("../Assets/Character_animation/FlyingSkull.png", sf::IntRect(0, 0, 16, 16));
 Sound scoreSound("../Assets/Score.wav");
 Sound lostScoreSound("../Assets/lostScore.wav");
 Animation vampireAnimation(*enemy1.getSprite());
+Animation enemy2Animation(*enemy2.getSprite());
 Animation characterAnimation(*character.getSprite());
 Level level("../Assets/Dungeon_Tileset.png");
 Fireball playerFireball("../Assets/Fireball.png", "../Assets/FireballShoot.wav", "../Assets/FireHitWall.wav");
@@ -63,6 +65,10 @@ void enemy_one(){
     vampireAnimation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
     vampireAnimation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
     vampireAnimation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
+    enemy2Animation.addFrame({sf::IntRect(0, 0, 16, 16), 3});
+    enemy2Animation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
+    enemy2Animation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
+    enemy2Animation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
 }
 void hero_attributes(){
     character.setScale(7.f, 7.f);
