@@ -43,9 +43,10 @@ void Fireball::playFizzleSound(){
     fizzleSound.play();
 }
 
-void Fireball::shoot(int direction, int currentTile, sf::Vector2f cords) {
+
+void Fireball::shoot(int direction, int newCurrentTile, sf::Vector2f cords) {
     this->currentDirection = static_cast<Fireball::direction>(direction);
-    this->currentTile = currentTile;
+    this->currentTile = newCurrentTile;
     sprite.setPosition(cords);
     shootSound.play();
     switch(direction){
