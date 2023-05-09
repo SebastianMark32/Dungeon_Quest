@@ -13,9 +13,9 @@ public:
      * declaring parameter for the constructor
      * using this in the Character.cpp file
      ***/
-    Character(std::string path);
+    Character(std::string path, std::string walkSoundPath);
 
-    Character(std::string path, sf::IntRect textRec);
+    Character(std::string path, sf::IntRect textRec, std::string walkSoundPath);
 
     void setPosition(float x, float y);
 
@@ -29,6 +29,8 @@ public:
 
     void setCurrentTile(int tileIndex);
 
+    void move(float offSetX, float offSetY);
+
     int getHealth(int health);
 
 private:
@@ -38,6 +40,6 @@ private:
     int health;
     int damage;
     int currentTile;
-
+    Sound walkSound;
 };
 #endif //DUNGEON_QUEST_CHARACTER_H

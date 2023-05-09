@@ -35,11 +35,8 @@ sf::Text game_menu_text;
 // when the player dies
 sf::Text game_over_text;
 
-
-Sound walkSound("./Assets/step.wav");
 Music gameMusic("./Assets/VillageConsort-KevinMacLeod.ogg");
-Character character("./Assets/Character_animation/Knight.png", sf::IntRect( 0, 0, 16, 16));
-Enemy chest("./Assets/Chest.png");
+Character character("./Assets/Character_animation/Knight.png", sf::IntRect( 0, 0, 16, 16), "./Assets/step.wav");
 Enemy enemy1("./Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
 Sound scoreSound("./Assets/Score.wav");
 Sound lostScoreSound("./Assets/lostScore.wav");
@@ -59,7 +56,6 @@ void music_attributes(){
     gameMusic.setVolume(50);
 }
 void walk_attributes(){
-    walkSound.getSound().setVolume(50);
     //score sound effect
     scoreSound.getSound().setVolume(50);
 }
@@ -81,11 +77,7 @@ void hero_attributes(){
     characterAnimation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
     characterAnimation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
 }
-void chest_object(){
-    chest.setPosition(968.0f, 484.0f);
-    chest.setScale(0.93f, 0.93f);
-    chest.setCurrentTile(72);
-}
+
 void sound_score(){
     scoreSound.getSound().setVolume(50);
 }
@@ -226,7 +218,6 @@ int main() {
     playerFireball.getSprite()->setScale(7.5, 7.5);
     playerFireball.getSprite()->setPosition(-100, -100);
 
-    chest_object();
     hero_attributes();
     enemy_one();
     music_attributes();
@@ -319,14 +310,12 @@ void handle_userInput(){
         isFireball = true;
 
         enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !isFireball){
         playerFireball.shoot(2, character.getCurrentTile() + 16, sf::Vector2f(character.getPosition().x  + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y + 121  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
 
         enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
 
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !isFireball){
@@ -334,57 +323,47 @@ void handle_userInput(){
         isFireball = true;
 
         enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !isFireball){
         playerFireball.shoot(4, character.getCurrentTile() + 1, sf::Vector2f(character.getPosition().x + 121 + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
 
         enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 16))) {
-        character.getSprite()->move(0.0f, -121.0f);
+        character.move(0.0f, -121.0f);
         character.setCurrentTile(character.getCurrentTile() - 16);
         wKeyReleased = false;
 
         playerFireball.move();
-        walkSound.Play();
         enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && aKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 1))) {
-        character.getSprite()->move(-121, 0.0f);
+        character.move(-121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() - 1);
         aKeyReleased = false;
 
 
         playerFireball.move();
-        walkSound.Play();
         enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
     }
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased && (level.isTileXWalkable(character.getCurrentTile() + 16))) {
-        character.getSprite()->move(0.0f, 121.0f);
+        character.move(0.0f, 121.0f);
         character.setCurrentTile(character.getCurrentTile() + 16);
         sKeyReleased = false;
 
 
         playerFireball.move();
-        walkSound.Play();
         enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
     }
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased && (level.isTileXWalkable(character.getCurrentTile() + 1))) {
-        character.getSprite()->move(121, 0.0f);
+        character.move(121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
 
 
         playerFireball.move();
-        walkSound.Play();
         enemy1.randomEnemyMove(rand(), &level);
-        chest.randomEnemyMove(rand(), &level);
     }
 }
 void waitForUnpause(){

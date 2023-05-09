@@ -1,18 +1,18 @@
 // Created by Cyborg on 4/29/23.
 #include "Fireball.h"
 
+#include <utility>
+
 Fireball::Fireball(std::string path, std::string shootSoundPath, std::string fizzleSoundPath) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
     this->sprite.setOrigin(sprite.getGlobalBounds().width/2, sprite.getGlobalBounds().height/2);
-    this->shootSoundBuffer.loadFromFile(shootSoundPath);
-    this->shootSound.setBuffer(this->shootSoundBuffer);
-    this->fizzleSoundBuffer.loadFromFile(fizzleSoundPath);
-    this->fizzleSound.setBuffer(this->fizzleSoundBuffer);
-
-    this->shootSound.setVolume(50);
-    this->fizzleSound.setVolume(50);
+    this->shootSound.setSound(std::move(shootSoundPath));
+    this->fizzleSound.setSound(std::move(fizzleSoundPath));
+    this->shootSound.getSound().setVolume(50);
+    this->fizzleSound.getSound().setVolume(50);
 }
+
 void Fireball::setTexture(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);

@@ -30,9 +30,7 @@ private:
     sf::Texture texture;
     sf::Sprite sprite;
     int currentTile;
-    sf::Sound shootSound;
-    sf::Sound fizzleSound;
-    sf::SoundBuffer shootSoundBuffer;
-    sf::SoundBuffer fizzleSoundBuffer;
+    Sound shootSound;
+    Sound fizzleSound;
 };
 #endif //DUNGEON_QUEST_FIREBALL_H
