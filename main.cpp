@@ -1,7 +1,5 @@
 #include "Dependencies.h"
-#include <fstream>
 #include <string>
-#include <sstream>
 #include <cstdlib>
 
 static int score = 0;
@@ -17,8 +15,6 @@ bool isFireball = false; //is there already a fireball?
 bool pause = false;
 bool game_menu_toggle = true;
 
-// this is rendering a window which displays the viewer window
-//sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!", sf::Style::Resize | sf::Style::Close);
 sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!", sf::Style::Resize | sf::Style::Close);
 sf::View view(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 sf::RectangleShape game_pause;
@@ -165,8 +161,9 @@ void handle_collision(){
         score += 1;
         cout << "Enemy hit!" << endl;
         enemy1.set_Alive(false);
-        //enemy1.respawn(rand());
+        enemy1.respawn(rand());
     }
+
     // logic for fireballs
     if(isFireball){
        if(!level.isTileXWalkable(playerFireball.getCurrentTile())){
@@ -219,7 +216,6 @@ int main() {
     score_font();
     game_menu_window();
 
-
     while (window.isOpen()) {
         while (window.pollEvent(event)) {
             close_window();
@@ -238,7 +234,6 @@ int main() {
             else if (event.type == sf::Event::KeyPressed && pause == true){
                 waitForUnpause();
             }
-
             handle_levelChange();
         }
         update_KeyRelease();
@@ -353,7 +348,6 @@ void handle_userInput(){
         character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
         enemy1.randomEnemyMove(rand(), &level);
-
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
@@ -387,26 +381,11 @@ void game_menu_window(){
     game_menu.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
     game_menu.setFillColor(sf::Color::Black);
     game_menu.setOutlineThickness(5);
-    /**
-     * We might want to update the font with old english
-     **/
+
     game_menu_text.setFont(scoreFont);
-    game_menu_text.setCharacterSize(20);
-    game_menu_text.setPosition(650, 300);
+    game_menu_text.setCharacterSize(40);
+    game_menu_text.setPosition(350, 100);
 
-    /**
-     * THIS IS NOT WORKING RIGHT NOW
-     */
-    fstream game_menu_file;
-    game_menu_file.open("../Assets/text/game_menu.txt", fstream::in);
-    string sentence;
-
-    stringstream all_lines;
-    while(getline(game_menu_file, sentence)){
-       all_lines << sentence << '\n';
-    }
-//    game_menu_text.setString(all_lines.str().c_str());
-// This works for a temp solution
 game_menu_text.setString("Welcome to Dungeon Quest!\n\n"
                          "Here is how you play the game:\n\nTo move press W to go up, A to go left, S to go right\n\n"
                          "To shoot fireballs press the arrow key\n\n"
@@ -418,19 +397,11 @@ void game_over_window(){
     game_over.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
     game_over.setFillColor(sf::Color::Black);
     game_over.setOutlineThickness(5);
-    /**
-     * We might want to update the font with old english
-     **/
+
     game_over_text.setFont(scoreFont);
     game_over_text.setCharacterSize(90);
     game_menu_text.setFillColor(sf::Color::White);
     game_over_text.setPosition(650, 400);
 
-    /**
-     * THIS IS NOT WORKING RIGHT NOW
-     */
-
-//    game_menu_text.setString(all_lines.str().c_str());
-// This works for a temp solution
     game_over_text.setString("GAME OVER");
 }
