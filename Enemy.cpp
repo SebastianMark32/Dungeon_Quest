@@ -22,8 +22,13 @@ sf::Sprite * Enemy::getSprite() {
     return &this->sprite;
 }
 
+void Enemy::setSprite(std::string path) {
+    this->texture.loadFromFile(path);
+    this->sprite.setTexture(texture);
+}
+
 bool Enemy::isAlive(){
-    return this->alive = true;
+    return this->alive;
 }
 void Enemy::set_Alive(bool alive) {
     this->alive = alive;
@@ -81,3 +86,5 @@ int Enemy::getCurrentTile() {
 void Enemy::setCurrentTile(int currentTile) {
     this->currentTile = currentTile;
 }
+
+

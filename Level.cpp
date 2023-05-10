@@ -33,9 +33,6 @@ Level::Level(std::string tileMapPath) {
         tileIsWalkable[i] = tileisWalkableLevel1[i];
     }
 
-    Enemy enemy1("../Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
-    Enemy enemy2("../Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
-
 }
 TileMap* Level::getTilemap() {
     return &levelDesign;
@@ -120,6 +117,10 @@ void Level::level3() {
 
 void Level::setTileMapPath(std::string tileMapPath) {
     this->tileMapPath = tileMapPath;
+}
+
+int Level::getCurrentLevel() {
+    return currentLevel;
 }
 
 
