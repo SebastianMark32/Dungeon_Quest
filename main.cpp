@@ -1,7 +1,5 @@
 #include "Dependencies.h"
-#include <fstream>
 #include <string>
-#include <sstream>
 #include <cstdlib>
 
 static int score = 0;
@@ -347,42 +345,28 @@ void handle_userInput(){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !isFireball){
         playerFireball.shoot(1, character.getCurrentTile() - 16, sf::Vector2f(character.getPosition().x + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y - 121 - playerFireball.getSprite()->getGlobalBounds().height));
         isFireball = true;
-
-        cout << playerFireball.getSprite()->getGlobalBounds().height << " " << playerFireball.getSprite()->getGlobalBounds().width << endl;
-
-
         enemy1.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !isFireball){
         playerFireball.shoot(2, character.getCurrentTile() + 16, sf::Vector2f(character.getPosition().x  + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y + 121  + playerFireball.getSprite()->getGlobalBounds().height*2));
         isFireball = true;
-
-        cout << playerFireball.getSprite()->getGlobalBounds().height << " " << playerFireball.getSprite()->getGlobalBounds().width << endl;
-
-
         enemy1.randomEnemyMove(rand(), &level);
 
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !isFireball){
         playerFireball.shoot(3, character.getCurrentTile() - 1, sf::Vector2f(character.getPosition().x - 121 - playerFireball.getSprite()->getGlobalBounds().width, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
-
-        cout << playerFireball.getSprite()->getGlobalBounds().height << " " << playerFireball.getSprite()->getGlobalBounds().width << endl;
-
-
         enemy1.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !isFireball){
         playerFireball.shoot(4, character.getCurrentTile() + 1, sf::Vector2f(character.getPosition().x + 121 + playerFireball.getSprite()->getGlobalBounds().width*2, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
-
         enemy1.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 16))) {
         character.move(0.0f, -121.0f);
         character.setCurrentTile(character.getCurrentTile() - 16);
         wKeyReleased = false;
-
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
@@ -390,8 +374,6 @@ void handle_userInput(){
         character.move(-121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() - 1);
         aKeyReleased = false;
-
-
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
@@ -399,8 +381,6 @@ void handle_userInput(){
         character.move(0.0f, 121.0f);
         character.setCurrentTile(character.getCurrentTile() + 16);
         sKeyReleased = false;
-        enemy1.randomEnemyMove(rand(), &level);
-
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
@@ -408,8 +388,6 @@ void handle_userInput(){
         character.move(121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() + 1);
         dKeyReleased = false;
-        enemy1.randomEnemyMove(rand(), &level);
-
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
