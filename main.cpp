@@ -59,9 +59,6 @@ bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     }
     return false;
 }
-void music_attributes(){
-    gameMusic.setVolume(50);
-}
 void walk_attributes(){
     //score sound effect
     scoreSound.getSound().setVolume(50);
@@ -187,7 +184,6 @@ void handle_collision(){
         lives -=1;
     }
 
-
     if(enemy1.isAlive() && checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
         score += 1;
         cout << "Enemy hit!" << endl;
@@ -250,7 +246,6 @@ int main() {
 
     hero_attributes();
     enemy_one();
-    music_attributes();
     walk_attributes();
     sound_score();
     score_text();
