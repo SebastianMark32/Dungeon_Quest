@@ -199,7 +199,6 @@ void handle_collision(){
     }
 }
 void handle_levelChange(){
-
     if(score == 1 and level.getCurrentLevel() == 1) {
 
         level.nextLevel();
