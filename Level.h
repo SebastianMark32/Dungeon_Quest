@@ -3,10 +3,12 @@
 #define DUNGEON_QUEST_LEVEL_H
 #include "TileMap.h"
 #include <SFML/Graphics.hpp>
+#include "Enemy.h"
 
 class Level {
 public:
     Level(std::string tileMapPath);
+
     TileMap* getTilemap();
 
     void nextLevel();
@@ -16,6 +18,7 @@ public:
     void setTileMapPath(std::string timeMapPath);
 
     int getCurrentLevel();
+    vector<Enemy> enemies;
 
 private:
     void level2();
@@ -24,5 +27,7 @@ private:
     std::string tileMapPath;
     int currentLevel;
     bool tileIsWalkable[144];
+
+
 };
 #endif //DUNGEON_QUEST_LEVEL_H

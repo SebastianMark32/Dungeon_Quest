@@ -15,6 +15,9 @@ bool isFireball = false; //is there already a fireball?
 bool pause = false;
 bool game_menu_toggle = true;
 
+// making a lives system
+static int lives = 3;
+
 sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!", sf::Style::Resize | sf::Style::Close);
 sf::View view(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 sf::RectangleShape game_pause;
@@ -26,6 +29,9 @@ sf::Text scoreText;
 sf::Font scoreFont;
 sf::Text pause_screen_text;
 
+// for the lives
+sf::Text number_of_lives_text;
+
 // when the game starts
 sf::Text game_menu_text;
 // when the player dies
@@ -35,6 +41,7 @@ Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
 Character character("../Assets/Character_animation/Knight.png", sf::IntRect( 0, 0, 16, 16), "../Assets/step.wav");
 Enemy enemy1("../Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
 Enemy enemy2("../Assets/Character_animation/FlyingSkull.png", sf::IntRect(0, 0, 16, 16));
+
 Sound scoreSound("../Assets/Score.wav");
 Sound lostScoreSound("../Assets/lostScore.wav");
 Animation vampireAnimation(*enemy1.getSprite());
@@ -98,7 +105,14 @@ void score_text(){
     scoreText.setFillColor(sf::Color::White);
     scoreText.setPosition(860, 30);
 }
-void close_window(){
+
+void hero_lives(){
+    number_of_lives_text.setFont(scoreFont);
+    number_of_lives_text.setCharacterSize(50);
+    number_of_lives_text.setFillColor(sf::Color::White);
+    number_of_lives_text.setPosition(400,30);
+}
+void handel_close_event(){
     if (event.type == sf::Event::Closed) {
         window.close();
         std::cout << "Event window handled" << std::endl;
@@ -168,10 +182,11 @@ void waitForUnpause();
 
 void handle_collision(){
     if (enemy1.isAlive() && checkCollision(character.getSprite(), enemy1.getSprite())){
-        endGame = true;
+        lives -=1;
     }
 
-    if( enemy1.isAlive() && checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
+
+    if(enemy1.isAlive() && checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
         score += 1;
         cout << "Enemy hit!" << endl;
         enemy1.set_Alive(false);
@@ -191,11 +206,22 @@ void handle_collision(){
     }
 }
 void handle_levelChange(){
+<<<<<<< Updated upstream
     if(score == 1 and level.getCurrentLevel() == 1) {
+=======
+    if(score == 1) {
+>>>>>>> Stashed changes
         level.nextLevel();
+
+        /**
+         * NEED TO FIX THIS
+         *
+         **/
+//        enemy1.respawn(rand());
 
     } if(score == 7){
         level.nextLevel();
+        enemy1.respawn(rand());
 
     }
     if(score == 14){
@@ -233,9 +259,16 @@ int main() {
     score_font();
     game_menu_window();
 
+    // testing hero lives
+    hero_lives();
+
     while (window.isOpen()) {
+
+        if(lives == 0){
+            endGame = true;
+        }
         while (window.pollEvent(event)) {
-            close_window();
+//            handel_close_event();
 
             //Code gotten from SFML wiki https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view
             resize_window();
@@ -256,6 +289,7 @@ int main() {
         update_KeyRelease();
 
         scoreText.setString("Score: " + to_string(score));
+        number_of_lives_text.setString("Lives " + to_string(lives));
         window.clear();
         window.setView(view);
         window.draw(*level.getTilemap());
@@ -280,6 +314,7 @@ int main() {
 
         // drawing the score
         window.draw(scoreText);
+        window.draw(number_of_lives_text);
         if(pause){
             window.draw(game_pause);
             window.draw(pause_screen_text);
@@ -295,7 +330,7 @@ int main() {
             window.draw(game_over);
             window.draw(game_over_text);
             window.display();
-            sf::sleep(sf::milliseconds(10000));
+            sf::sleep(sf::milliseconds(100));
             window.close();
         }
         window.display();
