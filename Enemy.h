@@ -21,6 +21,7 @@ public:
 
     Enemy(std::string path, sf::IntRect textRec);
 
+
     void setPosition(float x, float y);
 
     void setScale(float x, float y);

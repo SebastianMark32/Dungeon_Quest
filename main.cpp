@@ -1,7 +1,5 @@
 #include "Dependencies.h"
-#include <fstream>
 #include <string>
-#include <sstream>
 #include <cstdlib>
 
 static int score = 0;
@@ -17,6 +15,9 @@ bool isFireball = false; //is there already a fireball?
 bool pause = false;
 bool game_menu_toggle = true;
 
+// making a lives system
+static int lives = 3;
+
 sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!", sf::Style::Resize | sf::Style::Close);
 sf::View view(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 sf::RectangleShape game_pause;
@@ -28,6 +29,9 @@ sf::Text scoreText;
 sf::Font scoreFont;
 sf::Text pause_screen_text;
 
+// for the lives
+sf::Text number_of_lives_text;
+
 // when the game starts
 sf::Text game_menu_text;
 // when the player dies
@@ -37,6 +41,7 @@ Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
 Character character("../Assets/Character_animation/Knight.png", sf::IntRect( 0, 0, 16, 16), "../Assets/step.wav");
 Enemy enemy1("../Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
 Enemy enemy2("../Assets/Character_animation/FlyingSkull.png", sf::IntRect(0, 0, 16, 16));
+
 Sound scoreSound("../Assets/Score.wav");
 Sound lostScoreSound("../Assets/lostScore.wav");
 Animation vampireAnimation(*enemy1.getSprite());
@@ -51,6 +56,9 @@ bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
         return true;
     }
     return false;
+}
+void music_attributes(){
+    gameMusic.setVolume(50);
 }
 void walk_attributes(){
     //score sound effect
@@ -97,7 +105,14 @@ void score_text(){
     scoreText.setFillColor(sf::Color::White);
     scoreText.setPosition(860, 30);
 }
-void close_window(){
+
+void hero_lives(){
+    number_of_lives_text.setFont(scoreFont);
+    number_of_lives_text.setCharacterSize(50);
+    number_of_lives_text.setFillColor(sf::Color::White);
+    number_of_lives_text.setPosition(400,30);
+}
+void handel_close_event(){
     if (event.type == sf::Event::Closed) {
         window.close();
         std::cout << "Event window handled" << std::endl;
@@ -167,9 +182,11 @@ void waitForUnpause();
 
 void handle_collision(){
     if (enemy1.isAlive() && checkCollision(character.getSprite(), enemy1.getSprite())){
-        endGame = true;
+        lives -=1;
     }
-    if( enemy1.isAlive() && checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
+
+
+    if(enemy1.isAlive() && checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
         score += 1;
         cout << "Enemy hit!" << endl;
         enemy1.set_Alive(false);
@@ -189,11 +206,22 @@ void handle_collision(){
     }
 }
 void handle_levelChange(){
+<<<<<<< Updated upstream
     if(score == 1 and level.getCurrentLevel() == 1) {
+=======
+    if(score == 1) {
+>>>>>>> Stashed changes
         level.nextLevel();
+
+        /**
+         * NEED TO FIX THIS
+         *
+         **/
+//        enemy1.respawn(rand());
 
     } if(score == 7){
         level.nextLevel();
+        enemy1.respawn(rand());
 
     }
     if(score == 14){
@@ -223,17 +251,24 @@ int main() {
 
     hero_attributes();
     enemy_one();
+    music_attributes();
     walk_attributes();
     sound_score();
     score_text();
     lost_score();
     score_font();
     game_menu_window();
-    gameMusic.setVolume(50);
+
+    // testing hero lives
+    hero_lives();
 
     while (window.isOpen()) {
+
+        if(lives == 0){
+            endGame = true;
+        }
         while (window.pollEvent(event)) {
-            close_window();
+//            handel_close_event();
 
             //Code gotten from SFML wiki https://github.com/SFML/SFML/wiki/Source%3A-Letterbox-effect-using-a-view
             resize_window();
@@ -254,6 +289,7 @@ int main() {
         update_KeyRelease();
 
         scoreText.setString("Score: " + to_string(score));
+        number_of_lives_text.setString("Lives " + to_string(lives));
         window.clear();
         window.setView(view);
         window.draw(*level.getTilemap());
@@ -278,6 +314,7 @@ int main() {
 
         // drawing the score
         window.draw(scoreText);
+        window.draw(number_of_lives_text);
         if(pause){
             window.draw(game_pause);
             window.draw(pause_screen_text);
@@ -308,29 +345,40 @@ void handle_userInput(){
         return;
     }
 
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !isFireball){
-        playerFireball.shoot(1, character.getCurrentTile() - 16, sf::Vector2f(character.getPosition().x + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y - 121 + playerFireball.getSprite()->getGlobalBounds().height/2));
+        playerFireball.shoot(1, character.getCurrentTile() - 16, sf::Vector2f(character.getPosition().x + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y - 121 - playerFireball.getSprite()->getGlobalBounds().height));
         isFireball = true;
+
+        cout << playerFireball.getSprite()->getGlobalBounds().height << " " << playerFireball.getSprite()->getGlobalBounds().width << endl;
+
 
         enemy1.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !isFireball){
-        playerFireball.shoot(2, character.getCurrentTile() + 16, sf::Vector2f(character.getPosition().x  + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y + 121  + playerFireball.getSprite()->getGlobalBounds().height/2));
+        playerFireball.shoot(2, character.getCurrentTile() + 16, sf::Vector2f(character.getPosition().x  + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y + 121  + playerFireball.getSprite()->getGlobalBounds().height*2));
         isFireball = true;
+
+        cout << playerFireball.getSprite()->getGlobalBounds().height << " " << playerFireball.getSprite()->getGlobalBounds().width << endl;
+
 
         enemy1.randomEnemyMove(rand(), &level);
 
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !isFireball){
-        playerFireball.shoot(3, character.getCurrentTile() - 1, sf::Vector2f(character.getPosition().x - 121 + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
+        playerFireball.shoot(3, character.getCurrentTile() - 1, sf::Vector2f(character.getPosition().x - 121 - playerFireball.getSprite()->getGlobalBounds().width, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
+
+        cout << playerFireball.getSprite()->getGlobalBounds().height << " " << playerFireball.getSprite()->getGlobalBounds().width << endl;
+
 
         enemy1.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !isFireball){
-        playerFireball.shoot(4, character.getCurrentTile() + 1, sf::Vector2f(character.getPosition().x + 121 + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
+        playerFireball.shoot(4, character.getCurrentTile() + 1, sf::Vector2f(character.getPosition().x + 121 + playerFireball.getSprite()->getGlobalBounds().width*2, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
         isFireball = true;
+
+        cout << playerFireball.getSprite()->getGlobalBounds().height << " " << playerFireball.getSprite()->getGlobalBounds().width << endl;
+
 
         enemy1.randomEnemyMove(rand(), &level);
     }
@@ -338,7 +386,6 @@ void handle_userInput(){
         character.move(0.0f, -121.0f);
         character.setCurrentTile(character.getCurrentTile() - 16);
         wKeyReleased = false;
-
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
@@ -346,8 +393,6 @@ void handle_userInput(){
         character.move(-121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() - 1);
         aKeyReleased = false;
-
-
         playerFireball.move();
         enemy1.randomEnemyMove(rand(), &level);
     }
@@ -395,26 +440,11 @@ void game_menu_window(){
     game_menu.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
     game_menu.setFillColor(sf::Color::Black);
     game_menu.setOutlineThickness(5);
-    /**
-     * We might want to update the font with old english
-     **/
+
     game_menu_text.setFont(scoreFont);
-    game_menu_text.setCharacterSize(20);
-    game_menu_text.setPosition(650, 300);
+    game_menu_text.setCharacterSize(40);
+    game_menu_text.setPosition(350, 100);
 
-    /**
-     * THIS IS NOT WORKING RIGHT NOW
-     */
-    fstream game_menu_file;
-    game_menu_file.open("../Assets/text/game_menu.txt", fstream::in);
-    string sentence;
-
-    stringstream all_lines;
-    while(getline(game_menu_file, sentence)){
-       all_lines << sentence << '\n';
-    }
-//    game_menu_text.setString(all_lines.str().c_str());
-// This works for a temp solution
 game_menu_text.setString("Welcome to Dungeon Quest!\n\n"
                          "Here is how you play the game:\n\nTo move press W to go up, A to go left, S to go right\n\n"
                          "To shoot fireballs press the arrow key\n\n"
@@ -432,11 +462,5 @@ void game_over_window(){
     game_menu_text.setFillColor(sf::Color::White);
     game_over_text.setPosition(650, 400);
 
-    /**
-     * THIS IS NOT WORKING RIGHT NOW
-     */
-
-//    game_menu_text.setString(all_lines.str().c_str());
-// This works for a temp solution
     game_over_text.setString("GAME OVER");
 }
