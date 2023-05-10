@@ -15,6 +15,7 @@ public:
 
     bool isTileXWalkable(int indexX);
 
+    // need these
     void setTileMapPath(std::string timeMapPath);
 
     int getCurrentLevel();
