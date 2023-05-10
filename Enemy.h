@@ -4,7 +4,6 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "Level.h"
-#include "Animation.h"
 #include "Sound.h"
 
 class Enemy{
@@ -19,11 +18,17 @@ public:
 
     Enemy(std::string path, sf::IntRect textRec);
 
+    bool isAlive();
+
+    void set_Alive(bool alive);
+
     void setPosition(float x, float y);
 
     void setScale(float x, float y);
 
     sf::Sprite * getSprite();
+
+    void setSprite(std::string path);
 
     void randomEnemyMove(int number, Level* currentLevel);
 
@@ -35,9 +40,11 @@ public:
 
     void respawn(int number);
 
+
 private:
     sf::Sprite sprite;
     sf::Texture texture;
     int currentTile;
+    bool alive;
 };
 #endif //DUNGEON_QUEST_ENEMY_H

@@ -1,5 +1,3 @@
-//
-// Created by Cyborg on 4/27/23.
 // Code from SFML Animation Tutorial
 // https://github.com/SFML/SFML/wiki/Easy-Animations-With-Spritesheets
 
@@ -8,6 +6,7 @@
 Animation::Animation(sf::Sprite &target) : target(target) {
     progress = totalLength = 0.0;
 }
+
 void Animation::addFrame(Frame&& frame) {
     totalLength += frame.duration;
     frames.push_back(std::move(frame));
@@ -31,3 +30,7 @@ void Animation::update(double elapsed) {
         }
     }
 }
+
+
+
+
