@@ -206,11 +206,8 @@ void handle_collision(){
     }
 }
 void handle_levelChange(){
-<<<<<<< Updated upstream
-    if(score == 1 and level.getCurrentLevel() == 1) {
-=======
+
     if(score == 1) {
->>>>>>> Stashed changes
         level.nextLevel();
 
         /**
