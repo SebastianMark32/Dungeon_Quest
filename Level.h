@@ -3,7 +3,7 @@
 #define DUNGEON_QUEST_LEVEL_H
 #include "TileMap.h"
 #include <SFML/Graphics.hpp>
-#include "Enemy.h"
+
 
 class Level {
 public:
@@ -18,7 +18,7 @@ public:
     void setTileMapPath(std::string timeMapPath);
 
     int getCurrentLevel();
-    vector<Enemy> enemies;
+
 
 private:
     void level2();
