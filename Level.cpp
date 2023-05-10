@@ -32,6 +32,7 @@ Level::Level(std::string tileMapPath) {
     for (int i = 0; i < 144; i++){
         tileIsWalkable[i] = tileisWalkableLevel1[i];
     }
+
 }
 TileMap* Level::getTilemap() {
     return &levelDesign;
@@ -116,6 +117,10 @@ void Level::level3() {
 
 void Level::setTileMapPath(std::string tileMapPath) {
     this->tileMapPath = tileMapPath;
+}
+
+int Level::getCurrentLevel() {
+    return currentLevel;
 }
 
 

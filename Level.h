@@ -7,6 +7,7 @@
 class Level {
 public:
     Level(std::string tileMapPath);
+
     TileMap* getTilemap();
 
     void nextLevel();
@@ -14,6 +15,8 @@ public:
     bool isTileXWalkable(int indexX);
 
     void setTileMapPath(std::string timeMapPath);
+
+    int getCurrentLevel();
 
 private:
     void level2();
