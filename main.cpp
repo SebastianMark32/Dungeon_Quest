@@ -200,10 +200,16 @@ void handle_collision(){
 }
 void handle_levelChange(){
 
-
     if(score == 1 and level.getCurrentLevel() == 1) {
+
         level.nextLevel();
         score +=1;
+
+        /**
+         * NEED TO FIX THIS
+         *
+         **/
+//        enemy1.respawn(rand());
 
     } if(score == 7){
         level.nextLevel();
@@ -315,7 +321,9 @@ int main() {
             window.draw(game_over);
             window.draw(game_over_text);
             window.display();
+
             sf::sleep(sf::milliseconds(1000));
+
             window.close();
         }
         window.display();
