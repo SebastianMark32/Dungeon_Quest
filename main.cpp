@@ -190,8 +190,13 @@ void handle_userInput();
 void waitForUnpause();
 
 void handle_collision(){
-    if (enemy1.isAlive() && checkCollision(character.getSprite(), enemy1.getSprite()) || checkCollision(character.getSprite(), enemy2.getSprite()) ||
-            checkCollision(character.getSprite(), enemy3.getSprite())){
+    if (enemy1.isAlive() && checkCollision(character.getSprite(), enemy1.getSprite())){
+        lives -=1;
+    }
+    if (enemy2.isAlive() && checkCollision(character.getSprite(), enemy2.getSprite())){
+        lives -=1;
+    }
+    if (enemy3.isAlive() && checkCollision(character.getSprite(), enemy3.getSprite())){
         lives -=1;
     }
 
@@ -238,8 +243,10 @@ void handle_levelChange(){
 
     if(score == 1 and level.getCurrentLevel() == 1) {
         level.nextLevel();\
-        enemy1.setPosition(842, 242);
-        enemy1.setCurrentTile(39);
+        character.setPosition(242, 242);
+        character.setCurrentTile(34);
+        enemy1.setPosition(1573, 242);
+        enemy1.setCurrentTile(45);
         enemy1.setSprite("../Assets/Character_animation/FlyingSkull.png");
         enemy1.set_Alive(true);
         enemy2.setPosition(242, 726);
@@ -251,8 +258,10 @@ void handle_levelChange(){
         enemy3.set_Alive(true);
         enemy3.setScale(7.5, 7.5);
 
-    } if(score == 7){
+    } if(score == 4 && level.getCurrentLevel() == 2){
         level.nextLevel();
+        character.setPosition(242, 242);
+        character.setCurrentTile(34);
         enemy1.respawn(rand());
 
     }

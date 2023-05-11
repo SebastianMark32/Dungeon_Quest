@@ -4,12 +4,14 @@ Enemy::Enemy(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
     this->alive = true;
+    this->isBoss = false;
 }
 Enemy::Enemy(std::string path, sf::IntRect textRec) {
     this->texture.loadFromFile(path);
     this->sprite.setTextureRect(textRec);
     this->sprite.setTexture(texture);
     this->alive = true;
+    this->isBoss = false;
 }
 
 void Enemy::setPosition(float x, float y) {
@@ -36,29 +38,50 @@ void Enemy::set_Alive(bool alive) {
 
 // Nate's code for random enemy movement
 void Enemy::randomEnemyMove(int number, Level* currentLevel){
-
-    // we need to comment
-    number = number % 4;
-    if (number == 0 && currentLevel->isTileXWalkable(this->currentTile - 16)){
-        this->currentTile -= 16;
-        sprite.move(0.0f, -121.0f);
+    // we need to comment NO! COMMENTING ISN'T FOR REAL MEN!
+    if (!isBoss) {
+        number = number % 4;
+        if (number == 0 && currentLevel->isTileXWalkable(this->currentTile - 16)) {
+            this->currentTile -= 16;
+            sprite.move(0.0f, -121.0f);
+        }
+        if (number == 1 && currentLevel->isTileXWalkable(this->currentTile - 1)) {
+            this->currentTile -= 1;
+            sprite.move(-121.0f, 0.0f);
+        }
+        if (number == 2 && currentLevel->isTileXWalkable(this->currentTile + 16)) {
+            this->currentTile += 16;
+            sprite.move(0.0f, 121.0f);
+        }
+        if (number == 3 && currentLevel->isTileXWalkable(this->currentTile + 1)) {
+            this->currentTile += 1;
+            sprite.move(121.0f, 0.0f);
+        }
     }
-    if (number == 1 && currentLevel->isTileXWalkable(this->currentTile - 1)){
-        this->currentTile -= 1;
-        sprite.move(-121.0f, 0.0f);
-    }
-    if (number == 2 && currentLevel->isTileXWalkable(this->currentTile + 16)){
-        this->currentTile += 16;
-        sprite.move(0.0f, 121.0f);
-    }
-    if (number == 3 && currentLevel->isTileXWalkable(this->currentTile + 1)) {
-        this->currentTile += 1;
-        sprite.move(121.0f, 0.0f);
+    else{
+        /* ADD FIREBALLS TO BOSS*/
+        number = number % 5;
+        if (number == 0 && currentLevel->isTileXWalkable(this->currentTile - 16)) {
+            this->currentTile -= 16;
+            sprite.move(0.0f, -121.0f);
+        }
+        if (number == 1 && currentLevel->isTileXWalkable(this->currentTile - 1)) {
+            this->currentTile -= 1;
+            sprite.move(-121.0f, 0.0f);
+        }
+        if (number == 2 && currentLevel->isTileXWalkable(this->currentTile + 16)) {
+            this->currentTile += 16;
+            sprite.move(0.0f, 121.0f);
+        }
+        if (number == 3 && currentLevel->isTileXWalkable(this->currentTile + 1)) {
+            this->currentTile += 1;
+            sprite.move(121.0f, 0.0f);
+        }
     }
 }
 //A random respawn method in case an enemy object "dies"
 void Enemy::respawn(int number){
-    number = number % 3;
+    number = number % 4;
     switch (number){
         case 0:
             sprite.setPosition(968.f, 484.f);
@@ -85,6 +108,11 @@ int Enemy::getCurrentTile() {
 }
 void Enemy::setCurrentTile(int currentTile) {
     this->currentTile = currentTile;
+}
+
+//function to make enemy use Boss AI.
+void Enemy::setBoss(bool isBoss) {
+    this->isBoss = isBoss;
 }
 
 

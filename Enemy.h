@@ -40,11 +40,14 @@ public:
 
     void respawn(int number);
 
+    void setBoss(bool isBoss);
+
 
 private:
     sf::Sprite sprite;
     sf::Texture texture;
     int currentTile;
     bool alive;
+    bool isBoss;
 };
 #endif //DUNGEON_QUEST_ENEMY_H
