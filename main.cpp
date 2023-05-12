@@ -235,15 +235,19 @@ void handle_collision(){
     }
     if (enemyFireBall1.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall1.getSprite())){
         lives -=1;
+        enemyFireBall1.setIsAlive(false);
     }
     if (enemyFireBall2.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall2.getSprite())){
         lives -=1;
+        enemyFireBall2.setIsAlive(false);
     }
     if (enemyFireBall3.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall3.getSprite())){
         lives -=1;
+        enemyFireBall3.setIsAlive(false);
     }
     if (enemyFireBall4.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall4.getSprite())){
         lives -=1;
+        enemyFireBall4.setIsAlive(false);
     }
 
     if(enemy1.isAlive() && checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
