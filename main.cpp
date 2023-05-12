@@ -1,5 +1,4 @@
 #include "Dependencies.h"
-#include <fstream>
 #include <string>
 #include <sstream>
 #include <cstdlib>
@@ -44,13 +43,28 @@ Character character("../Assets/Character_animation/Knight.png", sf::IntRect( 0, 
 Enemy enemy1("../Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 16));
 Enemy enemy2("../Assets/Character_animation/FlyingSkull.png", sf::IntRect(0, 0, 16, 16));
 
+
 Sound scoreSound("../Assets/Score.wav");
 Sound lostScoreSound("../Assets/lostScore.wav");
 Animation vampireAnimation(*enemy1.getSprite());
 Animation characterAnimation(*character.getSprite());
+
 Level level("../Assets/Dungeon_Tileset.png");
 Fireball playerFireball("../Assets/Fireball.png", "../Assets/FireballShoot.wav", "../Assets/FireHitWall.wav");
 Animation fireballAnimation(*playerFireball.getSprite());
+
+sf::Texture hero_menu_texture;
+sf::Sprite hero_main_screen_sprite;
+
+sf::Texture enemy1_menu_texture;
+sf::Sprite enemy1_main_screen_sprite;
+
+sf::Texture fireball_menu_texture;
+sf::Sprite fireball_main_screen_sprite;
+
+sf::Texture fireball_skull_menu_texture;
+sf::Sprite fireball_skull_main_screen_sprite;
+
 
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
@@ -204,16 +218,9 @@ void handle_levelChange(){
         level.nextLevel();
         score +=1;
 
-        /**
-         * NEED TO FIX THIS
-         *
-         **/
-//        enemy1.respawn(rand());
-
     } if(score == 7){
         level.nextLevel();
         enemy1.respawn(rand());
-
     }
     if(score == 14){
         cout << "You win!" << endl;
@@ -308,10 +315,16 @@ int main() {
         if(pause){
             window.draw(game_pause);
             window.draw(pause_screen_text);
+
         }
         if(game_menu_toggle){
             window.draw(game_menu);
             window.draw(game_menu_text);
+            window.draw(hero_main_screen_sprite);
+            window.draw(enemy1_main_screen_sprite);
+            window.draw(fireball_main_screen_sprite);
+            window.draw(fireball_skull_main_screen_sprite);
+
         }
 
         if (endGame == true){
@@ -418,15 +431,47 @@ void game_menu_window(){
     game_menu.setOutlineThickness(5);
 
     game_menu_text.setFont(scoreFont);
-    game_menu_text.setCharacterSize(40);
-    game_menu_text.setPosition(350, 100);
+    game_menu_text.setCharacterSize(35);
+    game_menu_text.setPosition(170, 30);
 
-game_menu_text.setString("Welcome to Dungeon Quest!\n\n"
-                         "Here is how you play the game:\n\nTo move press W to go up, A to go left, S to go right\n\n"
-                         "To shoot fireballs press the arrow key\n\n"
-                         "And kill the enemy/s to move onto the next level.\n\n"
+
+    hero_menu_texture.loadFromFile("../Assets/Knight_Game_Menu.png");
+
+    hero_main_screen_sprite.setTexture(hero_menu_texture);
+    hero_main_screen_sprite.setScale(7.f, 7.f);
+    hero_main_screen_sprite.setPosition(150, 900);
+
+    enemy1_menu_texture.loadFromFile("../Assets/Vampire_Game_Menu.png");
+
+    enemy1_main_screen_sprite.setTexture(enemy1_menu_texture);
+    enemy1_main_screen_sprite.setScale(7.f, 7.f);
+    enemy1_main_screen_sprite.setPosition(430, 900);
+
+    fireball_menu_texture.loadFromFile("../Assets/fire.png");
+
+    fireball_main_screen_sprite.setTexture(fireball_menu_texture);
+    fireball_main_screen_sprite.setScale(7.f, 7.f);
+    fireball_main_screen_sprite.setPosition(1050, 900);
+
+    fireball_skull_menu_texture.loadFromFile("../Assets/FlyingSkull_Game_Menu.png");
+
+    fireball_skull_main_screen_sprite.setTexture(fireball_skull_menu_texture);
+    fireball_skull_main_screen_sprite.setScale(7.f, 7.f);
+    fireball_skull_main_screen_sprite.setPosition(730, 910);
+
+
+
+    game_menu_text.setString("Welcome to Dungeon Quest!\n\n"
+                         "Here is how you play the game:\n\nTo move press W to go up, S to go down, A to go left, and D to go right\n\n"
+                         "Press ESC to close the window at any time\n\n"
+                         "The hero can shoot a fireball by press the arrow keys\n\n"
+                         "And kill the enemy/s to move onto the next level\n\n"
+                         "You will start off with 3 lives, so use them wisely\n\n"
                          "Be careful as danger lurks behind these walls muhahahahah!!\n\n"
-                         "Press the space bar to begin playing!");
+                         "Press the space bar to begin playing!\n\n\t"
+                         "\n\n"
+                         "Hero\t\tEnemy\t\tEnemy 2\t\tFireball");
+
 }
 void game_over_window(){
     game_over.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
@@ -434,7 +479,7 @@ void game_over_window(){
     game_over.setOutlineThickness(5);
 
     game_over_text.setFont(scoreFont);
-    game_over_text.setCharacterSize(90);
+    game_over_text.setCharacterSize(40);
     game_menu_text.setFillColor(sf::Color::White);
     game_over_text.setPosition(650, 400);
 
