@@ -14,6 +14,7 @@ bool dKeyReleased = true;
 bool endGame = false;
 bool pause = false;
 bool game_menu_toggle = true;
+bool win = false;
 
 // making a lives system
 static int lives = 3;
@@ -22,7 +23,7 @@ sf::RenderWindow window(sf::VideoMode(VIEW_WITDH, VIEW_HEIGHT), "Dungeon Quest!"
 sf::View view(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
 sf::RectangleShape game_pause;
 sf::RectangleShape game_menu;
-sf::RectangleShape game_over;
+sf::RectangleShape game_win_lose_menu;
 
 sf::Event event;
 sf::Text scoreText;
@@ -35,7 +36,7 @@ sf::Text number_of_lives_text;
 // when the game starts
 sf::Text game_menu_text;
 // when the player dies
-sf::Text game_over_text;
+sf::Text game_win_lose_text;
 
 Music gameMusic("../Assets/VillageConsort-KevinMacLeod.ogg");
 Character character("../Assets/Character_animation/Knight.png", sf::IntRect( 0, 0, 16, 16), "../Assets/step.wav");
@@ -376,7 +377,7 @@ void handle_levelChange(){
         enemy1.setSprite("../Assets/Character_animation/EvilKnight.png");
     }
     if (score == 8){
-        cout<< "YOU WIN!!\n";
+        win = true;
     }
 }
 
@@ -403,6 +404,7 @@ void pause_game();
 void game_menu_window();
 void close_game_menu();
 void game_over_window();
+void you_win_window();
 int main() {
     window.setView(view);
 
@@ -525,12 +527,22 @@ int main() {
         if (endGame == true){
             cout << "You died. GAME OVER.";
             game_over_window();
-            window.draw(game_over);
-            window.draw(game_over_text);
+            window.draw(game_win_lose_menu);
+            window.draw(game_win_lose_text);
             window.display();
-            sf::sleep(sf::milliseconds(1000));
+            sf::sleep(sf::milliseconds(5000));
             window.close();
         }
+        if (win){
+            cout << "You win!\n";
+            you_win_window();
+            window.draw(game_win_lose_menu);
+            window.draw(game_win_lose_text);
+            window.display();
+            sf::sleep(sf::milliseconds(5000));
+            window.close();
+        }
+
         window.display();
     }
     return 0;
@@ -684,14 +696,27 @@ void game_menu_window(){
 
 }
 void game_over_window(){
-    game_over.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
-    game_over.setFillColor(sf::Color::Black);
-    game_over.setOutlineThickness(5);
+    game_win_lose_menu.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
+    game_win_lose_menu.setFillColor(sf::Color::Black);
+    game_win_lose_menu.setOutlineThickness(5);
 
-    game_over_text.setFont(scoreFont);
-    game_over_text.setCharacterSize(40);
-    game_menu_text.setFillColor(sf::Color::White);
-    game_over_text.setPosition(650, 400);
+    game_win_lose_text.setFont(scoreFont);
+    game_win_lose_text.setCharacterSize(100);
+    game_win_lose_text.setFillColor(sf::Color::White);
+    game_win_lose_text.setPosition(650, 400);
 
-    game_over_text.setString("GAME OVER");
+    game_win_lose_text.setString("GAME OVER");
+}
+
+void you_win_window(){
+    game_win_lose_menu.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
+    game_win_lose_menu.setFillColor(sf::Color::Black);
+    game_win_lose_menu.setOutlineThickness(5);
+
+    game_win_lose_text.setFont(scoreFont);
+    game_win_lose_text.setCharacterSize(70);
+    game_win_lose_text.setFillColor(sf::Color::White);
+    game_win_lose_text.setPosition(150, 400);
+
+    game_win_lose_text.setString("YOU WIN, YOU HAVE RID THE WORLD OF EVIL!");
 }
