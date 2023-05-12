@@ -375,6 +375,7 @@ void handle_levelChange(){
         enemy1.setPosition(1573, 484);
         enemy1.setCurrentTile(77);
         enemy1.setSprite("../Assets/Character_animation/EvilKnight.png");
+        gameMusic.changeMusic("../Assets/Death-and-Axes-KevinMacLeod.ogg");
     }
     if (score == 8){
         win = true;
