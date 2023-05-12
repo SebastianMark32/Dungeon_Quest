@@ -30,7 +30,7 @@ public:
 
     void setSprite(std::string path);
 
-    void randomEnemyMove(int number, Level* currentLevel);
+    bool randomEnemyMove(int number, Level* currentLevel);
 
     int getCurrentTile();
 
@@ -40,11 +40,16 @@ public:
 
     void respawn(int number);
 
+    void setBoss(bool isBoss);
+
+    bool getBoss();
+
 
 private:
     sf::Sprite sprite;
     sf::Texture texture;
     int currentTile;
     bool alive;
+    bool isBoss;
 };
 #endif //DUNGEON_QUEST_ENEMY_H
