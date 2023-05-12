@@ -13,7 +13,6 @@ bool aKeyReleased = true;
 bool sKeyReleased = true;
 bool dKeyReleased = true;
 bool endGame = false;
-bool isFireball = false; //is there already a fireball?
 bool pause = false;
 bool game_menu_toggle = true;
 
@@ -55,6 +54,17 @@ Level level("../Assets/Dungeon_Tileset.png");
 Fireball playerFireball("../Assets/Fireball.png", "../Assets/FireballShoot.wav", "../Assets/FireHitWall.wav");
 Animation fireballAnimation(*playerFireball.getSprite());
 
+Fireball enemyFireBall1("../Assets/Fireball.png", "../Assets/FireballShoot.wav", "../Assets/FireHitWall.wav");
+Fireball enemyFireBall2("../Assets/Fireball.png", "../Assets/FireballShoot.wav", "../Assets/FireHitWall.wav");
+Fireball enemyFireBall3("../Assets/Fireball.png", "../Assets/FireballShoot.wav", "../Assets/FireHitWall.wav");
+Fireball enemyFireBall4("../Assets/Fireball.png", "../Assets/FireballShoot.wav", "../Assets/FireHitWall.wav");
+Animation enemyFireBall1Animation(*enemyFireBall1.getSprite());
+Animation enemyFireBall2Animation(*enemyFireBall2.getSprite());
+Animation enemyFireBall3Animation(*enemyFireBall3.getSprite());
+Animation enemyFireBall4Animation(*enemyFireBall4.getSprite());
+
+
+
 bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
     if (sprite1->getGlobalBounds().intersects(sprite2->getGlobalBounds())){
         return true;
@@ -85,6 +95,30 @@ void enemies_init(){
     enemy3Animation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
     enemy3Animation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
     enemy3Animation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
+    enemyFireBall1Animation.addFrame({sf::IntRect(0, 0, 16, 16), 3});
+    enemyFireBall1Animation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
+    enemyFireBall1Animation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
+    enemyFireBall1Animation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
+    enemyFireBall1Animation.update(0.5);
+    enemyFireBall1.getSprite()->setScale(7.5, 7.5);
+    enemyFireBall2Animation.addFrame({sf::IntRect(0, 0, 16, 16), 3});
+    enemyFireBall2Animation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
+    enemyFireBall2Animation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
+    enemyFireBall2Animation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
+    enemyFireBall2Animation.update(0.5);
+    enemyFireBall2.getSprite()->setScale(7.5, 7.5);
+    enemyFireBall3Animation.addFrame({sf::IntRect(0, 0, 16, 16), 3});
+    enemyFireBall3Animation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
+    enemyFireBall3Animation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
+    enemyFireBall3Animation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
+    enemyFireBall3Animation.update(0.5);
+    enemyFireBall3.getSprite()->setScale(7.5, 7.5);
+    enemyFireBall4Animation.addFrame({sf::IntRect(0, 0, 16, 16), 3});
+    enemyFireBall4Animation.addFrame({sf::IntRect(16, 0, 16, 16), 3});
+    enemyFireBall4Animation.addFrame({sf::IntRect(32, 0, 16, 16), 3});
+    enemyFireBall4Animation.addFrame({sf::IntRect(48, 0, 16, 16), 3});
+    enemyFireBall4Animation.update(0.5);
+    enemyFireBall4.getSprite()->setScale(7.5, 7.5);
 }
 void hero_attributes(){
     character.setScale(7.f, 7.f);
@@ -199,6 +233,18 @@ void handle_collision(){
     if (enemy3.isAlive() && checkCollision(character.getSprite(), enemy3.getSprite())){
         lives -=1;
     }
+    if (enemyFireBall1.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall1.getSprite())){
+        lives -=1;
+    }
+    if (enemyFireBall2.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall2.getSprite())){
+        lives -=1;
+    }
+    if (enemyFireBall3.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall3.getSprite())){
+        lives -=1;
+    }
+    if (enemyFireBall4.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall4.getSprite())){
+        lives -=1;
+    }
 
     if(enemy1.isAlive() && checkCollision(playerFireball.getSprite(), enemy1.getSprite())){
         score += 1;
@@ -206,7 +252,7 @@ void handle_collision(){
         enemy1.set_Alive(false);
         enemy1.respawn(rand());
         //get the fireball off-screen to prevent it from hitting an enemy randomly during enemy respawn.
-        isFireball = false;
+        playerFireball.setIsAlive(false);
         playerFireball.playFizzleSound();
         playerFireball.getSprite()->setPosition(-100, -100);
     }
@@ -216,7 +262,7 @@ void handle_collision(){
         enemy2.set_Alive(false);
         enemy2.respawn(rand());
         //get the fireball off-screen to prevent it from hitting an enemy randomly during enemy respawn.
-        isFireball = false;
+        playerFireball.setIsAlive(false);
         playerFireball.playFizzleSound();
         playerFireball.getSprite()->setPosition(-100, -100);
     }
@@ -226,17 +272,41 @@ void handle_collision(){
         enemy3.set_Alive(false);
         enemy3.respawn(rand());
         //get the fireball off-screen to prevent it from hitting an enemy randomly during enemy respawn.
-        isFireball = false;
+        playerFireball.setIsAlive(false);
         playerFireball.playFizzleSound();
         playerFireball.getSprite()->setPosition(-100, -100);
     }
 
     // logic for fireballs
-    if(isFireball){
+    if(playerFireball.getIsAlive()){
        if(!level.isTileXWalkable(playerFireball.getCurrentTile())){
-        isFireball = false;
+           playerFireball.setIsAlive(false);
         playerFireball.playFizzleSound();
        }
+    }
+    if(enemyFireBall1.getIsAlive()){
+       if(!level.isTileXWalkable(enemyFireBall1.getCurrentTile())){
+           enemyFireBall1.setIsAlive(false);
+           enemyFireBall1.playFizzleSound();
+       }
+    }
+    if(enemyFireBall2.getIsAlive()){
+        if(!level.isTileXWalkable(enemyFireBall2.getCurrentTile())){
+            enemyFireBall2.setIsAlive(false);
+            enemyFireBall2.playFizzleSound();
+        }
+    }
+    if(enemyFireBall3.getIsAlive()){
+        if(!level.isTileXWalkable(enemyFireBall3.getCurrentTile())){
+            enemyFireBall3.setIsAlive(false);
+            enemyFireBall3.playFizzleSound();
+        }
+    }
+    if(enemyFireBall4.getIsAlive()){
+        if(!level.isTileXWalkable(enemyFireBall4.getCurrentTile())){
+            enemyFireBall4.setIsAlive(false);
+            enemyFireBall4.playFizzleSound();
+        }
     }
 }
 void handle_levelChange(){
@@ -262,14 +332,56 @@ void handle_levelChange(){
         level.nextLevel();
         character.setPosition(242, 242);
         character.setCurrentTile(34);
-        enemy1.respawn(rand());
+        enemy1.setPosition(968, 363);
+        enemy1.setCurrentTile(56);
+        enemy1.setSprite("../Assets/Character_animation/SkellyWithScyth.png");
+        enemy1.set_Alive(true);
+        enemy2.setSprite("../Assets/Character_animation/SkellyWithSword.png");
+        enemy2.setPosition(242, 726);
+        enemy2.setCurrentTile(98);
+        enemy2.set_Alive(true);
+        enemy2.setScale(7.5, 7.5);
+        enemy3.setSprite("../Assets/Character_animation/SkellyWithSword.png");
+        enemy3.setPosition(1573, 726);
+        enemy3.setCurrentTile(109);
+        enemy3.set_Alive(true);
+        enemy3.setScale(7.5, 7.5);
 
     }
-    if(score == 14){
-        cout << "You win!" << endl;
-        window.close();
+    if(score == 7 && level.getCurrentLevel() == 3){
+        level.nextLevel();
+        character.setPosition(242, 484);
+        character.setCurrentTile(66);
+        enemy1.set_Alive(true);
+        enemy1.setBoss(true);
+        enemy1.setPosition(1573, 484);
+        enemy1.setCurrentTile(77);
+        enemy1.setSprite("../Assets/Character_animation/EvilKnight.png");
+    }
+    if (score == 8){
+        cout<< "YOU WIN!!\n";
     }
 }
+
+void shootEnemyFireballs(int rand){
+    rand = rand % 5;
+    if (rand == 0){
+        if (!enemyFireBall1.getIsAlive()) {
+            enemyFireBall1.shoot(1, enemy1.getCurrentTile() - 16, sf::Vector2f(enemy1.getSprite()->getPosition().x + enemyFireBall1.getSprite()->getGlobalBounds().width/2, enemy1.getSprite()->getPosition().y - 121 - enemyFireBall1.getSprite()->getGlobalBounds().height));
+        }
+        if (!enemyFireBall2.getIsAlive()) {
+            enemyFireBall2.shoot(2, enemy1.getCurrentTile() + 16, sf::Vector2f(enemy1.getSprite()->getPosition().x  + enemyFireBall2.getSprite()->getGlobalBounds().width/2, enemy1.getSprite()->getPosition().y + 121  + enemyFireBall2.getSprite()->getGlobalBounds().height*2));
+        }
+        if (!enemyFireBall3.getIsAlive()) {
+            enemyFireBall3.shoot(3, enemy1.getCurrentTile() - 1, sf::Vector2f(enemy1.getSprite()->getPosition().x - 121 - enemyFireBall3.getSprite()->getGlobalBounds().width, enemy1.getSprite()->getPosition().y  + enemyFireBall3.getSprite()->getGlobalBounds().height/2));
+        }
+        if (!enemyFireBall4.getIsAlive()) {
+            enemyFireBall4.shoot(4, enemy1.getCurrentTile() + 1, sf::Vector2f(enemy1.getSprite()->getPosition().x + 121 + enemyFireBall4.getSprite()->getGlobalBounds().width*2, enemy1.getSprite()->getPosition().y  + enemyFireBall4.getSprite()->getGlobalBounds().height/2));
+
+        }
+    }
+}
+
 void pause_game();
 void game_menu_window();
 void close_game_menu();
@@ -281,7 +393,7 @@ int main() {
     level.getTilemap()->setScale(7.5f,7.5f);
     level.getTilemap()->setPosition(0,0);
 
-    window.setVerticalSyncEnabled(true);
+    window.setFramerateLimit(144);
     window.setView(view);
     //Create random number
     srand((int) time(0));
@@ -335,28 +447,43 @@ int main() {
         window.draw(*level.getTilemap());
 
         // Knight sprite
-        characterAnimation.update(0.3);
+        characterAnimation.update(0.1);
         window.draw(*character.getSprite());
 
         // enemy sprite
-        enemy1Animation.update(0.3);
-        enemy2Animation.update(0.5);
-        enemy3Animation.update(0.4);
-
-        // here is where we draw the chest
         if(enemy1.isAlive()){
+            enemy1Animation.update(0.1);
             window.draw(*enemy1.getSprite());
         }
         if(enemy2.isAlive()){
+            enemy2Animation.update(0.2);
             window.draw(*enemy2.getSprite());
         }
         if(enemy3.isAlive()){
+            enemy3Animation.update(0.3);
             window.draw(*enemy3.getSprite());
         }
 
+        if (enemyFireBall1.getIsAlive()){
+            enemyFireBall1Animation.update(0.3);
+            window.draw(*enemyFireBall1.getSprite());
+        }
+        if (enemyFireBall2.getIsAlive()){
+            enemyFireBall2Animation.update(0.27);
+            window.draw(*enemyFireBall2.getSprite());
+        }
+        if (enemyFireBall3.getIsAlive()){
+            enemyFireBall3Animation.update(0.29);
+            window.draw(*enemyFireBall3.getSprite());
+        }
+        if (enemyFireBall4.getIsAlive()){
+            enemyFireBall4Animation.update(0.28);
+            window.draw(*enemyFireBall4.getSprite());
+        }
+
         // this is to display the fireball
-        if(isFireball) {
-            fireballAnimation.update(0.5);
+        if (playerFireball.getIsAlive()) {
+            fireballAnimation.update(0.3);
             window.draw(*playerFireball.getSprite());
         }
 
@@ -378,7 +505,7 @@ int main() {
             window.draw(game_over);
             window.draw(game_over_text);
             window.display();
-            sf::sleep(sf::milliseconds(100));
+            sf::sleep(sf::milliseconds(1000));
             window.close();
         }
         window.display();
@@ -386,78 +513,79 @@ int main() {
     return 0;
 }
 void handle_userInput(){
-
+    bool playerMoved = false;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
         pause_game();
         pause = true;
         return;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !isFireball){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !playerFireball.getIsAlive()){
         playerFireball.shoot(1, character.getCurrentTile() - 16, sf::Vector2f(character.getPosition().x + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y - 121 - playerFireball.getSprite()->getGlobalBounds().height));
-        isFireball = true;
-        enemy1.randomEnemyMove(rand(), &level);
-        enemy2.randomEnemyMove(rand(), &level);
-        enemy3.randomEnemyMove(rand(), &level);
+        playerMoved = true;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !isFireball){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !playerFireball.getIsAlive()){
         playerFireball.shoot(2, character.getCurrentTile() + 16, sf::Vector2f(character.getPosition().x  + playerFireball.getSprite()->getGlobalBounds().width/2, character.getPosition().y + 121  + playerFireball.getSprite()->getGlobalBounds().height*2));
-        isFireball = true;
-        enemy1.randomEnemyMove(rand(), &level);
-        enemy2.randomEnemyMove(rand(), &level);
-        enemy3.randomEnemyMove(rand(), &level);
-
+        playerMoved = true;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !isFireball){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !playerFireball.getIsAlive()){
         playerFireball.shoot(3, character.getCurrentTile() - 1, sf::Vector2f(character.getPosition().x - 121 - playerFireball.getSprite()->getGlobalBounds().width, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
-        isFireball = true;
-        enemy1.randomEnemyMove(rand(), &level);
-        enemy2.randomEnemyMove(rand(), &level);
-        enemy3.randomEnemyMove(rand(), &level);
+        playerMoved = true;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !isFireball){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !playerFireball.getIsAlive()){
         playerFireball.shoot(4, character.getCurrentTile() + 1, sf::Vector2f(character.getPosition().x + 121 + playerFireball.getSprite()->getGlobalBounds().width*2, character.getPosition().y  + playerFireball.getSprite()->getGlobalBounds().height/2));
-        isFireball = true;
-        enemy1.randomEnemyMove(rand(), &level);
-        enemy2.randomEnemyMove(rand(), &level);
-        enemy3.randomEnemyMove(rand(), &level);
+        playerMoved = true;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && wKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 16))) {
         character.move(0.0f, -121.0f);
         character.setCurrentTile(character.getCurrentTile() - 16);
+        playerMoved = true;
         wKeyReleased = false;
         playerFireball.move();
-        enemy1.randomEnemyMove(rand(), &level);
-        enemy2.randomEnemyMove(rand(), &level);
-        enemy3.randomEnemyMove(rand(), &level);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && aKeyReleased && (level.isTileXWalkable(character.getCurrentTile() - 1))) {
         character.move(-121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() - 1);
+        playerMoved = true;
         aKeyReleased = false;
         playerFireball.move();
-        enemy1.randomEnemyMove(rand(), &level);
-        enemy2.randomEnemyMove(rand(), &level);
-        enemy3.randomEnemyMove(rand(), &level);
     }
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)) && sKeyReleased && (level.isTileXWalkable(character.getCurrentTile() + 16))) {
         character.move(0.0f, 121.0f);
         character.setCurrentTile(character.getCurrentTile() + 16);
+        playerMoved = true;
         sKeyReleased = false;
         playerFireball.move();
-        enemy1.randomEnemyMove(rand(), &level);
-        enemy2.randomEnemyMove(rand(), &level);
-        enemy3.randomEnemyMove(rand(), &level);
     }
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && dKeyReleased && (level.isTileXWalkable(character.getCurrentTile() + 1))) {
         character.move(121, 0.0f);
         character.setCurrentTile(character.getCurrentTile() + 1);
+        playerMoved = true;
         dKeyReleased = false;
         playerFireball.move();
+    }
+
+    if (playerMoved){
         enemy1.randomEnemyMove(rand(), &level);
         enemy2.randomEnemyMove(rand(), &level);
         enemy3.randomEnemyMove(rand(), &level);
+        if (enemyFireBall1.getIsAlive()){
+            enemyFireBall1.move();
+        }
+        if (enemyFireBall2.getIsAlive()){
+            enemyFireBall2.move();
+        }
+        if (enemyFireBall3.getIsAlive()){
+            enemyFireBall3.move();
+        }
+        if (enemyFireBall4.getIsAlive()){
+            enemyFireBall4.move();
+        }
+        if (enemy1.isAlive() && enemy1.getBoss()){
+            shootEnemyFireballs(rand());
+        }
     }
+
 }
 void waitForUnpause(){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){

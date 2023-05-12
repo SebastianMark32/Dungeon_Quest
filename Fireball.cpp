@@ -11,6 +11,7 @@ Fireball::Fireball(std::string path, std::string shootSoundPath, std::string fiz
     this->fizzleSound.setSound(std::move(fizzleSoundPath));
     this->shootSound.getSound().setVolume(50);
     this->fizzleSound.getSound().setVolume(50);
+    this->isAlive = false;
 }
 
 void Fireball::setTexture(std::string path) {
@@ -47,6 +48,7 @@ void Fireball::playFizzleSound(){
 void Fireball::shoot(int direction, int newCurrentTile, sf::Vector2f cords) {
     this->currentDirection = static_cast<Fireball::direction>(direction);
     this->currentTile = newCurrentTile;
+    this->isAlive = true;
     sprite.setPosition(cords);
     shootSound.play();
     switch(direction){
@@ -75,5 +77,13 @@ int Fireball::getCurrentTile() {
 }
 void Fireball::setCurrentTile(int currentTile) {
     this->currentTile = currentTile;
+}
+
+bool Fireball::getIsAlive() {
+    return this->isAlive;
+}
+
+void Fireball::setIsAlive(bool isAlive){
+    this->isAlive = isAlive;
 }
 

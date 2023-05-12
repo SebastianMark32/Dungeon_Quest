@@ -24,12 +24,17 @@ public:
 
     void playFizzleSound();
 
+    bool getIsAlive();
+
+    void setIsAlive(bool isAlive);
+
 private:
     enum direction{up = 1, down = 2, left = 3, right = 4};
     direction currentDirection;
     sf::Texture texture;
     sf::Sprite sprite;
     int currentTile;
+    bool isAlive;
     Sound shootSound;
     Sound fizzleSound;
 };

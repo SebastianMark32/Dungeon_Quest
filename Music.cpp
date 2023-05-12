@@ -3,6 +3,7 @@
 Music::Music(std::string path){
     this->music.openFromFile(path);
     this->music.play();
+    this->music.setLoop(true);
 }
 void Music::play(){
     this->music.play();

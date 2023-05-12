@@ -37,7 +37,7 @@ void Enemy::set_Alive(bool alive) {
 }
 
 // Nate's code for random enemy movement
-void Enemy::randomEnemyMove(int number, Level* currentLevel){
+bool Enemy::randomEnemyMove(int number, Level* currentLevel){
     // we need to comment NO! COMMENTING ISN'T FOR REAL MEN!
     if (!isBoss) {
         number = number % 4;
@@ -57,6 +57,7 @@ void Enemy::randomEnemyMove(int number, Level* currentLevel){
             this->currentTile += 1;
             sprite.move(121.0f, 0.0f);
         }
+        return false;
     }
     else{
         /* ADD FIREBALLS TO BOSS*/
@@ -77,6 +78,10 @@ void Enemy::randomEnemyMove(int number, Level* currentLevel){
             this->currentTile += 1;
             sprite.move(121.0f, 0.0f);
         }
+        if (number == 4){
+            return true;
+        }
+        return false;
     }
 }
 //A random respawn method in case an enemy object "dies"
@@ -113,6 +118,10 @@ void Enemy::setCurrentTile(int currentTile) {
 //function to make enemy use Boss AI.
 void Enemy::setBoss(bool isBoss) {
     this->isBoss = isBoss;
+}
+
+bool Enemy::getBoss(){
+    return this->isBoss;
 }
 
 
