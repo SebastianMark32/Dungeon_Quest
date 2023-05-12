@@ -683,7 +683,7 @@ void game_menu_window(){
     game_menu_text.setString("Welcome to Dungeon Quest!\n\n"
                          "Here is how you play the game:\n\nTo move press W to go up, S to go down, A to go left, and D to go right\n\n"
                          "Press ESC to close the window at any time\n\n"
-                         "The hero can shoot a fireball by pressing the arrow keys\n\nn"
+                         "The hero can shoot a fireball by pressing the arrow keys\n\n"
                          "You can only have 1 active fireball at a time\n\n"
                          "And kill the enemy/s to move onto the next level\n\n"
                          "You will start off with 3 lives, so use them wisely\n\n"
