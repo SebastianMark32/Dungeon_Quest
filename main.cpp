@@ -44,8 +44,7 @@ Enemy enemy1("../Assets/Character_animation/Vampire.png", sf::IntRect(0, 0, 16, 
 Enemy enemy2("../Assets/Character_animation/FlyingSkull.png", sf::IntRect(0, 0, 16, 16));
 Enemy enemy3("../Assets/Character_animation/FlyingSkull.png", sf::IntRect(0, 0, 16, 16));
 
-
-Sound scoreSound("../Assets/Score.wav");
+Sound hurtSound("../Assets/EnemyDie.wav");
 Sound lostScoreSound("../Assets/lostScore.wav");
 Animation enemy1Animation(*enemy1.getSprite());
 Animation enemy2Animation(*enemy2.getSprite());
@@ -84,10 +83,6 @@ bool checkCollision(sf::Sprite* sprite1, sf::Sprite* sprite2){
         return true;
     }
     return false;
-}
-void walk_attributes(){
-    //score sound effect
-    scoreSound.getSound().setVolume(50);
 }
 void enemies_init(){
     enemy1.setPosition(1573.0f, 605.0f);
@@ -150,12 +145,6 @@ void hero_attributes(){
     fireballAnimation.update(0.5);  //work around to prevent an issue with global bounds being wrong when shooting fireball for first time.
 }
 
-void sound_score(){
-    scoreSound.getSound().setVolume(50);
-}
-void lost_score(){
-    lostScoreSound.getSound().setVolume(50);
-}
 void score_text(){
     scoreText.setFont(scoreFont);
     scoreText.setCharacterSize(50);
@@ -240,27 +229,34 @@ void waitForUnpause();
 void handle_collision(){
     if (enemy1.isAlive() && checkCollision(character.getSprite(), enemy1.getSprite())){
         lives -=1;
+        hurtSound.play();
     }
     if (enemy2.isAlive() && checkCollision(character.getSprite(), enemy2.getSprite())){
         lives -=1;
+        hurtSound.play();
     }
     if (enemy3.isAlive() && checkCollision(character.getSprite(), enemy3.getSprite())){
         lives -=1;
+        hurtSound.play();
     }
     if (enemyFireBall1.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall1.getSprite())){
         lives -=1;
+        hurtSound.play();
         enemyFireBall1.setIsAlive(false);
     }
     if (enemyFireBall2.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall2.getSprite())){
         lives -=1;
+        hurtSound.play();
         enemyFireBall2.setIsAlive(false);
     }
     if (enemyFireBall3.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall3.getSprite())){
         lives -=1;
+        hurtSound.play();
         enemyFireBall3.setIsAlive(false);
     }
     if (enemyFireBall4.getIsAlive() && checkCollision(character.getSprite(), enemyFireBall4.getSprite())){
         lives -=1;
+        hurtSound.play();
         enemyFireBall4.setIsAlive(false);
     }
 
@@ -273,6 +269,7 @@ void handle_collision(){
         playerFireball.setIsAlive(false);
         playerFireball.playFizzleSound();
         playerFireball.getSprite()->setPosition(-100, -100);
+        hurtSound.play();
     }
     if(enemy2.isAlive() && checkCollision(playerFireball.getSprite(), enemy2.getSprite())){
         score += 1;
@@ -283,6 +280,7 @@ void handle_collision(){
         playerFireball.setIsAlive(false);
         playerFireball.playFizzleSound();
         playerFireball.getSprite()->setPosition(-100, -100);
+        hurtSound.play();
     }
     if(enemy3.isAlive() && checkCollision(playerFireball.getSprite(), enemy3.getSprite())){
         score += 1;
@@ -293,6 +291,7 @@ void handle_collision(){
         playerFireball.setIsAlive(false);
         playerFireball.playFizzleSound();
         playerFireball.getSprite()->setPosition(-100, -100);
+        hurtSound.play();
     }
 
     // logic for fireballs
@@ -424,10 +423,7 @@ int main() {
 
     hero_attributes();
     enemies_init();
-    walk_attributes();
-    sound_score();
     score_text();
-    lost_score();
     score_font();
     game_menu_window();
     gameMusic.setVolume(50);
