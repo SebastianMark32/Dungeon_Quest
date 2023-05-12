@@ -464,7 +464,7 @@ int main() {
             window.draw(*enemy2.getSprite());
         }
         if(enemy3.isAlive()){
-            enemy3Animation.update(0.3);
+            enemy3Animation.update(0.22);
             window.draw(*enemy3.getSprite());
         }
 
