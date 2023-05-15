@@ -1,6 +1,5 @@
 // Created by Cyborg on 4/29/23.
 #include "Fireball.h"
-
 #include <utility>
 
 Fireball::Fireball(std::string path, std::string shootSoundPath, std::string fizzleSoundPath) {
