@@ -2,6 +2,7 @@
 #include "Fireball.h"
 #include <utility>
 
+//constuctor
 Fireball::Fireball(std::string path, std::string shootSoundPath, std::string fizzleSoundPath) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
@@ -13,13 +14,16 @@ Fireball::Fireball(std::string path, std::string shootSoundPath, std::string fiz
     this->isAlive = false;
 }
 
+//set fireball sprite
 void Fireball::setTexture(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
 }
+//get the fireball sprite for direct sprite function calls
 sf::Sprite* Fireball::getSprite() {
     return &sprite;
 }
+//moves the fireball 1 tile
 void Fireball::move() {
     if (currentDirection == up){
         currentTile -= 16;
@@ -38,12 +42,11 @@ void Fireball::move() {
         sprite.move(121.0f, 0);
     }
 }
-
+//play fireball fizzle sound
 void Fireball::playFizzleSound(){
     fizzleSound.play();
 }
-
-
+//shoot the fireball in a given direction
 void Fireball::shoot(int direction, int newCurrentTile, sf::Vector2f cords) {
     this->currentDirection = static_cast<Fireball::direction>(direction);
     this->currentTile = newCurrentTile;
@@ -70,18 +73,19 @@ void Fireball::shoot(int direction, int newCurrentTile, sf::Vector2f cords) {
             std::cout << "ERROR: direction is an invalid value";
     }
 }
-
+//returns current tile of fireball
 int Fireball::getCurrentTile() {
     return this->currentTile;
 }
+//sets current tile of fireball
 void Fireball::setCurrentTile(int currentTile) {
     this->currentTile = currentTile;
 }
-
+//returns if fireball is active or not
 bool Fireball::getIsAlive() {
     return this->isAlive;
 }
-
+//sets if fireball is active or not
 void Fireball::setIsAlive(bool isAlive){
     this->isAlive = isAlive;
 }

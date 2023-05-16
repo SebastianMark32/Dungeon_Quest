@@ -6,7 +6,6 @@
 #include "Enemy.h"
 #include "TileMap.h"
 #include "Fonts.h"
-#include "Background.h"
 #include "Character.h"
 #include "Music.h"
 #include "Sound.h"

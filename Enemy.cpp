@@ -51,13 +51,28 @@ bool Enemy::isAlive(){
 
 // initially setting the enemy as visible i.e. alive = true
 // if collision then the alive = false
+//retunrs if enemy is alive
+bool Enemy::isAlive(){
+    return this->alive;
+}
+//sets if enemy is alive or not
 void Enemy::set_Alive(bool alive) {
     this->alive = alive;
 }
 
-// Nate's code for random enemy movement
+/********************************************************
+* randomEnemyMove - randomly moves an enemy
+*
+* Parameters
+* number - random number
+* Level* - Pointer to level object for function calls based on level
+*
+* Return - false if no fireballs shot, true if boss shoots fireball
+********************************************************/
 bool Enemy::randomEnemyMove(int number, Level* currentLevel){
     // we need to comment NO! COMMENTING ISN'T FOR REAL MEN!
+
+    //if the enemy is not a boss randomly move up, down, left, or right
     if (!isBoss) {
         number = number % 4;
         if (number == 0 && currentLevel->isTileXWalkable(this->currentTile - 16)) {
@@ -79,7 +94,7 @@ bool Enemy::randomEnemyMove(int number, Level* currentLevel){
         return false;
     }
     else{
-        /* ADD FIREBALLS TO BOSS*/
+        //if enemy is a boss randomly move left, right, up, down, or shoot fireballs
         number = number % 5;
         if (number == 0 && currentLevel->isTileXWalkable(this->currentTile - 16)) {
             this->currentTile -= 16;
@@ -103,6 +118,7 @@ bool Enemy::randomEnemyMove(int number, Level* currentLevel){
         return false;
     }
 }
+
 //A random respawn method in case an enemy object "dies"
 void Enemy::respawn(int number){
     number = number % 4;

@@ -1,6 +1,15 @@
 // Created by Cyborg on 4/28/23.
 #include "Level.h"
 #include <iostream>
+/********************************************************
+* Level -- Level Class for the game, has tilemap and collision
+*
+* Author: Nathaniel Clark, Sebastian Mark
+*
+* Purpose: To allow for easy level making and handleing
+********************************************************/
+
+//constructor
 Level::Level(std::string tileMapPath) {
     this->currentLevel = 1;
     this->tileMapPath = tileMapPath;
@@ -34,9 +43,17 @@ Level::Level(std::string tileMapPath) {
     }
 
 }
+//get the tilemap if you need to use it
 TileMap* Level::getTilemap() {
     return &levelDesign;
 }
+/********************************************************
+* nextLevel - makes the game go to the next level
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 void Level::nextLevel() {
     this->currentLevel += 1;
     if (currentLevel == 2) {
@@ -48,12 +65,21 @@ void Level::nextLevel() {
         return;
     }
 }
+/********************************************************
+* isTileXWalkable - sees if tile X is walkable
+*
+* Parameters - indexX, index we want to check is walkable
+*
+* Return - true if walkable, else false
+********************************************************/
 bool Level::isTileXWalkable(int indexX) {
     if (indexX < 0 || indexX > 144){
         return false;
     }
     return tileIsWalkable[indexX];
 }
+
+//level 2 arrays
 void Level::level2() {
     const int level[] = {
             // #78 is a black tile
@@ -83,6 +109,7 @@ void Level::level2() {
         tileIsWalkable[i] = tileisWalkableLevel2[i];
     }
 }
+//level 3 arrays
 void Level::level3() {
     const int level[] = {
             // #78 is a black tile
@@ -119,6 +146,13 @@ void Level::setTileMapPath(std::string tileMapPath) {
     this->tileMapPath = tileMapPath;
 }
 
+/********************************************************
+* getCurrentLevel - returns the current level
+*
+* Parameters - none
+*
+* Return - int value of current level
+********************************************************/
 int Level::getCurrentLevel() {
     return currentLevel;
 }

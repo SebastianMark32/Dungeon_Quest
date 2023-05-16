@@ -7,10 +7,12 @@ Animation::Animation(sf::Sprite &target) : target(target) {
     progress = totalLength = 0.0;
 }
 
+//add frame to animation
 void Animation::addFrame(Frame&& frame) {
     totalLength += frame.duration;
     frames.push_back(std::move(frame));
 }
+//update animation, allows for frame changes after given time is passed
 void Animation::update(double elapsed) {
     progress += elapsed;
     double p = progress;
