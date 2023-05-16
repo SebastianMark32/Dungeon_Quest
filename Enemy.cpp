@@ -1,11 +1,21 @@
+/** This creates the enemies for the main driver function
+ *
+ *
+ *
+ * @author Nathan Clark
+ * @author Sebastian Mark
+ **/
+
 #include "Enemy.h"
 
+// First constructor
 Enemy::Enemy(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
     this->alive = true;
     this->isBoss = false;
 }
+// overloaded constructor
 Enemy::Enemy(std::string path, sf::IntRect textRec) {
     this->texture.loadFromFile(path);
     this->sprite.setTextureRect(textRec);
@@ -14,20 +24,33 @@ Enemy::Enemy(std::string path, sf::IntRect textRec) {
     this->isBoss = false;
 }
 
+// setting the position of the enemy
 void Enemy::setPosition(float x, float y) {
     this->sprite.setPosition(x, y);
 }
+// setting the scale/ size of the enemy
 void Enemy::setScale(float x, float y) {
     this->sprite.setScale(x, y);
 }
+
+// return the enemy when called
 sf::Sprite * Enemy::getSprite() {
     return &this->sprite;
 }
 
+// setting the sprite path i.e. "../Assets/Character_animation/Knight.png"
 void Enemy::setSprite(std::string path) {
     this->texture.loadFromFile(path);
     this->sprite.setTexture(texture);
 }
+
+// boolean if the enemy is alive i.e. if false the enemy is not visible
+bool Enemy::isAlive(){
+    return this->alive;
+}
+
+// initially setting the enemy as visible i.e. alive = true
+// if collision then the alive = false
 //retunrs if enemy is alive
 bool Enemy::isAlive(){
     return this->alive;
@@ -95,9 +118,38 @@ bool Enemy::randomEnemyMove(int number, Level* currentLevel){
         return false;
     }
 }
+
+//A random respawn method in case an enemy object "dies"
+void Enemy::respawn(int number){
+    number = number % 4;
+    switch (number){
+        case 0:
+            sprite.setPosition(968.f, 484.f);
+            currentTile = 72;
+            break;
+        case 1:
+            sprite.setPosition(968.f, 484.f);
+            currentTile = 72;
+            break;
+        case 2:
+            sprite.setPosition(968.f, 484.f);
+            currentTile = 72;
+            break;
+        case 3:
+            sprite.setPosition(968.f, 484.f);
+            currentTile = 72;
+            break;
+        default:
+            break;
+    }
+}
+
+// returning current tile for the enemy
 int Enemy::getCurrentTile() {
     return this->currentTile;
 }
+
+// setting tile for the 16:9 dimensional grid
 void Enemy::setCurrentTile(int currentTile) {
     this->currentTile = currentTile;
 }
