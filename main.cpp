@@ -279,21 +279,17 @@ void update_KeyRelease(){
         }
     }
 }
-void keyPressed_functions(){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
-        cout << character.getPosition().x << " " << character.getPosition().y << endl;
-        cout << character.getCurrentTile() << endl;
-    }
-    // closing the window when user presses escape
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-        window.close();
-    }
-}
 
 void handle_userInput();
-
 void waitForUnpause();
 
+/********************************************************
+* handle_collision - checks and handles object collision, ei lives, enemies dying, ect
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 void handle_collision(){
     if (enemy1.isAlive() && checkCollision(character.getSprite(), enemy1.getSprite())){
         lives -=1;
@@ -394,8 +390,15 @@ void handle_collision(){
         }
     }
 }
+/********************************************************
+* handle_levelChange - checks to see if the level should go to the next,
+* spawns all proper enemies and changes layout of map
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 void handle_levelChange(){
-
     if(score == 1 and level.getCurrentLevel() == 1) {
         level.nextLevel();\
         character.setPosition(242, 242);
@@ -449,6 +452,13 @@ void handle_levelChange(){
     }
 }
 
+/********************************************************
+* shootEnemyFireballs - checks to see if boss shoots fireballs
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 void shootEnemyFireballs(int rand){
     rand = rand % 5;
     if (rand == 0){
@@ -467,12 +477,20 @@ void shootEnemyFireballs(int rand){
         }
     }
 }
-
+//ghost function definitions
 void pause_game();
 void game_menu_window();
 void close_game_menu();
 void game_over_window();
 void you_win_window();
+
+/********************************************************
+* main - contains gameloop and window, allows for proper game flow
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 int main() {
     window.setView(view);
 
@@ -513,7 +531,6 @@ int main() {
                 close_game_menu();
             }
             else if (event.type == sf::Event::KeyPressed && pause == false) {
-                keyPressed_functions();
                 handle_userInput();
                 handle_collision();
                 }
@@ -612,12 +629,23 @@ int main() {
     }
     return 0;
 }
+
+/********************************************************
+* handle_userInput - handles user input, allows game control
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 void handle_userInput(){
     bool playerMoved = false;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
         pause_game();
         pause = true;
         return;
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+        window.close();
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !playerFireball.getIsAlive()){
@@ -687,12 +715,28 @@ void handle_userInput(){
     }
 
 }
+/********************************************************
+* waitForUnpause - if game is paused prevent all user input except unpause and escape
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 void waitForUnpause(){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+        window.close();
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
         pause = false;
     }
 }
-// closing the start screen
+/********************************************************
+* close_game_menu - closes beginning game menu when space pressed
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 void close_game_menu(){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
         game_menu_toggle = false;
@@ -701,6 +745,13 @@ void close_game_menu(){
         window.close();
     }
 }
+/********************************************************
+* pause_game - handles the game pause effects/UI
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 void pause_game(){
     game_pause.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
     game_pause.setFillColor(sf::Color{105,108, 125, 50});
@@ -712,6 +763,13 @@ void pause_game(){
     pause_screen_text.setFillColor(sf::Color::White);
     pause_screen_text.setPosition(700,500);
 }
+/********************************************************
+* game_menu_window - handles the beginning UI for the game start screen
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 void game_menu_window(){
     game_menu.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
     game_menu.setFillColor(sf::Color::Black);
@@ -760,6 +818,13 @@ void game_menu_window(){
                          "Hero\t\tEnemy\t\tEnemy 2\t\tFireball");
 
 }
+/********************************************************
+* game_over_window - handles the game over window
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 void game_over_window(){
     game_win_lose_menu.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
     game_win_lose_menu.setFillColor(sf::Color::Black);
@@ -772,7 +837,13 @@ void game_over_window(){
 
     game_win_lose_text.setString("GAME OVER");
 }
-
+/********************************************************
+* you_win_window - handles the you win window
+*
+* Parameters - none
+*
+* Return - void
+********************************************************/
 void you_win_window(){
     game_win_lose_menu.setSize(sf::Vector2f(VIEW_WITDH, VIEW_HEIGHT));
     game_win_lose_menu.setFillColor(sf::Color::Black);

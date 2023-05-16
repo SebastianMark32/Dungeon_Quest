@@ -31,14 +31,10 @@ public:
 
     void move(float offSetX, float offSetY);
 
-    int getHealth(int health);
-
 private:
     // making the sprite
     sf::Sprite sprite;
     sf::Texture texture;
-    int health;
-    int damage;
     int currentTile;
     Sound walkSound;
 };
