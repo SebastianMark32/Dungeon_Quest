@@ -36,10 +36,6 @@ public:
 
     void setCurrentTile(int currentTile);
 
-    int getDamage(int damage);
-
-    void respawn(int number);
-
     void setBoss(bool isBoss);
 
     bool getBoss();

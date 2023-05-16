@@ -328,7 +328,6 @@ void handle_collision(){
         score += 1;
         cout << "Enemy hit!" << endl;
         enemy1.set_Alive(false);
-        enemy1.respawn(rand());
         //get the fireball off-screen to prevent it from hitting an enemy randomly during enemy respawn.
         playerFireball.setIsAlive(false);
         playerFireball.playFizzleSound();
@@ -339,7 +338,6 @@ void handle_collision(){
         score += 1;
         cout << "Enemy hit!" << endl;
         enemy2.set_Alive(false);
-        enemy2.respawn(rand());
         //get the fireball off-screen to prevent it from hitting an enemy randomly during enemy respawn.
         playerFireball.setIsAlive(false);
         playerFireball.playFizzleSound();
@@ -350,7 +348,6 @@ void handle_collision(){
         score += 1;
         cout << "Enemy hit!" << endl;
         enemy3.set_Alive(false);
-        enemy3.respawn(rand());
         //get the fireball off-screen to prevent it from hitting an enemy randomly during enemy respawn.
         playerFireball.setIsAlive(false);
         playerFireball.playFizzleSound();
