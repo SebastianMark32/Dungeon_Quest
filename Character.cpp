@@ -48,32 +48,7 @@ int Character::getCurrentTile() {
 void Character::setCurrentTile(int currentTile) {
     this->currentTile = currentTile;
 }
-// movement function for the x,y axis
 
-//set posisiton of sprite
-void Character::setPosition(float x, float y){
-    this->sprite.setPosition(x, y);
-}
-//set scale of sprite
-void Character::setScale(float x, float y){
-    this->sprite.setScale(x, y);
-}
-//return sprite position
-sf::Vector2f Character::getPosition() {
-    return this->sprite.getPosition();
-}
-//returns the sprite for direct function calls
-sf::Sprite* Character::getSprite(){
-    return &this->sprite;
-}
-//gets player's current tile
-int Character::getCurrentTile() {
-    return currentTile;
-}
-//set players current tile
-void Character::setCurrentTile(int currentTile) {
-    this->currentTile = currentTile;
-}
 //moves player sprite by given x and y
 void Character::move(float offSetX, float offSetY) {
     this->sprite.move(offSetX, offSetY);

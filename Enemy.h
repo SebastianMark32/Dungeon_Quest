@@ -37,6 +37,7 @@ public:
     void setCurrentTile(int currentTile);
 
     void setBoss(bool isBoss);
+    void respawn(int number);
 
     bool getBoss();
 

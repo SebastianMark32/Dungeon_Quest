@@ -52,9 +52,7 @@ bool Enemy::isAlive(){
 // initially setting the enemy as visible i.e. alive = true
 // if collision then the alive = false
 //retunrs if enemy is alive
-bool Enemy::isAlive(){
-    return this->alive;
-}
+
 //sets if enemy is alive or not
 void Enemy::set_Alive(bool alive) {
     this->alive = alive;
